@@ -5,6 +5,7 @@
 
 int main(int argc, char *argv[])
 {
+	// argv reads directly from command line
 	std::string binName = argv[1];
 	std::cerr << binName;
 	std::ifstream binSteam(argv[1], std::ios::binary);
