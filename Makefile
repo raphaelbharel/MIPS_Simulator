@@ -4,7 +4,7 @@
 
 # For simulator
 CC = g++
-CPPFLAGS = -W -Wall
+CPPFLAGS = -W -Wall #Wall means Write All
 
 # For MIPS binaries. Turn on all warnings, enable all optimisations and link everything statically
 MIPS_CC = mips-linux-gnu-gcc
@@ -33,15 +33,27 @@ MIPS_LDFLAGS = -nostdlib -Wl,-melf32btsmip -march=mips1 -nostartfiles -mno-check
 %.mips.s : %.mips.elf
 	$(MIPS_OBJDUMP) -j .text -D $< > $@
 
-# Build simulator
-bin/mips_simulator: src/simulator.cpp
+
+#SIMULATOR
+
+# Build simulator, write output file in bin folder as mips_simulator
+bin/mips_simulator: src/simulator_1.cpp
 	mkdir -p bin
 	$(CC) $(CPPFLAGS) src/simulator.cpp -o bin/mips_simulator
 
 # Dummy for build simulator to conform to spec
 simulator: bin/mips_simulator
 
-# Dummy for build testbench to conform to spec. Could do nothing
-testbench:
-	@echo "Nothing to do"
+#TESTBENCH
 
+# Dummy for build testbench to conform to spec. Could do nothing. 
+testbench: 
+	mkdir -p bin
+	$(CC) $(CPPFLAGS) test/tb.cpp -o bin/mips_testbench
+
+#Run tests on MIPS_Simulator
+bin/mips_testbench: bin/mips_simulator
+	#run tests
+	#any temp files to be stored in test/temp
+	#output of testbench created in test/output. i.e per test logfiles
+	#once all tests run, print CSV file to stdout, with each row corresponding to one execution of Simulator under test.
