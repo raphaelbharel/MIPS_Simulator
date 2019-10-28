@@ -1,8 +1,11 @@
+// g++ -std=c++11 simulator_1.cpp -o simulator_1
+
 #include <cstdlib>
 #include <fstream>
 #include <iostream>
 #include <string>
 #include <vector>
+#include <ctype.h> //library for checking type of C character
 
 using namespace std;
 
@@ -27,21 +30,54 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 	// {
 	// 	cerr << argv[i] << endl;
 	// }
-
-	cerr << binName;					  // For testing/debugging
-	ifstream binStream;					  // Create binary stream object
+	cerr << binName;											// For testing/debugging
+	ifstream binStream;										// Create binary stream object
 	binStream.open(binName, ios::binary); // Load .bin file as a binary file
 	u_int32_t imem[32] = {0};
 	u_int32_t reg[32] = {0};
+
 	char c;
+	int i = 0; //Counter to ensure register = 32 bits
+	std::vector<int> single_register; //vector of single register.
+	std::vector<vector<int>> instruction_memory; //instruction memory (vector of registers). 
+
+
 	if (binStream.is_open())
 	{
 		while (binStream.get(c))
 		{
-			cerr << c << endl;
+				//cerr << c << endl;
+				if(c==48){ //48 is the ASCII code for digit 0
+					single_register.push_back(0);
+				}
+				else if(c==49){ //49 is the ASCII code for digit 1
+					single_register.push_back(1);
+				}
+				else {
+					std::cout<< "error" << std::endl;
+				}
+
+				if(i==31){ // if the register filled up
+					instruction_memory.push_back(single_register); // place into instruction memory
+					single_register.clear(); //reset the register
+					i = 0;
+				}
+				else{
+					i++;
+				}
+
+			}
 		}
 		binStream.close();
+
+	//Printing all of instruction memory, from first register to last
+	for(int i = 0; i<instruction_memory.size(); i++) {
+		for(int j = 0; j<32; j++) {
+		cout << instruction_memory[i][j];
 	}
+	cout << "\n";
+	}
+
 
 	return 0;
 }
