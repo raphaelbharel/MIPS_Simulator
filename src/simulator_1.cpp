@@ -5,7 +5,6 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <ctype.h> //library for checking type of C character
 
 using namespace std;
 
@@ -33,8 +32,8 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 	cerr << binName;											// For testing/debugging
 	ifstream binStream;										// Create binary stream object
 	binStream.open(binName, ios::binary); // Load .bin file as a binary file
-	u_int32_t imem[32] = {0};
-	u_int32_t reg[32] = {0};
+	//u_int32_t imem[32] = {0}; 
+	//u_int32_t reg[32] = {0};
 
 	char c;
 	int i = 0; //Counter to ensure register = 32 bits
