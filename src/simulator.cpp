@@ -58,9 +58,9 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 	}
 	cout << "\n";
 
-	vector<u_int32_t> imem();
-	for (char &c : myCharArray) {
-		bytes.push_back(static_cast<byte>(c));
+	vector<u_int32_t> imem;
+	for (char &c : buffer) {
+		imem.push_back(static_cast<byte>(c));
 	}
 
 
