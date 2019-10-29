@@ -59,10 +59,10 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 	}
 	cout << "\n";
 
-	vector<u_int32_t> imem;
-	for (char &c : buffer)
+	vector<u_int32_t> window(32, 0);
+	for (auto &word : window)
 	{
-		imem.push_back(static_cast<byte>(c));
+		imem.push_back(static_cast<byte>(word));
 	}
 
 	return 0;
