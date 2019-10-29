@@ -64,11 +64,6 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 	{
 		imem.push_back(static_cast<byte>(c));
 	}
-	// This is a test piece of code from the develop branch!
-	while (true)
-	{
-		return 0;
-	}
 
 	return 0;
 }
