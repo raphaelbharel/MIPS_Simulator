@@ -38,31 +38,35 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 	cerr << "Binary File name: " << binName << endl; // For testing/debugging
 	ifstream binStream;								 // Create binary stream object
 	binStream.open(binName, ios::binary | ios::in);  // Load .bin file as a binary file
-	binStream.seekg(0, ios::end);
-	const streamsize BUFFER_SIZE = binStream.tellg();
-	binStream.seekg(0, ios::beg);
+	// binStream.seekg(0, ios::end);
+	// const streamsize BUFFER_SIZE = binStream.tellg();
+	// binStream.seekg(0, ios::beg);
 
-	vector<char> buffer(BUFFER_SIZE);
-	if (binStream.read(buffer.data(), BUFFER_SIZE))
-	{
-		cerr << "> Successful writing to buffer" << endl;
-		cout << "Streamsize: " << BUFFER_SIZE << endl;
-		cout << "Buffer size: " << buffer.size() << endl;
-		cout << "Chars read: " << binStream.gcount() << endl;
-	}
-	binStream.close();
+	// vector<char> buffer(BUFFER_SIZE);
+	// if (binStream.read(buffer.data(), BUFFER_SIZE))
+	// {
+	// 	cerr << "> Successful writing to buffer" << endl;
+	// 	cout << "Streamsize: " << BUFFER_SIZE << endl;
+	// 	cout << "Buffer size: " << buffer.size() << endl;
+	// 	cout << "Chars read: " << binStream.gcount() << endl;
+	// }
+	// binStream.close();
 
-	//Printing all of instruction memory, from first register to last
-	cerr << "Printing buffer string:" for (int i = 0; i < buffer.size(); i++)
-	{
-		cout << buffer[i] << " ";
-	}
-	cout << "\n";
+	// //Printing all of instruction memory, from first register to last
+	// cerr << "Printing buffer string:" for (int i = 0; i < buffer.size(); i++)
+	// {
+	// 	cout << buffer[i] << " ";
+	// }
+	// cout << "\n";
 
-	vector<u_int32_t> window(32, 0);
-	for (auto &word : window)
+	vector<u_int32_t> imem;
+	vector<char> buffer(32, 0);
+	while (!binStream.eof())
 	{
-		imem.push_back(static_cast<byte>(word));
+		binStream.read(buffer.data(), buffer.size());
+		streamsize s = binStream.gcount();
+		cerr << "Stream size: " << s << "\n";
+		cerr << buffer.data() << "\n";
 	}
 
 	return 0;
