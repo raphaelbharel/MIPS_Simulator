@@ -5,11 +5,13 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <iterator>
+#include "r_type_instructions.h"
+#include "i_type_instructions.h"
+#include "j_type_instructions.h"
 
 using namespace std;
 
-int main(int argc /* argument count */, char *argv[] /* argument list */)
-{
 	/* argc (ARGument Count) is int and stores number of command-line arguments passed by the user including the name of the program. So if we pass a value to a program, value of argc would be 2 (one for argument and one for program name)
 	The value of argc should be non negative.
 	argv(ARGument Vector) is array of character pointers listing all the arguments.
@@ -22,58 +24,43 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 	
 	*/
 
+int main(int argc /* argument count */, char *argv[] /* argument list */)
+{
+	if (argc != 2)
+	{
+		cerr << "Incorrect number of arguments." << "\n";
+		return 1;
+	}
+
 	string binName = argv[1]; // See above
 
-	// // Print out args
-	// for (int i = 1; i < argc; i++)
-	// {
-	// 	cerr << argv[i] << endl;
-	// }
-	
 	cerr << "Binary File name: " << binName << endl;		// For testing/debugging
 	ifstream binStream;										// Create binary stream object
-	binStream.open(binName, ios::binary); // Load .bin file as a binary file
+	binStream.open(binName, ios::binary | ios::in); // Load .bin file as a binary file
+	binStream.seekg(0, ios::end);
+	const streamsize BUFFER_SIZE = binStream.tellg();
+	binStream.seekg(0, ios::beg);
 
-	char c;
-	int i = 0; //Counter to ensure register = 32 bits
-	std::vector<int> single_register; //vector of single register.
-	std::vector<vector<int>> instruction_memory; //instruction memory (vector of registers). 
-
-
-	if (binStream.is_open())
+	vector<char> buffer(BUFFER_SIZE);
+	if (binStream.read(buffer.data(), BUFFER_SIZE))
 	{
-		while (binStream.get(c))
-		{
-			//cerr << c << endl;
-			if(c==48){ //48 is the ASCII code for digit 0
-				single_register.push_back(0);
-			}
-			else if(c==49){ //49 is the ASCII code for digit 1
-				single_register.push_back(1);
-			}
-			else {
-				std::cout<< "error" << std::endl;
-			}
-
-			if(i==31){ // if the register filled up
-				instruction_memory.push_back(single_register); // place into instruction memory
-				single_register.clear(); //reset the register
-				i = 0;
-			}
-			else{
-				i++;
-			}
-
-		}
+		cerr << "> Successful writing to buffer" << endl;
+		cout << "Streamsize: " << BUFFER_SIZE << endl;
+		cout << "Buffer size: "<< buffer.size() << endl;
+		cout << "Chars read: " << binStream.gcount() << endl;
 	}
 	binStream.close();
 
 	//Printing all of instruction memory, from first register to last
-	for(int i = 0; i<instruction_memory.size(); i++) {
-		for(int j = 0; j<32; j++) {
-		cout << instruction_memory[i][j];
+	cerr << "Printing buffer string:"
+	for(int i = 0; i<buffer.size(); i++) {
+		cout << buffer[i] << " ";
 	}
 	cout << "\n";
+
+	vector<u_int32_t> imem();
+	for (char &c : myCharArray) {
+		bytes.push_back(static_cast<byte>(c));
 	}
 
 
