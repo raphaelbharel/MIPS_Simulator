@@ -30,7 +30,7 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 	// 	cerr << argv[i] << endl;
 	// }
 	
-	cerr << binName;											// For testing/debugging
+	cerr << "Binary File name: " << binName << endl;		// For testing/debugging
 	ifstream binStream;										// Create binary stream object
 	binStream.open(binName, ios::binary); // Load .bin file as a binary file
 
@@ -44,29 +44,29 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 	{
 		while (binStream.get(c))
 		{
-				//cerr << c << endl;
-				if(c==48){ //48 is the ASCII code for digit 0
-					single_register.push_back(0);
-				}
-				else if(c==49){ //49 is the ASCII code for digit 1
-					single_register.push_back(1);
-				}
-				else {
-					std::cout<< "error" << std::endl;
-				}
-
-				if(i==31){ // if the register filled up
-					instruction_memory.push_back(single_register); // place into instruction memory
-					single_register.clear(); //reset the register
-					i = 0;
-				}
-				else{
-					i++;
-				}
-
+			//cerr << c << endl;
+			if(c==48){ //48 is the ASCII code for digit 0
+				single_register.push_back(0);
 			}
+			else if(c==49){ //49 is the ASCII code for digit 1
+				single_register.push_back(1);
+			}
+			else {
+				std::cout<< "error" << std::endl;
+			}
+
+			if(i==31){ // if the register filled up
+				instruction_memory.push_back(single_register); // place into instruction memory
+				single_register.clear(); //reset the register
+				i = 0;
+			}
+			else{
+				i++;
+			}
+
 		}
-		binStream.close();
+	}
+	binStream.close();
 
 	//Printing all of instruction memory, from first register to last
 	for(int i = 0; i<instruction_memory.size(); i++) {
