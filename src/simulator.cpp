@@ -13,9 +13,113 @@
 using namespace std;
 typedef string INSTRUCTION_MEMORY_TYPE;
 typedef char BUFFER_TYPE;
-const int binary_no_test = 0b101;
+// const int binary_no_test = 0b101;
 const int BUFFER_SIZE = 32;
-const int INSTRUCTION_MEMORY_SIZE = 0x4000000;
+const int OPCODE_SIZE = 6;
+const int SRC1_SIZE = 5;
+const int SRC2_SIZE = 5;
+const int DEST_SIZE = 5;
+const int SHIFT_SIZE = 5;
+const int FNCODE_SIZE = 6;
+const int I_ADATA_SIZE = 16;
+const int J_ADDRESS_SIZE = 26;
+
+// const int INSTRUCTION_MEMORY_SIZE = 0x4000000;
+
+// FUNCTION DECLARATIONS
+void read_r_instr();
+void read_i_instr();
+void read_j_instr();
+void check_opcode(string &instruction);
+template <typename T>
+void __vertical_print_vector(const vector<T> &v);
+
+// MAIN
+int main(int argc /* argument count */, char *argv[] /* argument list */)
+{
+	if (argc != 2)
+	{
+		cerr << "Incorrect number of arguments."
+			 << "\n";
+		return 1;
+	}
+
+	string binName = argv[1];						// Reading second argument from command line
+	ifstream binStream;								// Create binary stream object
+	binStream.open(binName, ios::binary | ios::in); // Load .bin file as a binary file
+	if (!binStream.is_open())
+	{
+		cerr << "Error opening binary file." << endl;
+		return 1;
+	}
+	vector<INSTRUCTION_MEMORY_TYPE> imem;
+	vector<u_int32_t> registers(32, 0);
+	vector<BUFFER_TYPE> buffer(BUFFER_SIZE, 0);
+	while (!binStream.eof())
+	{
+		binStream.read(buffer.data(), buffer.size()); // Reading 32 bits at a time, buffer.data() is a 32bit array
+		streamsize s = binStream.gcount();			  // # of bits read
+		// cerr << "Stream size: " << s << "\n";
+		// cerr << buffer.data() << endl;
+		if (s == 0)
+		{
+			break; // Ensures stream size 0 reads do not get converted to memory (reached end of bitStream)
+		}
+
+		string binString = "";
+		for (auto &c : buffer) // Creating binary string
+		{
+			binString += c;
+		}
+		imem.push_back(binString); // Inserting binary string to instruction memory
+		// cerr << binString << endl;
+		binString.clear(); // Reset the string
+	}
+
+	// SANITY CHECK
+	__vertical_print_vector<INSTRUCTION_MEMORY_TYPE>(imem);
+	__vertical_print_vector<u_int32_t>(registers);
+	check_opcode(imem[0]);
+	// Execute instructions for all instructions in instruction memory
+	// for (int i = 0; i < imem.size(); i++)
+	// {
+	// }
+
+	return 0;
+}
+void check_opcode(string &instruction)
+{
+	string opcode = instruction.substr(0, OPCODE_SIZE);
+	if (opcode == "000000") // r type
+	{
+		/* code */
+	}
+	else if (opcode == "000010" || opcode == "000011") // j type
+	{
+		/* code */
+	}
+	else // i type
+	{
+		/* code */
+	}
+}
+
+void read_r_instr()
+{
+	cerr << "Executing r type instruction." << endl;
+}
+
+void read_i_instr()
+{
+	cerr << "Executing i type instruction." << endl;
+}
+
+void read_j_instr()
+{
+	cerr << "Executing j type instruction." << endl;
+}
+
+// HELPER FUNCTIONS
 
 // Arbitrary type print function
 template <typename T>
@@ -27,88 +131,4 @@ void __vertical_print_vector(const vector<T> &v)
 		cerr << elem << "\n";
 	}
 	cerr << "END" << endl;
-}
-
-int main(int argc /* argument count */, char *argv[] /* argument list */)
-{
-	/* argc (ARGument Count) is int and stores number of command-line arguments passed by the user including the name of the program. So if we pass a value to a program, value of argc would be 2 (one for argument and one for program name)
-	The value of argc should be non negative.
-	argv(ARGument Vector) is array of character pointers listing all the arguments.
-	If argc is greater than zero,the array elements from argv[0] to argv[argc-1] will contain pointers to strings.
-	Argv[0] is the name of the program , After that till argv[argc-1] every element is command -line arguments. 
-	
-	In the command line we would type:
-		bin/mips_simulator file_name.bin
-	to run the simulator on file_name.bin. argv[0] = bin/mips_simulator, argv[1] = file_name.bin	*/
-	if (argc != 2)
-	{
-		cerr << "Incorrect number of arguments."
-			 << "\n";
-		return 1;
-	}
-
-	string binName = argv[1]; // See above
-
-	cerr << "Binary File name: " << binName << endl; // For testing/debugging
-	ifstream binStream;								 // Create binary stream object
-	binStream.open(binName, ios::binary | ios::in);  // Load .bin file as a binary file
-	// binStream.seekg(0, ios::end);
-	// const streamsize BUFFER_SIZE = binStream.tellg();
-	// binStream.seekg(0, ios::beg);
-
-	// vector<char> buffer(BUFFER_SIZE);
-	// if (binStream.read(buffer.data(), BUFFER_SIZE))
-	// {
-	// 	cerr << "> Successful writing to buffer" << endl;
-	// 	cout << "Streamsize: " << BUFFER_SIZE << endl;
-	// 	cout << "Buffer size: " << buffer.size() << endl;
-	// 	cout << "Chars read: " << binStream.gcount() << endl;
-	// }
-	// binStream.close();
-
-	// //Printing all of instruction memory, from first register to last
-	// cerr << "Printing buffer string:" for (int i = 0; i < buffer.size(); i++)
-	// {
-	// 	cout << buffer[i] << " ";
-	// }
-	// cout << "\n";
-	vector<INSTRUCTION_MEMORY_TYPE> imem;
-	vector<BUFFER_TYPE> buffer(BUFFER_SIZE, 0);
-	while (!binStream.eof())
-	{
-		binStream.read(buffer.data(), buffer.size()); // Reading 32 bits at a time, buffer.data() is a 32bit array
-		streamsize s = binStream.gcount();			  // # of bits read
-		cerr << "Stream size: " << s << "\n";
-		cerr << buffer.data() << endl;
-		if (s == 0)
-		{
-			break;
-		}
-
-		string binString = "";
-		for (auto &c : buffer) // Creating binary string
-		{
-			binString += c;
-		}
-		imem.push_back(binString); // Inserting binary string to instruction memory
-		cerr << binString << endl;
-		binString.clear(); // Reset the string
-	}
-
-	// SANITY CHECK
-	__vertical_print_vector<string>(imem);
-
-	return 0;
-}
-
-void read_r_instr()
-{
-}
-
-void read_i_instr()
-{
-}
-
-void read_j_instr()
-{
 }
