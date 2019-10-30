@@ -11,8 +11,27 @@
 #include "j_type_instructions.h"
 
 using namespace std;
+typedef string INSTRUCTION_MEMORY_TYPE;
+typedef char BUFFER_TYPE;
+const int binary_no_test = 0b101;
+const int BUFFER_SIZE = 32;
+const int INSTRUCTION_MEMORY_SIZE = 0x4000000;
 
-/* argc (ARGument Count) is int and stores number of command-line arguments passed by the user including the name of the program. So if we pass a value to a program, value of argc would be 2 (one for argument and one for program name)
+// Arbitrary type print function
+template <typename T>
+void __vertical_print_vector(const vector<T> &v)
+{
+	cerr << "Printing vector:\nSTART " << endl;
+	for (auto &elem : v)
+	{
+		cerr << elem << "\n";
+	}
+	cerr << "END" << endl;
+}
+
+int main(int argc /* argument count */, char *argv[] /* argument list */)
+{
+	/* argc (ARGument Count) is int and stores number of command-line arguments passed by the user including the name of the program. So if we pass a value to a program, value of argc would be 2 (one for argument and one for program name)
 	The value of argc should be non negative.
 	argv(ARGument Vector) is array of character pointers listing all the arguments.
 	If argc is greater than zero,the array elements from argv[0] to argv[argc-1] will contain pointers to strings.
@@ -20,12 +39,7 @@ using namespace std;
 	
 	In the command line we would type:
 		bin/mips_simulator file_name.bin
-	to run the simulator on file_name.bin. argv[0] = bin/mips_simulator, argv[1] = file_name.bin
-	
-	*/
-
-int main(int argc /* argument count */, char *argv[] /* argument list */)
-{
+	to run the simulator on file_name.bin. argv[0] = bin/mips_simulator, argv[1] = file_name.bin	*/
 	if (argc != 2)
 	{
 		cerr << "Incorrect number of arguments."
@@ -58,16 +72,26 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 	// 	cout << buffer[i] << " ";
 	// }
 	// cout << "\n";
-
-	vector<u_int32_t> imem;
-	vector<char> buffer(32, 0);
+	vector<INSTRUCTION_MEMORY_TYPE> imem;
+	vector<BUFFER_TYPE> buffer(BUFFER_SIZE, 0);
 	while (!binStream.eof())
 	{
-		binStream.read(buffer.data(), buffer.size());
-		streamsize s = binStream.gcount();
+		binStream.read(buffer.data(), buffer.size()); // Reading 32 bits at a time -> buffer.data() is a 32bit array
+		streamsize s = binStream.gcount();			  // # of bits read
 		cerr << "Stream size: " << s << "\n";
-		cerr << buffer.data() << "\n";
+		cerr << buffer.data() << endl;
+		string binString = "";
+		for (auto &c : buffer) // Creating binary string
+		{
+			binString += c;
+		}
+		imem.push_back(binString); // Inserting binary string to instruction memory
+		cerr << binString << endl;
+		binString.clear();
 	}
 
-	return 0;
+	// SANITY CHECK
+	__vertical_print_vector<string>(imem);
+
+		return 0;
 }
