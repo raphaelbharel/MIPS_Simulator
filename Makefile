@@ -4,7 +4,7 @@
 
 # For simulator
 CC = g++
-CPPFLAGS = -W -Wall #Wall means Write All
+CPPFLAGS = -W -Wall -std=c++11 #Wall means Write All
 
 # For MIPS binaries. Turn on all warnings, enable all optimisations and link everything statically
 MIPS_CC = mips-linux-gnu-gcc
@@ -37,12 +37,13 @@ MIPS_LDFLAGS = -nostdlib -Wl,-melf32btsmip -march=mips1 -nostartfiles -mno-check
 #SIMULATOR
 
 # Build simulator, write output file in bin folder as mips_simulator
-bin/mips_simulator: src/simulator_1.cpp
+bin/mips_simulator: src/simulator.cpp
 	mkdir -p bin
 	$(CC) $(CPPFLAGS) src/simulator.cpp -o bin/mips_simulator
 
 # Dummy for build simulator to conform to spec
-simulator: bin/mips_simulator
+simulator: bin/mips_simulator src/test1.bin
+	$(CC) $(CPPFLAGS) ./bin/mips_simulator src/test1.bin
 
 #TESTBENCH
 

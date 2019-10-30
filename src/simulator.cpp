@@ -76,10 +76,15 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 	vector<BUFFER_TYPE> buffer(BUFFER_SIZE, 0);
 	while (!binStream.eof())
 	{
-		binStream.read(buffer.data(), buffer.size()); // Reading 32 bits at a time -> buffer.data() is a 32bit array
+		binStream.read(buffer.data(), buffer.size()); // Reading 32 bits at a time, buffer.data() is a 32bit array
 		streamsize s = binStream.gcount();			  // # of bits read
 		cerr << "Stream size: " << s << "\n";
 		cerr << buffer.data() << endl;
+		if (s == 0)
+		{
+			break;
+		}
+
 		string binString = "";
 		for (auto &c : buffer) // Creating binary string
 		{
@@ -87,11 +92,23 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 		}
 		imem.push_back(binString); // Inserting binary string to instruction memory
 		cerr << binString << endl;
-		binString.clear();
+		binString.clear(); // Reset the string
 	}
 
 	// SANITY CHECK
 	__vertical_print_vector<string>(imem);
 
-		return 0;
+	return 0;
+}
+
+void read_r_instr()
+{
+}
+
+void read_i_instr()
+{
+}
+
+void read_j_instr()
+{
 }
