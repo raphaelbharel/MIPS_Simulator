@@ -42,8 +42,14 @@ bin/mips_simulator: src/simulator.cpp
 	$(CC) $(CPPFLAGS) src/simulator.cpp -o bin/mips_simulator
 
 # Dummy for build simulator to conform to spec
-simulator: bin/mips_simulator src/test1.bin
+simulator1: bin/mips_simulator src/test1.bin
 	./bin/mips_simulator src/test1.bin
+	
+simulator2: bin/mips_simulator src/test1.bin
+	./bin/mips_simulator src/test2.bin
+	
+simulator3: bin/mips_simulator src/test1.bin
+	./bin/mips_simulator src/test3.bin
 
 #TESTBENCH
 

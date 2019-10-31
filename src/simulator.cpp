@@ -6,23 +6,32 @@
 #include <string>
 #include <vector>
 #include <iterator>
+#include <cmath>
 #include "r_type_instructions.h"
 #include "i_type_instructions.h"
 #include "j_type_instructions.h"
 
+#define ADDR_NULL 0x00000000
+#define ADDR_INSTR 0x10000000
+#define ADDR_DATA 0x20000000
+#define ADDR_GETC 0x30000000
+#define ADDR_PUTC 0x30000004
+
 using namespace std;
-typedef string INSTRUCTION_MEMORY_TYPE;
+typedef u_int32_t INSTRUCTION_MEMORY_TYPE;
 typedef char BUFFER_TYPE;
+typedef u_int32_t REGISTER_MEMORY_TYPE;
+
 // const int binary_no_test = 0b101;
 const int BUFFER_SIZE = 32;
 const int OPCODE_SIZE = 6;
-const int SRC1_SIZE = 5;
-const int SRC2_SIZE = 5;
-const int DEST_SIZE = 5;
-const int SHIFT_SIZE = 5;
-const int FNCODE_SIZE = 6;
-const int I_ADATA_SIZE = 16;
-const int J_ADDRESS_SIZE = 26;
+// const int SRC1_SIZE = 5;
+// const int SRC2_SIZE = 5;
+// const int DEST_SIZE = 5;
+// const int SHIFT_SIZE = 5;
+// const int FNCODE_SIZE = 6;
+// const int I_ADATA_SIZE = 16;
+// const int J_ADDRESS_SIZE = 26;
 
 // const int INSTRUCTION_MEMORY_SIZE = 0x4000000;
 
@@ -53,33 +62,66 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 		return 1;
 	}
 	vector<INSTRUCTION_MEMORY_TYPE> imem;
-	vector<u_int32_t> registers(32, 0);
+	vector<REGISTER_MEMORY_TYPE> registers(32, 0);
 	vector<BUFFER_TYPE> buffer(BUFFER_SIZE, 0);
+
+	//************************ BACKUP CODE ******************************************************************
+	// binStream.seekg(0, ios::end);
+	// streamsize size = binStream.tellg();
+	// binStream.seekg(0, ios::beg);
+
+	// vector<char> buffer(size);
+	// if (binStream.read(buffer.data(), size))
+	// {
+	// 	cerr << "Successful read: " << size << endl;
+	// }
+	// int count = 31;
+	// uint32_t binNo = 0;
+	// // uint32_t aids = pow(2, 31);
+	// // cout << hex << aids << endl;
+	// for (auto it = buffer.begin(); it != buffer.end(); ++it, --count)
+	// {
+	// 	if (count >= 0)
+	// 	{
+	// 		if (*it == '1')
+	// 		{
+	// 			binNo += pow(2, count);
+	// 		}
+	// 	}
+	// 	else
+	// 	{
+	// 		imem.push_back(binNo);
+	// 		binNo = 0;
+	// 		count = 31;
+	// 	}
+	// }
+	// cout << hex << binNo << endl;
+	//******************************************************************************************
+
 	while (!binStream.eof())
 	{
 		binStream.read(buffer.data(), buffer.size()); // Reading 32 bits at a time, buffer.data() is a 32bit array
 		streamsize s = binStream.gcount();			  // # of bits read
-		// cerr << "Stream size: " << s << "\n";
-		// cerr << buffer.data() << endl;
 		if (s == 0)
 		{
 			break; // Ensures stream size 0 reads do not get converted to memory (reached end of bitStream)
 		}
-
-		string binString = "";
-		for (auto &c : buffer) // Creating binary string
+		u_int32_t binNo = 0;
+		int weight = s - 1;
+		for (auto it = buffer.begin(); it != buffer.end(); ++it, --weight)
 		{
-			binString += c;
+			if (*it == '1')
+			{
+				binNo += pow(2, weight);
+			}
 		}
-		imem.push_back(binString); // Inserting binary string to instruction memory
-		// cerr << binString << endl;
-		binString.clear(); // Reset the string
+		imem.push_back(binNo); // Inserting binary string to instruction memory
 	}
 
 	// SANITY CHECK
 	__vertical_print_vector<INSTRUCTION_MEMORY_TYPE>(imem);
-	__vertical_print_vector<u_int32_t>(registers);
-	check_opcode(imem[0]);
+	// __vertical_print_vector<REGISTER_MEMORY_TYPE>(registers);
+	// check_opcode(imem[0]);
 	// Execute instructions for all instructions in instruction memory
 	// for (int i = 0; i < imem.size(); i++)
 	// {
@@ -125,10 +167,10 @@ void read_j_instr()
 template <typename T>
 void __vertical_print_vector(const vector<T> &v)
 {
-	cerr << "Printing vector:\nSTART " << endl;
+	cerr << "Printing vector of size " << v.size() << ":\nSTART [" << endl;
 	for (auto &elem : v)
 	{
 		cerr << elem << "\n";
 	}
-	cerr << "END" << endl;
+	cerr << "] END" << endl;
 }

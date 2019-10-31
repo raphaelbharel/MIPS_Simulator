@@ -3,6 +3,10 @@
 MIPS Simulator for Daryl & Raphael
 Group name: WMIPS
 
+**NOTE**
+
+current build behaviour: if binary is not multiple of 32, remaining N bits will be considered as LSB
+
 **To compile simulator (simulator_1.cpp) into bin folder**
 
 make simulator
