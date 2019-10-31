@@ -26,3 +26,10 @@ Argv[0] is the name of the program , After that till argv[argc-1] every element 
 In the command line we would type:
 bin/mips_simulator file_name.bin
 to run the simulator on file_name.bin. argv[0] = bin/mips_simulator, argv[1] = file_name.bin
+
+**Exit codes**
+Arithmetic exception (-10) : Any kind of arithmetic problem, such as overflow, divide by zero, ...
+
+Memory exception (-11) : Any problem relating to memory, such as address out of range, writing to read-only memory, reading from an address that cannot be read, executing an address that cannot be executed ...
+
+Invalid instruction (-12) : The Binary tries to execute a memory location that does not contain a valid instruction (this is not the same as trying to read a value that cannot be executed).
