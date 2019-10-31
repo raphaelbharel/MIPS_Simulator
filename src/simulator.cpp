@@ -86,7 +86,7 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 	// }
 
 	return 0;
-}
+} // END OF MAIN
 void check_opcode(string &instruction)
 {
 	string opcode = instruction.substr(0, OPCODE_SIZE);
