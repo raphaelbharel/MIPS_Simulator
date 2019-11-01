@@ -18,9 +18,9 @@
 #define ADDR_PUTC 0x30000004
 
 using namespace std;
-typedef u_int32_t INSTRUCTION_MEMORY_TYPE;
+typedef uint32_t INSTRUCTION_MEMORY_TYPE;
 typedef char BUFFER_TYPE;
-typedef u_int32_t REGISTER_MEMORY_TYPE;
+typedef uint32_t REGISTER_MEMORY_TYPE;
 
 // const int binary_no_test = 0b101;
 const int BUFFER_SIZE = 32;
@@ -39,7 +39,7 @@ const int OPCODE_SIZE = 6;
 void read_r_instr();
 void read_i_instr();
 void read_j_instr();
-void check_opcode(string &instruction);
+char get_instruction_type(uint32_t &instruction, uint32_t &opcode);
 template <typename T>
 void __vertical_print_vector(const vector<T> &v);
 
@@ -102,15 +102,16 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 	{
 		binStream.read(buffer.data(), buffer.size()); // Reading 32 bits at a time, buffer.data() is a 32bit array
 		streamsize s = binStream.gcount();			  // # of bits read
+		cerr << "Streamsize: " << s << endl;
 		if (s == 0)
 		{
 			break; // Ensures stream size 0 reads do not get converted to memory (reached end of bitStream)
 		}
-		u_int32_t binNo = 0;
+		uint32_t binNo = 0;
 		int weight = s - 1;
 		for (auto it = buffer.begin(); it != buffer.end(); ++it, --weight)
 		{
-			if (*it == '1')
+			if (*it == '1') // IMPORTANT: iterator is a pointer to a char so it must be verfied with a char ''
 			{
 				binNo += pow(2, weight);
 			}
@@ -120,6 +121,13 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 
 	// SANITY CHECK
 	__vertical_print_vector<INSTRUCTION_MEMORY_TYPE>(imem);
+	for (INSTRUCTION_MEMORY_TYPE i = 0; i < imem.size(); i++)
+	{
+		uint32_t opcode = 0;
+		char instr_type = get_instruction_type(imem[i], opcode);
+		cerr << "Opcode: " << hex << opcode << ", Type: " << instr_type << endl;
+	}
+
 	// __vertical_print_vector<REGISTER_MEMORY_TYPE>(registers);
 	// check_opcode(imem[0]);
 	// Execute instructions for all instructions in instruction memory
@@ -129,20 +137,21 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 
 	return 0;
 } // END OF MAIN
-void check_opcode(string &instruction)
+char get_instruction_type(uint32_t &instruction, uint32_t &opcode)
 {
-	string opcode = instruction.substr(0, OPCODE_SIZE);
-	if (opcode == "000000") // r type
+	opcode = (instruction & 0xFC000000) >> 26; // First 6 bits
+
+	if (opcode == 0x3F) // r type instruction, 0b111111
 	{
-		/* code */
+		return 'r';
 	}
-	else if (opcode == "000010" || opcode == "000011") // j type
+	else if (opcode == 0x2 || opcode == 0x3) // j type
 	{
-		/* code */
+		return 'j';
 	}
 	else // i type
 	{
-		/* code */
+		return 'i';
 	}
 }
 
@@ -170,7 +179,7 @@ void __vertical_print_vector(const vector<T> &v)
 	cerr << "Printing vector of size " << v.size() << ":\nSTART [" << endl;
 	for (auto &elem : v)
 	{
-		cerr << elem << "\n";
+		cerr << hex << elem << "\n";
 	}
 	cerr << "] END" << endl;
 }

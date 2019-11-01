@@ -45,11 +45,14 @@ bin/mips_simulator: src/simulator.cpp
 simulator1: bin/mips_simulator src/test1.bin
 	./bin/mips_simulator src/test1.bin
 	
-simulator2: bin/mips_simulator src/test1.bin
+simulator2: bin/mips_simulator src/test2.bin
 	./bin/mips_simulator src/test2.bin
 	
-simulator3: bin/mips_simulator src/test1.bin
+simulator3: bin/mips_simulator src/test3.bin
 	./bin/mips_simulator src/test3.bin
+
+simulator4: bin/mips_simulator src/test4.bin
+	./bin/mips_simulator src/test4.bin
 
 #TESTBENCH
 
