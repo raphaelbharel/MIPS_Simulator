@@ -7,6 +7,7 @@
 #include <vector>
 #include <iterator>
 #include <cmath>
+#include <map>
 #include "r_type_instructions.h"
 #include "i_type_instructions.h"
 #include "j_type_instructions.h"
@@ -24,6 +25,7 @@ typedef uint32_t REGISTER_MEMORY_TYPE;
 
 // const int binary_no_test = 0b101;
 const int BUFFER_SIZE = 32;
+const int REGISTER_SIZE = 32;
 const int OPCODE_SIZE = 6;
 // const int SRC1_SIZE = 5;
 // const int SRC2_SIZE = 5;
@@ -36,9 +38,9 @@ const int OPCODE_SIZE = 6;
 // const int INSTRUCTION_MEMORY_SIZE = 0x4000000;
 
 // FUNCTION DECLARATIONS
-void read_r_instr();
-void read_i_instr();
-void read_j_instr();
+void read_r_instr(uint32_t &instruction);
+void read_i_instr(uint32_t &instruction);
+void read_j_instr(uint32_t &instruction);
 char get_instruction_type(uint32_t &instruction, uint32_t &opcode);
 template <typename T>
 void __vertical_print_vector(const vector<T> &v);
@@ -62,8 +64,8 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 		return 1;
 	}
 	vector<INSTRUCTION_MEMORY_TYPE> imem;
-	vector<REGISTER_MEMORY_TYPE> registers(32, 0);
 	vector<BUFFER_TYPE> buffer(BUFFER_SIZE, 0);
+	map<uint32_t, uint32_t> registers;
 
 	//************************ BACKUP CODE ******************************************************************
 	// binStream.seekg(0, ios::end);
@@ -119,13 +121,42 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 		imem.push_back(binNo); // Inserting binary string to instruction memory
 	}
 
+	// Initialize registers to 0
+	int reg_id = 0;
+	for (int i = 0; i < REGISTER_SIZE; i++)
+	{
+		registers.emplace(reg_id, 0);
+		reg_id++;
+	}
+	// // Print registers
+	// for (auto& it : registers) {
+	// 	cout << it.first << ":" << it.second << endl;
+	// }
+
+	return 0;
 	// SANITY CHECK
 	__vertical_print_vector<INSTRUCTION_MEMORY_TYPE>(imem);
 	for (INSTRUCTION_MEMORY_TYPE i = 0; i < imem.size(); i++)
 	{
 		uint32_t opcode = 0;
-		char instr_type = get_instruction_type(imem[i], opcode);
+		uint32_t instruction = imem[i];
+		char instr_type = get_instruction_type(instruction, opcode);
 		cerr << "Opcode: " << hex << opcode << ", Type: " << instr_type << endl;
+		switch (instr_type)
+		{
+		case 'r':
+			read_r_instr(instruction);
+			break;
+		case 'i':
+			read_i_instr(instruction);
+			break;
+		case 'j':
+			read_j_instr(instruction);
+			break;
+		default:
+			cerr << "Error reading instruction" << endl;
+			exit(-10);
+		}
 	}
 
 	// __vertical_print_vector<REGISTER_MEMORY_TYPE>(registers);
@@ -137,11 +168,12 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 
 	return 0;
 } // END OF MAIN
+
 char get_instruction_type(uint32_t &instruction, uint32_t &opcode)
 {
 	opcode = (instruction & 0xFC000000) >> 26; // First 6 bits
 
-	if (opcode == 0x3F) // r type instruction, 0b111111
+	if (opcode == 0) // r type instruction, 0b111111
 	{
 		return 'r';
 	}
@@ -155,17 +187,17 @@ char get_instruction_type(uint32_t &instruction, uint32_t &opcode)
 	}
 }
 
-void read_r_instr()
+void read_r_instr(uint32_t &instruction)
 {
 	cerr << "Executing r type instruction." << endl;
 }
 
-void read_i_instr()
+void read_i_instr(uint32_t &instruction)
 {
 	cerr << "Executing i type instruction." << endl;
 }
 
-void read_j_instr()
+void read_j_instr(uint32_t &instruction)
 {
 	cerr << "Executing j type instruction." << endl;
 }
