@@ -15,7 +15,9 @@
 
 #define ADDR_NULL 0x00000000
 #define ADDR_INSTR 0x10000000
+#define ADDR_INSTR_OFFSET 0x1000000
 #define ADDR_DATA 0x20000000
+#define ADDR_DATA_OFFSET 0x4000000
 #define ADDR_GETC 0x30000000
 #define ADDR_PUTC 0x30000004
 #define BUFFER_SIZE 32
@@ -32,9 +34,9 @@
 
 using namespace std;
 typedef uint32_t INSTR_TYPE;
+typedef uint32_t ADDR_TYPE;
 typedef char BUFFER_TYPE;
-typedef uint32_t RMEM_TYPE;
-typedef pair<INSTR_TYPE, uint32_t> IMEM_TYPE;
+typedef pair<ADDR_TYPE, INSTR_TYPE> MEM_TYPE;
 
 
 // FUNCTION DECLARATIONS
@@ -44,6 +46,7 @@ void read_j_instr(uint32_t &instruction);
 char get_instruction_type(uint32_t &instruction, uint32_t &opcode);
 template <typename T>
 void __vertical_print_vector(const vector<T> &v);
+void __print_memory(const vector<MEM_TYPE> &v);
 
 // MAIN
 int main(int argc /* argument count */, char *argv[] /* argument list */)
@@ -63,10 +66,17 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 		cerr << "Error opening binary file." << endl;
 		return 1;
 	}
-	vector<IMEM_TYPE> imem; // Nx2 matrix of instruction, address pairs
 	vector<BUFFER_TYPE> buffer(BUFFER_SIZE, 0);
-	map<RMEM_TYPE, RMEM_TYPE> registers;
+	vector<MEM_TYPE> imem; // Nx2 matrix of <instruction, address> pairs
+	vector<MEM_TYPE> reg;
 
+	// Initialize registers to 0
+	static ADDR_TYPE address = ADDR_DATA;
+	for (int i = 0; i < REGISTER_SIZE; i++, address+=4)
+	{
+		reg.emplace_back(make_pair(address, 0));
+	}
+	address = ADDR_INSTR;
 	while (!binStream.eof())
 	{
 		binStream.read(buffer.data(), buffer.size()); // Reading 32 bits at a time, buffer.data() is a 32bit array
@@ -76,7 +86,7 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 		{
 			break; // Ensures stream size 0 reads do not get converted to memory (reached end of bitStream)
 		}
-		uint32_t binNo = 0;
+		INSTR_TYPE binNo = 0;
 		int weight = s - 1;
 		for (auto it = buffer.begin(); it != buffer.end(); ++it, --weight)
 		{
@@ -85,29 +95,19 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 				binNo += pow(2, weight);
 			}
 		}
-		imem.push_back(binNo); // Inserting binary string to instruction memory
+		imem.emplace_back(make_pair(address, binNo)); // Inserting binary string to instruction memory
+		address += 4;
 	}
 
-	// Initialize registers to 0
-	int reg_id = 0;
-	for (int i = 0; i < REGISTER_SIZE; i++)
-	{
-		registers.emplace(reg_id, 0);
-		reg_id++;
-	}
-	// // Print registers
-	// for (auto& it : registers) {
-	// 	cout << it.first << ":" << it.second << endl;
-	// }
-
-	// SANITY CHECK
-	__vertical_print_vector<IMEM_TYPE>(imem);
+	__print_memory(reg);
+	__print_memory(imem);
 
 	// Executing instructions
-	for (IMEM_TYPE i = 0; i < imem.size(); i++)
+	for (auto instr_ptr : imem)
 	{
-		INSTR_TYPE opcode = 0;
-		INSTR_TYPE instruction = imem[i];
+		INSTR_TYPE opcode=0;
+		address = instr_ptr.first;
+		INSTR_TYPE instruction = instr_ptr.second;
 		char instr_type = get_instruction_type(instruction, opcode);
 		cerr << "Opcode: " << hex << opcode << ", Type: " << instr_type << endl;
 		switch (instr_type)
@@ -125,10 +125,7 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 			cerr << "ERROR: FAILED TO READ INSTRUCTION." << endl;
 			exit(-10);
 		}
-	}
-
-	// __vertical_print_vector<RMEM_TYPE>(registers);
-	
+	}	
 
 	return 0;
 } // END OF MAIN
@@ -222,6 +219,16 @@ void __vertical_print_vector(const vector<T> &v)
 	for (auto &elem : v)
 	{
 		cerr << hex << elem << "\n";
+	}
+	cerr << "] END" << endl;
+}
+
+void __print_memory(const vector<MEM_TYPE> &v)
+{
+	cerr << "Printing vector of size " << v.size() << ":\nSTART [" << endl;
+	for (auto elem : v)
+	{
+		cerr << hex << elem.first << ":" <<elem.second << "\n";
 	}
 	cerr << "] END" << endl;
 }
