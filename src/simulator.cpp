@@ -31,9 +31,11 @@
 #define IMEM_SIZE 0x4000000
 
 using namespace std;
-typedef uint32_t IMEM_TYPE;
+typedef uint32_t INSTR_TYPE;
 typedef char BUFFER_TYPE;
 typedef uint32_t RMEM_TYPE;
+typedef pair<INSTR_TYPE, uint32_t> IMEM_TYPE;
+
 
 // FUNCTION DECLARATIONS
 void read_r_instr(uint32_t &instruction);
@@ -61,7 +63,7 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 		cerr << "Error opening binary file." << endl;
 		return 1;
 	}
-	vector<IMEM_TYPE> imem;
+	vector<IMEM_TYPE> imem; // Nx2 matrix of instruction, address pairs
 	vector<BUFFER_TYPE> buffer(BUFFER_SIZE, 0);
 	map<RMEM_TYPE, RMEM_TYPE> registers;
 
@@ -104,8 +106,8 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 	// Executing instructions
 	for (IMEM_TYPE i = 0; i < imem.size(); i++)
 	{
-		uint32_t opcode = 0;
-		uint32_t instruction = imem[i];
+		INSTR_TYPE opcode = 0;
+		INSTR_TYPE instruction = imem[i];
 		char instr_type = get_instruction_type(instruction, opcode);
 		cerr << "Opcode: " << hex << opcode << ", Type: " << instr_type << endl;
 		switch (instr_type)
@@ -133,7 +135,7 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 
 
 // FUNCTION DEFINITIONS
-char get_instruction_type(uint32_t &instruction, uint32_t &opcode)
+char get_instruction_type(INSTR_TYPE &instruction, INSTR_TYPE &opcode)
 {
 	opcode = (instruction & 0xFC000000) >> 26; // First 6 bits
 	switch(opcode){
@@ -147,7 +149,7 @@ char get_instruction_type(uint32_t &instruction, uint32_t &opcode)
 	}
 }
 
-void read_r_instr(uint32_t &instruction)
+void read_r_instr(INSTR_TYPE &instruction)
 {
 	cerr << ">> Executing r type instruction." << endl;
 	/* 
@@ -175,7 +177,7 @@ void read_r_instr(uint32_t &instruction)
 }
 
 
-void read_i_instr(uint32_t &instruction)
+void read_i_instr(INSTR_TYPE &instruction)
 {
 	cerr << ">> Executing i type instruction." << endl;
 	/*
@@ -195,7 +197,7 @@ void read_i_instr(uint32_t &instruction)
 	cout << "adata: " << bitset<I_ADATA_SIZE>(adata) << endl;
 }
 
-void read_j_instr(uint32_t &instruction)
+void read_j_instr(INSTR_TYPE &instruction)
 {
 	cerr << ">> Executing j type instruction." << endl;
 	/*
