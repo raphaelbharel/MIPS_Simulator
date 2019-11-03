@@ -44,18 +44,28 @@ public:
     ADDR_TYPE npc;
     ADDR_TYPE addr;
     INSTR_TYPE instr;
+    std::vector<MEM_TYPE> reg;
     State(std::vector<MEM_TYPE> &imem)
     {
         pc = ADDR_INSTR; // PC starts at beginning of executable memory
         npc = ADDR_INSTR + 4;
         addr = imem[0].first;
         instr = imem[0].second;
+        initialize_regs();
     }
     void display() {
         std::cerr <<std::hex<< "pc: " << pc << std::endl;
         std::cerr <<std::hex<< "npc: " << npc << std::endl;
         std::cerr <<std::hex<< "addr: " << addr << std::endl;
         std::cerr <<std::hex<< "instr: " << instr << std::endl;
+    }
+    void initialize_regs(){
+        ADDR_TYPE address = ADDR_DATA;
+        for (int i = 0; i < REGISTER_SIZE; i++, address += 4)
+	    {
+		reg.push_back(std::make_pair(address, 0));
+	    }
+        // reg.resize(32);
     }
 
 private:

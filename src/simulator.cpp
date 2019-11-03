@@ -33,17 +33,17 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 	}
 	vector<BUFFER_TYPE> buffer(BUFFER_SIZE, 0);
 	vector<MEM_TYPE> imem; // Nx2 matrix of <instruction, address> pairs
-	vector<MEM_TYPE> reg;
+	// vector<MEM_TYPE> reg;
 
 	// Initialize registers to 0
-	static ADDR_TYPE address = ADDR_DATA;
-	for (int i = 0; i < REGISTER_SIZE; i++, address += 4)
-	{
-		reg.emplace_back(make_pair(address, 0));
-	}
+	// static ADDR_TYPE address = ADDR_DATA;
+	// for (int i = 0; i < REGISTER_SIZE; i++, address += 4)
+	// {
+	// 	reg.emplace_back(make_pair(address, 0));
+	// }
 
 	// Initialize instruction memory
-	address = ADDR_INSTR;
+	ADDR_TYPE address = ADDR_INSTR;
 	while (!binStream.eof())
 	{
 		binStream.read(buffer.data(), buffer.size()); // Reading 32 bits at a time, buffer.data() is a 32bit array
@@ -66,12 +66,14 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 		address += 4;
 	}
 
-	__print_memory(reg);
-	__print_memory(imem);
 	// Initialize state
 	State S(imem);
 	S.display();
 	i_type_instructions i_instr(S);
+	// i_instr.display();
+	// cerr << "TESTOUT: " << i_instr.code << endl;
+	__print_memory(S.reg);
+	__print_memory(imem);
 	return 0;
 
 	// Executing instructions
@@ -85,6 +87,7 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 		switch (instr_type)
 		{
 		case 'r':
+			// r_type_instructions.execute();
 			read_r_instr(instruction);
 			break;
 		case 'i':
