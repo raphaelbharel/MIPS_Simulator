@@ -1,9 +1,8 @@
 // This file contains the function declarations for I type instructions
 #ifndef I_TYPE_INSTRUCTIONS
 #define I_TYPE_INSTRUCTIONS
-#include "headers.h"
+#include "headers.hpp"
 using namespace std;
-#endif
 
 class i_type_instructions{
     public:
@@ -145,3 +144,5 @@ void i_type_instructions::addiu(State* &S, INSTR_TYPE& src1, INSTR_TYPE& dest, I
     cerr << "ADDIU" <<endl;
     (*S).display();
 }
+
+#endif

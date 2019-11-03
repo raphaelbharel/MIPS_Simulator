@@ -1,5 +1,5 @@
 // g++ -std=c++11 simulator_1.cpp -o simulator_1
-#include "headers.h"
+#include "headers.hpp"
 
 using namespace std;
 void read_r_instr(INSTR_TYPE &instruction);
