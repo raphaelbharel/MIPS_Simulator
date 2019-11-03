@@ -22,8 +22,8 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 		return 1;
 	}
 
-	// string binName = argv[1];						// Reading second argument from command line
-	string binName = "src/test4.bin";				// Reading second argument from command line
+	string binName = argv[1];						// Reading second argument from command line
+	// string binName = "src/test4.bin";				// Reading second argument from command line
 	ifstream binStream;								// Create binary stream object
 	binStream.open(binName, ios::binary | ios::in); // Load .bin file as a binary file
 	if (!binStream.is_open())
@@ -41,6 +41,8 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 	{
 		reg.emplace_back(make_pair(address, 0));
 	}
+
+	// Initialize instruction memory
 	address = ADDR_INSTR;
 	while (!binStream.eof())
 	{
@@ -66,6 +68,10 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 
 	__print_memory(reg);
 	__print_memory(imem);
+	// Initialize state
+	State S(imem);
+	S.display();
+	return 0;
 
 	// Executing instructions
 	for (auto instr_ptr : imem)
