@@ -202,5 +202,5 @@ void __print_memory(const vector<MEM_TYPE> &v)
 	{
 		cerr << hex << elem.first << ":" << elem.second << "\n";
 	}
-	cerr << "] END" << endl;
+	cerr << "] END" << count << endl;
 }

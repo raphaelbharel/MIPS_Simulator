@@ -65,6 +65,7 @@ public:
 	    {
 		reg.push_back(std::make_pair(address, 0));
 	    }
+        
         // reg.resize(32);
     }
 

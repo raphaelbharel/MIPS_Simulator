@@ -27,23 +27,30 @@ class i_type_instructions{
             cout << "dest: " << bitset<DEST_SIZE>(dest) << endl;
             cout << "adata: " << bitset<I_ADATA_SIZE>(adata) << endl;
         }
+        int execute();
 
-        void execute(){
-            code = (S->instr & 0xFC000000) >> 26;
-            src1 = (S->instr & 0x3E00000) >> 21;
-            dest = (S->instr & 0x1F0000) >> 16;
-            adata = (S->instr & 0xFFFF);
-            switch (code)
-            {
-            case 0b001000:
-                // addi();
-                break;
-            
-            default:
-                break;
-            }
-        }
+        
     private:
 };
 
 #endif
+
+int i_type_instructions::execute()
+{
+    code = (S->instr & 0xFC000000) >> 26;
+    src1 = (S->instr & 0x3E00000) >> 21;
+    dest = (S->instr & 0x1F0000) >> 16;
+    adata = (S->instr & 0xFFFF);
+    switch (code)
+    {
+    case 0b001000:
+        addi();
+        return 1;
+    default:
+        return -12;
+    }
+}
+
+void i_type_instructions::addi(){
+    
+}
