@@ -5,7 +5,7 @@ using namespace std;
 void read_r_instr(INSTR_TYPE &instruction);
 void read_i_instr(INSTR_TYPE &instruction);
 void read_j_instr(INSTR_TYPE &instruction);
-char get_instruction_type(INSTR_TYPE &instruction, INSTR_TYPE &opcode);
+char get_instruction_type(INSTR_TYPE &instruction);
 
 // FUNCTION DECLARATIONS
 template <typename T>
@@ -68,33 +68,30 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 
 	// Initialize state
 	State S(imem);
-	S.display();
-	i_type_instructions i_instr(S);
+	// S.display();
+	i_type_instructions i_instruction(S);
 	// i_instr.display();
 	// cerr << "TESTOUT: " << i_instr.code << endl;
-	__print_memory(S.reg);
+	// __print_memory(S.reg);
 	__print_memory(imem);
-	return 0;
 
 	// Executing instructions
 	for (auto instr_ptr : imem)
 	{
-		INSTR_TYPE opcode = 0;
-		address = instr_ptr.first;
-		INSTR_TYPE instruction = instr_ptr.second;
-		char instr_type = get_instruction_type(instruction, opcode);
-		cerr << "Opcode: " << hex << opcode << ", Type: " << instr_type << endl;
+
+		char instr_type = get_instruction_type(S.instr);
 		switch (instr_type)
 		{
 		case 'r':
 			// r_type_instructions.execute();
-			read_r_instr(instruction);
+			// read_r_instr(instruction);
 			break;
 		case 'i':
-			read_i_instr(instruction);
+			// i_instruction.display();
+			i_instruction.execute();
 			break;
 		case 'j':
-			read_j_instr(instruction);
+			// read_j_instr(instruction);
 			break;
 		default:
 			cerr << "ERROR: FAILED TO READ INSTRUCTION." << endl;
@@ -106,9 +103,9 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 } // END OF MAIN
 
 // FUNCTION DEFINITIONS
-char get_instruction_type(INSTR_TYPE &instruction, INSTR_TYPE &opcode)
+char get_instruction_type(INSTR_TYPE &instruction)
 {
-	opcode = (instruction & 0xFC000000) >> 26; // First 6 bits
+	INSTR_TYPE opcode = (instruction & 0xFC000000) >> 26; // First 6 bits
 	switch (opcode)
 	{
 	case 0:
@@ -202,5 +199,5 @@ void __print_memory(const vector<MEM_TYPE> &v)
 	{
 		cerr << hex << elem.first << ":" << elem.second << "\n";
 	}
-	cerr << "] END" << count << endl;
+	cerr << "] END" << endl;
 }
