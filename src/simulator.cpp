@@ -71,6 +71,7 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 	// Initialize state
 	State S(imem);
 	S.display();
+	i_type_instructions i_instr(S);
 	return 0;
 
 	// Executing instructions
