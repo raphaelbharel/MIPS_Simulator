@@ -62,73 +62,73 @@ int i_type_instructions::execute()
     }
     
     switch (code) {
-        case 0x00000008:
+        case 0x8:
             addi(S, src1, dest, sx_adata);
             return 1;
-        case 0x00000009:
+        case 0x9:
             addiu(S, src1, dest, sx_adata);
             return 1;
-        case 0x0000000C:
+        case 0xC:
             // andi(S, src1, dest, adata);
             return 1;
-        case 0x00000004:
+        case 0x4:
             // beq(S, src1, dest, sx_adata);
             return 1;
-        case 0x00000005:
+        case 0x5:
             // bne(S, src1, dest, sx_adata);
             return 1;
-        case 0x00000024:
+        case 0x24:
             // lbu(S, src1, dest, sx_adata);
             return 1;
-        case 0x00000020:
+        case 0x20:
             // lb(S, src1, dest, sx_adata);
             return 1;
-        case 0x00000025:
+        case 0x25:
             // lhu(S, src1, dest, sx_adata);
             return 1;
-        case 0x00000021:
+        case 0x21:
             // lh(S, src1, dest, sx_adata);
             return 1;
-        case 0x0000000F:
+        case 0xF:
             // lui(S, src1, dest, adata);
             return 1;
-        case 0x00000023:
+        case 0x23:
             // lw(S, src1, dest, sx_adata);
             return 1;
-        case 0x00000022:
+        case 0x22:
             // lwl(S, src1, dest, sx_adata);
             return 1;
-        case 0x00000026:
+        case 0x26:
             // lwr(S, src1, dest, sx_adata);
             return 1;
-        case 0x00000028:
+        case 0x28:
             // sb(S, src1, dest, sx_adata);
             return 1;
-        case 0x00000029:
+        case 0x29:
             // sh(S, src1, dest, sx_adata);
             return 1;
-        case 0x0000002B:
+        case 0x2B:
             // sw(S, src1, dest, sx_adata);
             return 1;
-        case 0x0000000A:
+        case 0xA:
             // slti(S, src1, dest, sx_adata);
             return 1;
-        case 0x0000000B:
+        case 0xB:
             // sltiu(S, src1, dest, sx_adata);
             return 1;
-        case 0x0000000E:
+        case 0xE:
             // xori(S, src1, dest, adata);
             return 1;
-        case 0x0000000D:
+        case 0xD:
             // ori(S, src1, dest, adata);
             return 1;
-        case 0x00000007:
+        case 0x7:
             // bgtz(S, src1, dest, sx_adata);
             return 1;
-        case 0x00000006:
+        case 0x6:
             // blez(S, src1, dest, sx_adata);
             return 1;
-        case 0x00000001:
+        case 0x1:
             // bdecoder(S, src1, dest, sx_adata);
             return 1;
         default:
