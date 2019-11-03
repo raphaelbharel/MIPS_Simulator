@@ -51,14 +51,15 @@ void __print_memory(const vector<MEM_TYPE> &v);
 // MAIN
 int main(int argc /* argument count */, char *argv[] /* argument list */)
 {
-	if (argc != 2)
-	{
-		cerr << "Incorrect number of arguments."
-			 << "\n";
-		return 1;
-	}
+	// if (argc != 2)
+	// {
+	// 	cerr << "Incorrect number of arguments: " << endl;
+	// 	cerr << argv[0] << ":" << argv[1] <<endl;
+	// 	return 1;
+	// }
 
-	string binName = argv[1];						// Reading second argument from command line
+	// string binName = argv[1];						// Reading second argument from command line
+	string binName = "src/test4.bin";						// Reading second argument from command line
 	ifstream binStream;								// Create binary stream object
 	binStream.open(binName, ios::binary | ios::in); // Load .bin file as a binary file
 	if (!binStream.is_open())
