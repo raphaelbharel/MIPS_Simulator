@@ -1,48 +1,13 @@
 // g++ -std=c++11 simulator_1.cpp -o simulator_1
-
-#include <cstdlib>
-#include <fstream>
-#include <iostream>
-#include <string>
-#include <vector>
-#include <iterator>
-#include <cmath>
-#include <map>
-#include <bitset>
-// #include "r_type_instructions.h"
-// #include "i_type_instructions.h"
-// #include "j_type_instructions.h"
-
-#define ADDR_NULL 0x00000000
-#define ADDR_INSTR 0x10000000
-#define ADDR_INSTR_OFFSET 0x1000000
-#define ADDR_DATA 0x20000000
-#define ADDR_DATA_OFFSET 0x4000000
-#define ADDR_GETC 0x30000000
-#define ADDR_PUTC 0x30000004
-#define BUFFER_SIZE 32
-#define REGISTER_SIZE 32
-#define CODE_SIZE 6
-#define SRC1_SIZE 5
-#define SRC2_SIZE 5
-#define DEST_SIZE 5
-#define SHIFT_SIZE 5
-#define FUNC_SIZE 6
-#define I_ADATA_SIZE 16
-#define J_ADDRESS_SIZE 26
-#define IMEM_SIZE 0x4000000
+#include "headers.h"
 
 using namespace std;
-typedef uint32_t INSTR_TYPE;
-typedef uint32_t ADDR_TYPE;
-typedef char BUFFER_TYPE;
-typedef pair<ADDR_TYPE, INSTR_TYPE> MEM_TYPE;
+void read_r_instr(INSTR_TYPE &instruction);
+void read_i_instr(INSTR_TYPE &instruction);
+void read_j_instr(INSTR_TYPE &instruction);
+char get_instruction_type(INSTR_TYPE &instruction, INSTR_TYPE &opcode);
 
 // FUNCTION DECLARATIONS
-void read_r_instr(uint32_t &instruction);
-void read_i_instr(uint32_t &instruction);
-void read_j_instr(uint32_t &instruction);
-char get_instruction_type(uint32_t &instruction, uint32_t &opcode);
 template <typename T>
 void __vertical_print_vector(const vector<T> &v);
 void __print_memory(const vector<MEM_TYPE> &v);
