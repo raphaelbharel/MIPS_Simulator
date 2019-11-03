@@ -38,7 +38,6 @@ typedef uint32_t ADDR_TYPE;
 typedef char BUFFER_TYPE;
 typedef pair<ADDR_TYPE, INSTR_TYPE> MEM_TYPE;
 
-
 // FUNCTION DECLARATIONS
 void read_r_instr(uint32_t &instruction);
 void read_i_instr(uint32_t &instruction);
@@ -51,15 +50,15 @@ void __print_memory(const vector<MEM_TYPE> &v);
 // MAIN
 int main(int argc /* argument count */, char *argv[] /* argument list */)
 {
-	// if (argc != 2)
-	// {
-	// 	cerr << "Incorrect number of arguments: " << endl;
-	// 	cerr << argv[0] << ":" << argv[1] <<endl;
-	// 	return 1;
-	// }
+	if (argc != 2)
+	{
+		cerr << "ERROR: Incorrect number of arguments: " << endl;
+		cerr << argv[0] << ":" << argv[1] << endl;
+		return 1;
+	}
 
 	// string binName = argv[1];						// Reading second argument from command line
-	string binName = "src/test4.bin";						// Reading second argument from command line
+	string binName = "src/test4.bin";				// Reading second argument from command line
 	ifstream binStream;								// Create binary stream object
 	binStream.open(binName, ios::binary | ios::in); // Load .bin file as a binary file
 	if (!binStream.is_open())
@@ -73,7 +72,7 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 
 	// Initialize registers to 0
 	static ADDR_TYPE address = ADDR_DATA;
-	for (int i = 0; i < REGISTER_SIZE; i++, address+=4)
+	for (int i = 0; i < REGISTER_SIZE; i++, address += 4)
 	{
 		reg.emplace_back(make_pair(address, 0));
 	}
@@ -106,7 +105,7 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 	// Executing instructions
 	for (auto instr_ptr : imem)
 	{
-		INSTR_TYPE opcode=0;
+		INSTR_TYPE opcode = 0;
 		address = instr_ptr.first;
 		INSTR_TYPE instruction = instr_ptr.second;
 		char instr_type = get_instruction_type(instruction, opcode);
@@ -126,24 +125,24 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 			cerr << "ERROR: FAILED TO READ INSTRUCTION." << endl;
 			exit(-10);
 		}
-	}	
+	}
 
 	return 0;
 } // END OF MAIN
-
 
 // FUNCTION DEFINITIONS
 char get_instruction_type(INSTR_TYPE &instruction, INSTR_TYPE &opcode)
 {
 	opcode = (instruction & 0xFC000000) >> 26; // First 6 bits
-	switch(opcode){
-		case 0:
-			return 'r';
-		case 0x2:
-		case 0x3:
-			return 'j';
-		default:
-			return 'i';
+	switch (opcode)
+	{
+	case 0:
+		return 'r';
+	case 0x2:
+	case 0x3:
+		return 'j';
+	default:
+		return 'i';
 	}
 }
 
@@ -171,9 +170,7 @@ void read_r_instr(INSTR_TYPE &instruction)
 	cout << "src2: " << bitset<SRC2_SIZE>(src2) << endl;
 	cout << "dest: " << bitset<DEST_SIZE>(dest) << endl;
 	cout << "func: " << bitset<FUNC_SIZE>(func) << endl;
-
 }
-
 
 void read_i_instr(INSTR_TYPE &instruction)
 {
@@ -207,7 +204,6 @@ void read_j_instr(INSTR_TYPE &instruction)
 
 	cout << "code: " << bitset<CODE_SIZE>(code) << endl;
 	cout << "addr: " << bitset<J_ADDRESS_SIZE>(addr) << endl;
-
 }
 
 // HELPER FUNCTIONS
@@ -229,7 +225,7 @@ void __print_memory(const vector<MEM_TYPE> &v)
 	cerr << "Printing vector of size " << v.size() << ":\nSTART [" << endl;
 	for (auto elem : v)
 	{
-		cerr << hex << elem.first << ":" <<elem.second << "\n";
+		cerr << hex << elem.first << ":" << elem.second << "\n";
 	}
 	cerr << "] END" << endl;
 }
