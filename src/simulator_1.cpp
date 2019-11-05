@@ -22,6 +22,13 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 	
 	*/
 
+	
+	const ADDR_INSTR_OFFSET = 0x10000000; //PC offset
+	const ADDR_INSTR_LENGTH = 0x1000000; //PC length
+	//Make a pointer to ADDR_INSTR_OFFSET
+	//Then keep moving up while less than ADDR_INSTR_LENGTH?
+
+
 	string binName = argv[1]; // See above
 
 	// // Print out args
