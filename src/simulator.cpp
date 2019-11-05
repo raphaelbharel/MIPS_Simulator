@@ -2,12 +2,12 @@
 #include "headers.hpp"
 
 using namespace std;
-char read_instruction(INSTR_TYPE &instruction);
 
 // FUNCTION DECLARATIONS
 template <typename T>
 void __vertical_print_vector(const vector<T> &v);
 void __print_memory(const vector<MEM_TYPE> &v);
+char read_instruction(INSTR_TYPE &instruction);
 
 // MAIN
 int main(int argc /* argument count */, char *argv[] /* argument list */)
@@ -86,8 +86,14 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 			// r_instruction.display();
 			break;
 		case 'i':
-			i_instruction.execute();
 			i_instruction.display();
+			i_instruction.execute();
+
+			S.view_regs();
+			i_instruction.display();
+			i_instruction.execute();
+			S.view_regs();
+
 			break;
 		case 'j':
 			j_instruction.execute();

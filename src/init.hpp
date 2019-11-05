@@ -53,19 +53,34 @@ public:
         instr = imem[0].second;
         initialize_regs();
     }
-    void display() {
-        std::cerr <<std::hex<< "pc: " << pc << std::endl;
-        std::cerr <<std::hex<< "npc: " << npc << std::endl;
-        std::cerr <<std::hex<< "addr: " << addr << std::endl;
-        std::cerr <<std::hex<< "instr: " << instr << std::endl;
+    void display()
+    {
+        std::cerr << std::hex << "pc: " << pc << std::endl;
+        std::cerr << std::hex << "npc: " << npc << std::endl;
+        std::cerr << std::hex << "addr: " << addr << std::endl;
+        std::cerr << std::hex << "instr: " << instr << std::endl;
     }
-    void initialize_regs(){
+    void initialize_regs()
+    {
         ADDR_TYPE address = ADDR_DATA;
         for (int i = 0; i < REGISTER_SIZE; i++, address += 4)
-	    {
-		reg.push_back(std::make_pair(address, 0));
-	    }
-        // reg.resize(32);
+        {
+            reg.push_back(std::make_pair(address, 0));
+        }
+        reg.resize(32);
+    }
+    void view_regs()
+    {
+        int index = 0;
+        for (auto it : reg)
+        {
+            std::cerr << "$" << index << " : " << it.first << " : " << it.second << std::endl;
+            index++;
+        }
+    }
+    void update()
+    {
+        pc = npc; // Update the program
     }
 
 private:

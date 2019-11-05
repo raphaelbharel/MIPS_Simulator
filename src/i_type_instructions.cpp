@@ -110,5 +110,82 @@ void i_type_instructions::addi(State *&S, INSTR_TYPE &src1, INSTR_TYPE &dest, IN
 void i_type_instructions::addiu(State *&S, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
 {
     cerr << "ADDIU" << endl;
-    (*S).display();
+    S->reg[dest].second = S->reg[src1].second + sx_idata;
+    S->display();
+}
+
+void i_type_instructions::andi(State *&S, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &idata)
+{
+}
+void i_type_instructions::beq(State *&S, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
+{
+}
+void i_type_instructions::bne(State *&S, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
+{
+}
+void i_type_instructions::lbu(State *&S, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
+{
+}
+void i_type_instructions::lb(State *&S, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
+{
+}
+void i_type_instructions::lhu(State *&S, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
+{
+}
+void i_type_instructions::lh(State *&S, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
+{
+}
+void i_type_instructions::lui(State *&S, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &idata)
+{
+}
+void i_type_instructions::lw(State *&S, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
+{
+}
+void i_type_instructions::lwl(State *&S, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
+{
+}
+void i_type_instructions::lwr(State *&S, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
+{
+}
+void i_type_instructions::ori(State *&S, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &idata)
+{
+}
+void i_type_instructions::xori(State *&S, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &idata)
+{
+}
+void i_type_instructions::slti(State *&S, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
+{
+}
+void i_type_instructions::sltiu(State *&S, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
+{
+}
+void i_type_instructions::sb(State *&S, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
+{
+}
+void i_type_instructions::sh(State *&S, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
+{
+}
+void i_type_instructions::sw(State *&S, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
+{
+}
+void i_type_instructions::bgez(State *&S, INSTR_TYPE &src1, INSTR_TYPE &sx_idata)
+{
+}
+void i_type_instructions::bgezal(State *&S, INSTR_TYPE &src1, INSTR_TYPE &sx_idata)
+{
+}
+void i_type_instructions::bgtz(State *&S, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
+{
+}
+void i_type_instructions::blez(State *&S, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
+{
+}
+void i_type_instructions::bltz(State *&S, INSTR_TYPE &src1, INSTR_TYPE &sx_idata)
+{
+}
+void i_type_instructions::bltzal(State *&S, INSTR_TYPE &src1, INSTR_TYPE &sx_idata)
+{
+}
+void i_type_instructions::bdecoder(State *&S, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
+{
 }
