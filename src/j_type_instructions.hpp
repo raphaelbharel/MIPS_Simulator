@@ -8,6 +8,8 @@ class j_type_instructions
 public:
     uint32_t code = 0;
     uint32_t jdata = 0;
+    uint32_t sx_jdata = 0;
+
     State *S;
 
     j_type_instructions(State &cpu_state)

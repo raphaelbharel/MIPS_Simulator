@@ -15,100 +15,99 @@ int i_type_instructions::execute()
     code = (S->instr & 0xFC000000) >> 26;
     src1 = (S->instr & 0x3E00000) >> 21;
     dest = (S->instr & 0x1F0000) >> 16;
-    adata = (S->instr & 0xFFFF);
+    idata = (S->instr & 0xFFFF);
     // Sign extend 16bit immediate
-    INSTR_TYPE sx_adata;
-    if (adata >> 15)
+    if (idata >> 15)
     {
-        sx_adata = adata | 0xFFFF0000;
+        sx_idata = idata | 0xFFFF0000;
     }
     else
     {
-        sx_adata = adata;
+        sx_idata = idata;
     }
 
     switch (code)
     {
     case 0x8:
-        addi(S, src1, dest, sx_adata);
+        addi(S, src1, dest, sx_idata);
         return 1;
     case 0x9:
-        addiu(S, src1, dest, sx_adata);
+        addiu(S, src1, dest, sx_idata);
         return 1;
     case 0xC:
-        // andi(S, src1, dest, adata);
+        // andi(S, src1, dest, idata);
         return 1;
     case 0x4:
-        // beq(S, src1, dest, sx_adata);
+        // beq(S, src1, dest, sx_idata);
         return 1;
     case 0x5:
-        // bne(S, src1, dest, sx_adata);
+        // bne(S, src1, dest, sx_idata);
         return 1;
     case 0x24:
-        // lbu(S, src1, dest, sx_adata);
+        // lbu(S, src1, dest, sx_idata);
         return 1;
     case 0x20:
-        // lb(S, src1, dest, sx_adata);
+        // lb(S, src1, dest, sx_idata);
         return 1;
     case 0x25:
-        // lhu(S, src1, dest, sx_adata);
+        // lhu(S, src1, dest, sx_idata);
         return 1;
     case 0x21:
-        // lh(S, src1, dest, sx_adata);
+        // lh(S, src1, dest, sx_idata);
         return 1;
     case 0xF:
-        // lui(S, src1, dest, adata);
+        // lui(S, src1, dest, idata);
         return 1;
     case 0x23:
-        // lw(S, src1, dest, sx_adata);
+        // lw(S, src1, dest, sx_idata);
         return 1;
     case 0x22:
-        // lwl(S, src1, dest, sx_adata);
+        // lwl(S, src1, dest, sx_idata);
         return 1;
     case 0x26:
-        // lwr(S, src1, dest, sx_adata);
+        // lwr(S, src1, dest, sx_idata);
         return 1;
     case 0x28:
-        // sb(S, src1, dest, sx_adata);
+        // sb(S, src1, dest, sx_idata);
         return 1;
     case 0x29:
-        // sh(S, src1, dest, sx_adata);
+        // sh(S, src1, dest, sx_idata);
         return 1;
     case 0x2B:
-        // sw(S, src1, dest, sx_adata);
+        // sw(S, src1, dest, sx_idata);
         return 1;
     case 0xA:
-        // slti(S, src1, dest, sx_adata);
+        // slti(S, src1, dest, sx_idata);
         return 1;
     case 0xB:
-        // sltiu(S, src1, dest, sx_adata);
+        // sltiu(S, src1, dest, sx_idata);
         return 1;
     case 0xE:
-        // xori(S, src1, dest, adata);
+        // xori(S, src1, dest, idata);
         return 1;
     case 0xD:
-        // ori(S, src1, dest, adata);
+        // ori(S, src1, dest, idata);
         return 1;
     case 0x7:
-        // bgtz(S, src1, dest, sx_adata);
+        // bgtz(S, src1, dest, sx_idata);
         return 1;
     case 0x6:
-        // blez(S, src1, dest, sx_adata);
+        // blez(S, src1, dest, sx_idata);
         return 1;
     case 0x1:
-        // bdecoder(S, src1, dest, sx_adata);
+        // bdecoder(S, src1, dest, sx_idata);
         return 1;
     default:
         return -12;
     }
 }
 
-void i_type_instructions::addi(State *&S, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_adata)
+void i_type_instructions::addi(State *&S, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
 {
     cerr << "ADDI" << endl;
 }
 
-void i_type_instructions::addiu(State *&S, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_adata)
+void i_type_instructions::addiu(State *&S, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
 {
     cerr << "ADDIU" << endl;
     (*S).display();
