@@ -8,6 +8,7 @@ template <typename T>
 void __vertical_print_vector(const vector<T> &v);
 void __print_memory(const vector<MEM_TYPE> &v);
 char read_instruction(INSTR_TYPE &instruction);
+int get_index_from_addr(const uint32_t &addr, vector<pair<uint32_t, uint32_t>> &v);
 
 // MAIN
 int main(int argc /* argument count */, char *argv[] /* argument list */)
@@ -29,15 +30,7 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 		return 1;
 	}
 	vector<BUFFER_TYPE> buffer(BUFFER_SIZE, 0);
-	vector<MEM_TYPE> imem; // Nx2 matrix of <instruction, address> pairs
-	// vector<MEM_TYPE> reg;
-
-	// Initialize registers to 0
-	// static ADDR_TYPE address = ADDR_DATA;
-	// for (int i = 0; i < REGISTER_SIZE; i++, address += 4)
-	// {
-	// 	reg.emplace_back(make_pair(address, 0));
-	// }
+	vector<MEM_TYPE> imem; // Nx2 matrix of <i`nstruction, address> pairs
 
 	// Initialize instruction memory
 	ADDR_TYPE address = ADDR_INSTR;
@@ -45,7 +38,6 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 	{
 		binStream.read(buffer.data(), buffer.size()); // Reading 32 bits at a time, buffer.data() is a 32bit array
 		streamsize s = binStream.gcount();			  // # of bits read
-		// cerr << "Streamsize: " << s << endl;
 		if (s == 0)
 		{
 			break; // Ensures stream size 0 reads do not get converted to memory (reached end of bitStream)
@@ -56,7 +48,7 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 		{
 			if (*it == '1') // IMPORTANT: iterator is a pointer to a char so it must be verfied with a char ''
 			{
-				binNo += pow(2, weight);
+				binNo += (1 << weight);
 			}
 		}
 		imem.emplace_back(make_pair(address, binNo)); // Inserting binary string to instruction memory
@@ -69,10 +61,8 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 	i_type_instructions i_instruction(S);
 	r_type_instructions r_instruction(S);
 	j_type_instructions j_instruction(S);
-	// i_instr.display();
-	// cerr << "TESTOUT: " << i_instr.code << endl;
-	// __print_memory(S.reg);
-	__print_memory(imem);
+
+	// __print_memory(imem);
 
 	// Executing instructions
 	for (auto instr_ptr : imem)
@@ -86,13 +76,10 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 			// r_instruction.display();
 			break;
 		case 'i':
-			i_instruction.display();
 			i_instruction.execute();
-
-			S.view_regs();
 			i_instruction.display();
-			i_instruction.execute();
 			S.view_regs();
+			S.view_imem();
 
 			break;
 		case 'j':
@@ -122,6 +109,19 @@ char read_instruction(INSTR_TYPE &instruction)
 	default:
 		return 'i';
 	}
+}
+
+int get_index_from_addr(const uint32_t &addr, vector<pair<uint32_t, uint32_t>> &v)
+{
+	for (size_t i = 0; i < v.size(); i++)
+	{
+		if (addr == v[i].first)
+		{
+			return i;
+		}
+	}
+	cerr << "ERROR: Invalid memory address in memory block." << endl;
+	exit(-10); // Could not find address
 }
 
 // HELPER FUNCTIONS
