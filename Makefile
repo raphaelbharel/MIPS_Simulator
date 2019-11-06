@@ -69,3 +69,6 @@ bin/mips_testbench: bin/mips_simulator
 	#any temp files to be stored in test/temp
 	#output of testbench created in test/output. i.e per test logfiles
 	#once all tests run, print CSV file to stdout, with each row corresponding to one execution of Simulator under test.
+
+clean:
+	rm bin/mips_simulator

@@ -23,7 +23,6 @@ public:
         std::cerr << "i_type_instruction state: " << std::endl;
         std::cerr << std::hex << "pc: " << S->pc << std::endl;
         std::cerr << std::hex << "npc: " << S->npc << std::endl;
-        std::cerr << std::hex << "addr: " << S->addr << std::endl;
         std::cerr << std::hex << "instr: " << S->instr << std::endl;
         std::cout << "code: " << std::bitset<CODE_SIZE>(code) << std::endl;
         std::cout << "src1: " << std::bitset<SRC1_SIZE>(src1) << std::endl;

@@ -71,6 +71,31 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 				i++;
 			}
 
+	//Initialize memory
+	// Initialize instruction memory
+	ADDR_TYPE address = ADDR_INSTR;
+	while (!binStream.eof())
+	{
+		binStream.read(buffer.data(), buffer.size()); // Reading 32 bits at a time, buffer.data() is a 32bit array
+		streamsize s = binStream.gcount();			  // # of bits read
+		// cerr << "Streamsize: " << s << endl;
+		if (s == 0)
+		{
+			break; // Ensures stream size 0 reads do not get converted to memory (reached end of bitStream)
+		}
+		INSTR_TYPE binNo = 0;
+		int weight = s - 1;
+		for (auto it = buffer.begin(); it != buffer.end(); ++it, --weight)
+		{
+			if (*it == '1') // IMPORTANT: iterator is a pointer to a char so it must be verfied with a char ''
+			{
+				binNo += pow(2, weight);
+			}
+		}
+		imem[address]= binNo; // Inserting binary string to instruction memory
+		address += 1;
+	}
+
 		}
 	}
 	binStream.close();
