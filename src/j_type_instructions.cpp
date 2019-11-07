@@ -27,22 +27,22 @@ int j_type_instructions::execute()
     switch (code)
     {
     case 0x2:
-        // j(S, jdata);
+        // J(S, jdata);
         return 1;
     case 0x3:
-        //jal(S, jdata);
+        //JAL(S, jdata);
         return 1;
     default:
         return -12;
     }
 }
 
-// void j_type_instructions::j(State *&S, INSTR_TYPE &jdata)
+// void j_type_instructions::J(State *&S, INSTR_TYPE &jdata)
 // {
 //     cerr << "J" << endl;
 // }
 
-// void j_type_instructions::jal(State *&S, INSTR_TYPE &jdata)
+// void j_type_instructions::JAL(State *&S, INSTR_TYPE &jdata)
 // {
 //     cerr << "JAL" << endl;
 // }

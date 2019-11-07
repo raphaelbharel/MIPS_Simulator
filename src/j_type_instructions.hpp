@@ -28,9 +28,9 @@ public:
     }
     int execute();
     //COMPLEXITY 3
-    void j(State *&S, INSTR_TYPE &jdata);
+    void J(State *&S, INSTR_TYPE &jdata);
     //COMPLEXITY 4
-    void jal(State *&S, INSTR_TYPE &jdata);
+    void JAL(State *&S, INSTR_TYPE &jdata);
 
 private:
 };
