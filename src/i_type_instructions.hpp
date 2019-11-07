@@ -20,7 +20,7 @@ public:
 
     void display()
     {
-        std::cerr << "i_type_instruction state: " << std::endl;
+        std::cerr << "__i_type_instruction state__ " << std::endl;
         std::cerr << std::hex << "pc: " << S->pc << std::endl;
         std::cerr << std::hex << "npc: " << S->npc << std::endl;
         std::cerr << std::hex << "instr: " << S->instr << std::endl;

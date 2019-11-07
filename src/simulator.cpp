@@ -8,6 +8,7 @@ template <typename T>
 void __vertical_print_vector(const vector<T> &v);
 void __print_memory(const vector<MEM_TYPE> &v);
 char read_instruction(INSTR_TYPE &instruction);
+void __print_memory_specific(const vector<MEM_TYPE> &v, const int &start_index, const int &end_index);
 
 // MAIN
 int main(int argc /* argument count */, char *argv[] /* argument list */)
@@ -30,16 +31,7 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 	}
 	vector<BUFFER_TYPE> buffer(BUFFER_SIZE, 0);
 	vector<MEM_TYPE> mem_block; // vector of uint32_t holding memory
-	mem_block.resize(MEM_SIZE,0);
-
-	// vector<MEM_TYPE> reg;
-
-	// Initialize registers to 0
-	// static ADDR_TYPE address = ADDR_DATA;
-	// for (int i = 0; i < REGISTER_SIZE; i++, address += 4)
-	// {
-	// 	reg.emplace_back(make_pair(address, 0));
-	// }
+	mem_block.resize(MEM_SIZE, 0);
 
 	// Fill instruction memory
 	ADDR_TYPE address = ADDR_INSTR_OFFSET; //starting from 0x4000000
@@ -58,30 +50,29 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 		{
 			if (*it == '1') // IMPORTANT: iterator is a pointer to a char so it must be verfied with a char ''
 			{
-				binNo += pow(2, weight);
+				binNo += (1 << weight);
 			}
 		}
-		//imem.emplace_back(make_pair(address, binNo)); // Inserting binary string to instruction memory
 		mem_block[address] = binNo;
 		address += 1;
 	}
 
 	// Initialize state and instruction classes
 	State S(mem_block);
-	// S.display();
 	i_type_instructions i_instruction(S);
 	r_type_instructions r_instruction(S);
 	j_type_instructions j_instruction(S);
-	// i_instr.display();
-	// cerr << "TESTOUT: " << i_instr.code << endl;
-	// __print_memory(S.reg);
-	//__print_memory(mem_block);
 
 	// Executing instructions
-	for (int address = ADDR_INSTR_OFFSET; (address<ADDR_INSTR_OFFSET+ADDR_INSTR_LENGTH)&&(mem_block[S.pc]!=0); /*address++*/)
+	int executions = 0;
+	for (int address = ADDR_INSTR_OFFSET; (address < ADDR_INSTR_OFFSET + ADDR_INSTR_LENGTH) && (mem_block[S.pc] != 0); /*address++*/)
 	{
-			S.pc = S.npc; //currently the PC is offset from 0. Calibrate it to base.
-			S.instr = mem_block[S.pc];
+		S.pc = S.npc; //currently the PC is offset from 0. Calibrate it to base.
+		S.instr = mem_block[S.pc];
+		if (!S.instr) // If instruction is just 0 ie empty
+		{
+			break;
+		}
 
 		char instr_type = read_instruction(S.instr);
 		switch (instr_type)
@@ -94,21 +85,20 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 		case 'i':
 			i_instruction.display();
 			i_instruction.execute();
-
-			S.view_regs();
-			i_instruction.display();
-			i_instruction.execute();
-			S.view_regs();
 			break;
 		case 'j':
 			j_instruction.execute();
-			// j_instruction.display();	
+			// j_instruction.display();
 			break;
 		default:
 			cerr << "ERROR: FAILED TO READ INSTRUCTION." << endl;
 			exit(-10);
 		}
+		S.view_regs();
+		executions++;
 	}
+	cerr << "Executions: " << executions << endl;
+	__print_memory_specific(mem_block, ADDR_INSTR_OFFSET, ADDR_INSTR_OFFSET + executions);
 
 	return 0;
 } // END OF MAIN
@@ -142,10 +132,19 @@ void __vertical_print_vector(const vector<T> &v)
 	cerr << "] END" << endl;
 }
 
-void __print_memory(const vector<MEM_TYPE> &v)
+void __print_memory(const vector<MEM_TYPE> &v, const int &start_index, const int &end_index)
 {
 	cerr << "Printing vector of size " << v.size() << ":\nSTART [" << endl;
-	for (int index = 0; index<MEM_SIZE; index++)
+	for (int index = 0; index < MEM_SIZE; index++)
+	{
+		cerr << hex << index << ":" << v[index] << "\n";
+	}
+	cerr << "] END" << endl;
+}
+void __print_memory_specific(const vector<MEM_TYPE> &v, const int &start_index, const int &end_index)
+{
+	cerr << "Printing vector of size " << v.size() << ":\nSTART [" << endl;
+	for (int index = start_index; index < end_index; index++)
 	{
 		cerr << hex << index << ":" << v[index] << "\n";
 	}

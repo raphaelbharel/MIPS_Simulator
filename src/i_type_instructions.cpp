@@ -110,14 +110,15 @@ int i_type_instructions::execute()
 void i_type_instructions::addiu(State *&S, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
 {
     cerr << "ADDIU" << endl;
-    S->reg[dest] = S->reg[src1] + sx_idata;
-    S->display();
-    S->npc = S->pc+1;
+    S->reg[dest] = static_cast<uint32_t>(static_cast<uint32_t>(S->reg[src1]) + sx_idata);
+    S->npc = S->pc + 1;
 }
 
-// void i_type_instructions::andi(State *&S, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &idata)
-// {
-// }
+void i_type_instructions::andi(State *&S, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &idata)
+{
+    int32_t temp = S->reg[src1]; //register might contained signed number
+    S->npc = S->pc + 1;
+}
 // void i_type_instructions::beq(State *&S, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
 // {
 // }
