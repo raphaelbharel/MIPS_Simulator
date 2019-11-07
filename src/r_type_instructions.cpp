@@ -17,10 +17,10 @@ int r_type_instructions::execute()
     switch (func)
     {
     case 0x21:
-        void addu(S, src1, src2, dest, shift, func);
+        addu(S, src1, src2, dest, shift, func);
         return 1;
     case 0x44:
-        //void and(S, src1, src2, dest, shift, func);
+        AND(S, src1, src2, dest, shift, func);
         return 1;
     case 0x8:
         //jr(S, src1, src2, dest, shift, func);
@@ -104,6 +104,20 @@ int r_type_instructions::execute()
 
 // void r_type_instructions::jr(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &shift, INSTR_TYPE &func){
 
+// }
+
+void r_type_instructions::addu(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &shift, INSTR_TYPE &func)
+{
+    S->reg[dest] = static_cast<uint32_t>(S->reg[src1]) + static_cast<uint32_t>(S->reg[src2]);
+    S->npc = S->pc + 1;
+}
+void r_type_instructions::AND(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &shift, INSTR_TYPE &func)
+{
+    S->reg[dest] = S->reg[src1] & S->reg[src2];
+    S->npc = S->pc + 1;
+}
+// void r_type_instructions::jr(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &shift, INSTR_TYPE &func)
+// {
 //     if(S.reg[src1] % 4 != 0){
 // 	    cerr << "Address Error Exception: target address in src1";
 // 	}
@@ -111,4 +125,69 @@ int r_type_instructions::execute()
 // 		s.npc = s.reg[rs] / 4;
 // 	}
 
+// }
+// void r_type_instructions:: or (State * &S, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &shift, INSTR_TYPE &func)
+// {
+// }
+// void r_type_instructions::sltu(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &shift, INSTR_TYPE &func)
+// {
+// }
+// void r_type_instructions::subu()
+// {
+// }
+// void r_type_instructions:: xor () {
+
+// } void r_type_instructions::add(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &shift, INSTR_TYPE &func)
+// {
+// }
+// void r_type_instructions::sll(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &shift, INSTR_TYPE &func)
+// {
+// }
+// void r_type_instructions::slt(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &shift, INSTR_TYPE &func)
+// {
+// }
+// void r_type_instructions::sra(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &shift, INSTR_TYPE &func)
+// {
+// }
+// void r_type_instructions::srav(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &shift, INSTR_TYPE &func)
+// {
+// }
+// void r_type_instructions::srl(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &shift, INSTR_TYPE &func)
+// {
+// }
+// void r_type_instructions::sub(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &shift, INSTR_TYPE &func)
+// {
+// }
+// void r_type_instructions::mfhi(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &shift, INSTR_TYPE &func)
+// {
+// }
+// void r_type_instructions::mflo(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &shift, INSTR_TYPE &func)
+// {
+// }
+// void r_type_instructions::mthi(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &shift, INSTR_TYPE &func)
+// {
+// }
+// void r_type_instructions::mtlo(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &shift, INSTR_TYPE &func)
+// {
+// }
+// void r_type_instructions::sllv(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &shift, INSTR_TYPE &func)
+// {
+// }
+// void r_type_instructions::srlv(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &shift, INSTR_TYPE &func)
+// {
+// }
+// void r_type_instructions::div(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &shift, INSTR_TYPE &func)
+// {
+// }
+// void r_type_instructions::divu(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &shift, INSTR_TYPE &func)
+// {
+// }
+// void r_type_instructions::jalr(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &shift, INSTR_TYPE &func)
+// {
+// }
+// void r_type_instructions::mult(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &shift, INSTR_TYPE &func)
+// {
+// }
+// void r_type_instructions::multu(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &shift, INSTR_TYPE &func)
+// {
 // }
