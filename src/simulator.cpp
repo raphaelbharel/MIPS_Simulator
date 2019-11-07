@@ -66,6 +66,7 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 	int executions = 0;
 	for (int address = ADDR_INSTR_OFFSET; (address < ADDR_INSTR_OFFSET + ADDR_INSTR_LENGTH) && (mem_block[S.pc] != 0); /*address++*/)
 	{
+		S.reg[0] = 0; // $0 is always 0 on every clock cycle
 		S.pc = S.npc; //currently the PC is offset from 0. Calibrate it to base.
 		S.instr = mem_block[S.pc];
 		if (!S.instr) // If instruction is just 0 ie empty
@@ -78,15 +79,12 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 		{
 		case 'r':
 			r_instruction.execute();
-			// r_instruction.display();
-
 			break;
 		case 'i':
 			i_instruction.execute();
 			break;
 		case 'j':
 			j_instruction.execute();
-			// j_instruction.display();
 			break;
 		default:
 			cerr << "ERROR: FAILED TO READ INSTRUCTION." << endl;
