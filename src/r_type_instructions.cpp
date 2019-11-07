@@ -43,7 +43,7 @@ int r_type_instructions::execute()
         // ADD(S, src1, src2, dest, shift, func);
         return 1;
     case 0X0:
-        // SLL(S, src1, src2, dest, shift, func);
+        SLL(S, src1, src2, dest, shift, func);
         return 1;
     case 0X2A:
         // SLT(S, src1, src2, dest, shift, func);
@@ -114,6 +114,27 @@ void r_type_instructions::AND(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INS
     S->reg[dest] = S->reg[src1] & S->reg[src2];
     S->npc = S->pc + 1;
 }
+
+void r_type_instructions::JR(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &shift, INSTR_TYPE &func){
+    if(S->reg[src1] % 4 != 0){
+	    cerr << "Address Error Exception: target address in src1";
+	}
+	else{
+		S->npc = S->reg[src1] / 4;
+	}
+}
+
+void r_type_instructions::SLL(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &shift, INSTR_TYPE &func){
+    cerr << "SLL" << endl;
+    S->reg[dest] = S->reg[src2] << shift;
+    S->npc = S->pc + 1;
+}
+
+// void r_type_instructions::OR(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &shift, INSTR_TYPE &func)
+// {
+//     cerr << "OR" << endl;
+// }
+
 void r_type_instructions::OR(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &shift, INSTR_TYPE &func)
 {
     cerr << "OR" << endl;
