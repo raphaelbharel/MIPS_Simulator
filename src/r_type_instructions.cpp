@@ -4,14 +4,7 @@ using namespace std;
 
 int r_type_instructions::execute()
 {
-    /*
-	Opcode - 6 bits
-	Source 1 - 5 bits
-  Source 2 - 5 bits
-	Dest - 5 bits
-  Shift - 5 bits
-  Function - 6 bits
-	*/
+    /* Opcode - 6 bits, Source 1 - 5 bits, Source 2 - 5 bits, Dest - 5 bits, Shift - 5 bits, Function - 6 bits */
 
     cerr << ">> Executing R type instruction ";
     code = (S->instr & 0xFC000000) >> 26; //right shift 26
@@ -24,7 +17,7 @@ int r_type_instructions::execute()
     switch (func)
     {
     case 0x21:
-        //void addu(S, src1, src2, dest, shift, func);
+        void addu(S, src1, src2, dest, shift, func);
         return 1;
     case 0x44:
         //void and(S, src1, src2, dest, shift, func);
@@ -109,7 +102,7 @@ int r_type_instructions::execute()
     }
 }
 
-// void r_type_instructions::jr(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &shift, INSTR_TYPE &func){    
+// void r_type_instructions::jr(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &shift, INSTR_TYPE &func){
 
 //     if(S.reg[src1] % 4 != 0){
 // 	    cerr << "Address Error Exception: target address in src1";
