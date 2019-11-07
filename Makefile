@@ -53,8 +53,12 @@ simulator3: bin/mips_simulator src/test3.bin
 
 simulator4: bin/mips_simulator src/test4.bin
 	./bin/mips_simulator src/test4.bin
+
 simulator_addiu1: bin/mips_simulator src/addiu_1.bin
 	./bin/mips_simulator src/addiu_1.bin
+
+simulator_addiu2: bin/mips_simulator src/addiu_2.bin
+	./bin/mips_simulator src/addiu_2.bin
 
 #TESTBENCH
 

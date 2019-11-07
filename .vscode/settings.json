@@ -3,7 +3,8 @@
     "fstream": "cpp",
     "string": "cpp",
     "ostream": "cpp",
-    "ios": "cpp"
+    "ios": "cpp",
+    "iostream": "cpp"
   },
   "C_Cpp.errorSquiggles": "Disabled"
 }
