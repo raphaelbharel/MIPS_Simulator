@@ -60,12 +60,6 @@ simulator_addiu1: bin/mips_simulator src/addiu_1.bin
 simulator_addiu2: bin/mips_simulator src/addiu_2.bin
 	./bin/mips_simulator src/addiu_2.bin
 
-<<<<<<< HEAD
-=======
-simulator_test_input: bin/mips_simulator src/test_input.bin
-	./bin/mips_simulator src/test_input.bin
-
->>>>>>> ab3574db65d18a38b67532e51d8324b942e5eaed
 #TESTBENCH
 
 # Dummy for build testbench to conform to spec. Could do nothing. 

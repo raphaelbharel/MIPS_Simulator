@@ -8,11 +8,7 @@ template <typename T>
 void __vertical_print_vector(const vector<T> &v);
 void __print_memory(const vector<MEM_TYPE> &v);
 char read_instruction(INSTR_TYPE &instruction);
-<<<<<<< HEAD
 void __print_memory_specific(const vector<MEM_TYPE> &v, const int &start_index, const int &end_index);
-=======
-int get_index_from_addr(const uint32_t &addr, vector<pair<uint32_t, uint32_t>> &v);
->>>>>>> ab3574db65d18a38b67532e51d8324b942e5eaed
 
 // MAIN
 int main(int argc /* argument count */, char *argv[] /* argument list */)
@@ -34,18 +30,11 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 		return 1;
 	}
 	vector<BUFFER_TYPE> buffer(BUFFER_SIZE, 0);
-<<<<<<< HEAD
 	vector<MEM_TYPE> mem_block; // vector of uint32_t holding memory
 	mem_block.resize(MEM_SIZE); //or , 0xFC000000
 
 	// Fill instruction memory
 	ADDR_TYPE address = ADDR_INSTR_OFFSET; //starting from 0x4000000
-=======
-	vector<MEM_TYPE> imem; // Nx2 matrix of <i`nstruction, address> pairs
-
-	// Initialize instruction memory
-	ADDR_TYPE address = ADDR_INSTR;
->>>>>>> ab3574db65d18a38b67532e51d8324b942e5eaed
 	while (!binStream.eof())
 	{
 		binStream.read(buffer.data(), buffer.size()); // Reading 32 bits at a time, buffer.data() is a 32bit array
@@ -72,11 +61,6 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 	i_type_instructions i_instruction(S);
 	r_type_instructions r_instruction(S);
 	j_type_instructions j_instruction(S);
-<<<<<<< HEAD
-=======
-
-	// __print_memory(imem);
->>>>>>> ab3574db65d18a38b67532e51d8324b942e5eaed
 
 	// Executing instructions
 	int executions = 0;
@@ -99,13 +83,6 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 			break;
 		case 'i':
 			i_instruction.execute();
-<<<<<<< HEAD
-=======
-			i_instruction.display();
-			S.view_regs();
-			S.view_imem();
-
->>>>>>> ab3574db65d18a38b67532e51d8324b942e5eaed
 			break;
 		case 'j':
 			j_instruction.execute();

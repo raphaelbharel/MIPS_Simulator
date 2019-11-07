@@ -35,6 +35,7 @@ typedef uint32_t INSTR_TYPE;
 typedef uint32_t ADDR_TYPE;
 typedef char BUFFER_TYPE;
 typedef uint32_t MEM_TYPE;
+typedef int32_t REG_TYPE;
 
 class State
 {
@@ -42,25 +43,13 @@ public:
     ADDR_TYPE pc;
     ADDR_TYPE npc;
     INSTR_TYPE instr;
-<<<<<<< HEAD
-    std::vector<INSTR_TYPE> reg;
+    std::vector<REG_TYPE> reg;
     State(std::vector<MEM_TYPE> &mem_block)
     {
         pc = ADDR_INSTR_OFFSET; // PC starts at beginning of executable memory
         npc = ADDR_INSTR_OFFSET;
         instr = mem_block[ADDR_INSTR_OFFSET]; //start from first
-=======
-    std::vector<MEM_TYPE> reg;
-    std::vector<MEM_TYPE> *imem_ptr;
-    State(std::vector<MEM_TYPE> &imem)
-    {
-        imem_ptr = &imem;
-        pc = ADDR_INSTR; // PC starts at beginning of executable memory
-        npc = ADDR_INSTR + 4;
-        addr = imem[0].first;
-        instr = imem[0].second;
->>>>>>> ab3574db65d18a38b67532e51d8324b942e5eaed
-        initialize_regs();
+        reg.resize(REGISTER_SIZE, 0);
     }
     void display()
     {
@@ -69,41 +58,13 @@ public:
         std::cerr << std::hex << "npc: " << npc << std::endl;
         std::cerr << std::hex << "instr: " << instr << std::endl;
     }
-    void initialize_regs()
-    {
-        //ADDR_TYPE address = ADDR_DATA_OFFSET; //place on mem_block?
-        for (int i = 0; i < REGISTER_SIZE; i++)
-        {
-            reg.push_back(0);
-        }
-        reg.resize(32);
-    }
 
     void view_regs()
     {
-<<<<<<< HEAD
         std::cerr << "__REGISTERS__" << std::endl;
         for (int index = 0; index < REGISTER_SIZE; index++)
         {
             std::cerr << "$" << index << " : " << reg[index] << std::endl;
-=======
-        int index = 0;
-        std::cerr << "__REGISTERS__" << std::endl;
-        for (auto it : reg)
-        {
-            std::cerr << std::hex << "$" << index << " : " << it.first << " : " << it.second << std::endl;
-            index++;
-        }
-    }
-    void view_imem()
-    {
-        int index = 0;
-        std::cerr << "__IMEM__" << std::endl;
-        for (auto it : *imem_ptr)
-        {
-            std::cerr << std::hex << "#" << index << " : " << it.first << " : " << it.second << std::endl;
-            index++;
->>>>>>> ab3574db65d18a38b67532e51d8324b942e5eaed
         }
     }
     void update()

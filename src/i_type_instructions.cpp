@@ -29,7 +29,7 @@ int i_type_instructions::execute()
     switch (code)
     {
     case 0x8:
-        //addi(S, src1, dest, sx_idata);
+        // addi(S, src1, dest, sx_idata);
         return 1;
     case 0x9:
         addiu(S, src1, dest, sx_idata);
@@ -110,28 +110,16 @@ int i_type_instructions::execute()
 void i_type_instructions::addiu(State *&S, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
 {
     cerr << "ADDIU" << endl;
-<<<<<<< HEAD
     S->reg[dest] = static_cast<uint32_t>(static_cast<uint32_t>(S->reg[src1]) + sx_idata);
     S->npc = S->pc + 1;
 }
 
-// void i_type_instructions::andi(State *&S, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &idata)
-// {
-//     int32_t temp = S->reg[src1]; //register might contained signed number
-//     S->npc = S->pc + 1;
-// }
-
-=======
-    S->reg[dest].second = S->reg[src1].second + sx_idata;
-    // S->display();
-}
-
 void i_type_instructions::andi(State *&S, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &idata)
 {
-    cerr << "ANDI" << endl;
-    S->reg[dest].second = (S->reg[src1].second & idata);
+    int32_t temp = S->reg[src1]; //register might contained signed number
+    S->npc = S->pc + 1;
 }
->>>>>>> ab3574db65d18a38b67532e51d8324b942e5eaed
+
 // void i_type_instructions::beq(State *&S, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
 // {
 // }

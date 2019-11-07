@@ -27,7 +27,7 @@ int j_type_instructions::execute()
     switch (code)
     {
     case 0x2:
-       // j(S, jdata);
+        // j(S, jdata);
         return 1;
     case 0x3:
         //jal(S, jdata);
