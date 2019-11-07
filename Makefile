@@ -33,13 +33,15 @@ MIPS_LDFLAGS = -nostdlib -Wl,-melf32btsmip -march=mips1 -nostartfiles -mno-check
 %.mips.s : %.mips.elf
 	$(MIPS_OBJDUMP) -j .text -D $< > $@
 
-
-#SIMULATOR
-
+#----------------------------------------------------
+#SIMULATOR											 
+#----------------------------------------------------
 # Build simulator, write output file in bin folder as mips_simulator
-bin/mips_simulator: src/simulator.cpp src/r_type_instructions.cpp src/i_type_instructions.cpp  src/j_type_instructions.cpp
+
+SRC_FILES = src/simulator.cpp src/r_type_instructions.cpp src/i_type_instructions.cpp  src/j_type_instructions.cpp
+bin/mips_simulator: $(SRC_FILES)
 	mkdir -p bin
-	$(CC) $(CPPFLAGS) src/simulator.cpp src/r_type_instructions.cpp src/i_type_instructions.cpp  src/j_type_instructions.cpp -o bin/mips_simulator
+	$(CC) $(CPPFLAGS) $(SRC_FILES) -o bin/mips_simulator
 
 # Dummy for build simulator to conform to spec
 simulator1: bin/mips_simulator src/test1.bin
@@ -64,6 +66,8 @@ simulator_sll: bin/mips_simulator src/sll.bin
 	./bin/mips_simulator src/sll.bin
 
 #TESTBENCH
+#----------------------------------------------------
+
 
 # Dummy for build testbench to conform to spec. Could do nothing. 
 testbench: 

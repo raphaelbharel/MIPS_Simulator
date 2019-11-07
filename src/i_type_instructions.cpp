@@ -102,10 +102,12 @@ int i_type_instructions::execute()
     }
 }
 
-// void i_type_instructions::addi(State *&S, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
-// {
-//     cerr << "ADDI" << endl;
-// }
+void i_type_instructions::ADDI(State *&S, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
+{
+    cerr << "ADDI" << endl;
+
+    S->npc = S->pc + 1;
+}
 
 void i_type_instructions::ADDIU(State *&S, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
 {
