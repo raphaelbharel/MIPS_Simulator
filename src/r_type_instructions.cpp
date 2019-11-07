@@ -30,7 +30,7 @@ int r_type_instructions::execute()
         //void and(S, src1, src2, dest, shift, func);
         return 1;
     case 0x8:
-        // jr(S, src1, src2, dest, shift, func);
+        //jr(S, src1, src2, dest, shift, func);
         return 1;
     case 0x25:
         // or(S, src1, src2, dest, shift, func);
@@ -108,3 +108,14 @@ int r_type_instructions::execute()
         return -12;
     }
 }
+
+// void r_type_instructions::jr(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &shift, INSTR_TYPE &func){    
+
+//     if(S.reg[src1] % 4 != 0){
+// 	    cerr << "Address Error Exception: target address in src1";
+// 	}
+// 	else{
+// 		s.npc = s.reg[rs] / 4;
+// 	}
+
+// }

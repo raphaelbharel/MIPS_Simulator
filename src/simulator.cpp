@@ -31,7 +31,7 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 	}
 	vector<BUFFER_TYPE> buffer(BUFFER_SIZE, 0);
 	vector<MEM_TYPE> mem_block; // vector of uint32_t holding memory
-	mem_block.resize(MEM_SIZE, 0);
+	mem_block.resize(MEM_SIZE); //or , 0xFC000000
 
 	// Fill instruction memory
 	ADDR_TYPE address = ADDR_INSTR_OFFSET; //starting from 0x4000000
@@ -132,7 +132,7 @@ void __vertical_print_vector(const vector<T> &v)
 	cerr << "] END" << endl;
 }
 
-void __print_memory(const vector<MEM_TYPE> &v, const int &start_index, const int &end_index)
+void __print_memory(const vector<MEM_TYPE> &v)
 {
 	cerr << "Printing vector of size " << v.size() << ":\nSTART [" << endl;
 	for (int index = 0; index < MEM_SIZE; index++)
