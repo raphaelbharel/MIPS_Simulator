@@ -79,7 +79,6 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 		case 'r':
 			r_instruction.execute();
 			// r_instruction.display();
-
 			break;
 		case 'i':
 			i_instruction.execute();
