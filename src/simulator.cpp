@@ -79,6 +79,10 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 		{
 		case 'r':
 			r_instruction.execute();
+<<<<<<< HEAD
+=======
+			// r_instruction.display();
+>>>>>>> 67c00716a333a732481ed6c0e35b44ed4b5e034e
 			break;
 		case 'i':
 			i_instruction.execute();

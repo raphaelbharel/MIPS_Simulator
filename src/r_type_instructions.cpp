@@ -114,23 +114,23 @@ void r_type_instructions::AND(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INS
     S->reg[dest] = S->reg[src1] & S->reg[src2];
     S->npc = S->pc + 1;
 }
-// void r_type_instructions::JR(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &shift, INSTR_TYPE &func)
-// {
-//     cerr << "JR" << endl;
-//     if (S->reg[src1] % 4 != 0)
-//     {
-//         cerr << "Address Error Exception: target address in src1";
-//     }
-//     else
-//     {
-//         S->npc = S->reg[rs] / 4;
-//     }
-// }
 void r_type_instructions::OR(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &shift, INSTR_TYPE &func)
 {
     cerr << "OR" << endl;
     S->reg[dest] = S->reg[src1] | S->reg[src2];
     S->npc = S->pc + 1;
+}
+
+void r_type_instructions::JR(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &shift, INSTR_TYPE &func)
+{
+    if (S->reg[src1] % 4 != 0)
+    {
+        cerr << "Address Error Exception: target address in src1";
+    }
+    else
+    {
+        S->npc = S->reg[rs] / 4;
+    }
 }
 // void r_type_instructions::SLTU(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &shift, INSTR_TYPE &func)
 // {
