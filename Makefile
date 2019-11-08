@@ -39,11 +39,14 @@ MIPS_LDFLAGS = -nostdlib -Wl,-melf32btsmip -march=mips1 -nostartfiles -mno-check
 # Build simulator, write output file in bin folder as mips_simulator
 
 SRC_FILES = src/simulator.cpp src/r_type_instructions.cpp src/i_type_instructions.cpp  src/j_type_instructions.cpp
+
 bin/mips_simulator: $(SRC_FILES)
 	mkdir -p bin
 	$(CC) $(CPPFLAGS) $(SRC_FILES) -o bin/mips_simulator
 
 # Dummy for build simulator to conform to spec
+simulator: bin/mips_simulator
+
 simulator1: bin/mips_simulator src/test1.bin
 	./bin/mips_simulator src/test1.bin
 	
