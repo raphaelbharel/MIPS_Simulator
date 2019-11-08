@@ -123,13 +123,14 @@ void r_type_instructions::OR(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INST
 
 void r_type_instructions::JR(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest)
 {
-    if (S->reg[src1] % 4 != 0)
+    cerr << "JR" << endl;
+    // if (S->reg[src1] % 4 != 0)
+    // {
+    //     cerr << "Address Error Exception: target address in src1";
+    // }
+    // else
     {
-        cerr << "Address Error Exception: target address in src1";
-    }
-    else
-    {
-        S->npc = S->reg[src1] >> 2;
+        S->npc = S->reg[src1];
     }
 }
 
@@ -163,10 +164,6 @@ void r_type_instructions::ADD(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INS
     S->npc = S->pc + 1;
 }
 
-// void r_type_instructions::ALL(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &shift, INSTR_TYPE &func)
-// {
-//     cerr << "ALL" << endl;
-// }
 // void r_type_instructions::SLT(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &shift, INSTR_TYPE &func)
 // {
 //     cerr << "SLT" << endl;

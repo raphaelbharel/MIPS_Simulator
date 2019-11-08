@@ -65,6 +65,9 @@ simulator_addiu2: bin/mips_simulator src/addiu_2.bin
 simulator_sll: bin/mips_simulator src/sll.bin
 	./bin/mips_simulator src/sll.bin
 
+simulator_jr: bin/mips_simulator src/jr_1.bin
+	./bin/mips_simulator src/jr_1.bin
+
 #----------------------------------------------------
 #TESTBENCH
 #----------------------------------------------------

@@ -94,7 +94,8 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 		executions++;
 	}
 	cerr << "Executions: " << executions << endl;
-	__print_memory_specific(mem_block, ADDR_INSTR_OFFSET, ADDR_INSTR_OFFSET + executions);
+	//__print_memory(mem_block);
+	__print_memory_specific(mem_block, ADDR_INSTR_OFFSET, ADDR_INSTR_OFFSET + 10/*executions*/);
 
 	return 0;
 } // END OF MAIN
