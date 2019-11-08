@@ -15,7 +15,7 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 {
 	if (argc != 2)
 	{
-		cerr << "ERROR: Incorrect number of arguments: " << endl;
+		//cerr << "ERROR: Incorrect number of arguments: " << endl;
 		cerr << argv[0] << ":" << argv[1] << endl;
 		return 1;
 	}
@@ -76,29 +76,32 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 
 		char instr_type = read_instruction(C.instr);
 
-		int exit_code;
-
 		switch (instr_type)
 		{
 		case 'r':
-			exit_code = r_instruction.execute();
+			r_instruction.execute();
 			break;
 		case 'i':
-			exit_code = i_instruction.execute();
+			i_instruction.execute();
 			break;
 		case 'j':
-			exit_code = j_instruction.execute();
+			j_instruction.execute();
 			break;
 		default:
-			cerr << "ERROR: INVALID INSTRUCTION." << endl;
+			//cerr << "ERROR: INVALID INSTRUCTION." << endl;
 			exit(-12);
 		}
-		C.view_regs();
+		//C.view_regs();
 		executions++;
 	}
-	cerr << "Executions: " << executions << endl;
+	//cerr << "Executions: " << executions << endl;
 	//__print_memory(mem_block);
-	__print_memory_specific(mem_block, ADDR_INSTR_OFFSET, ADDR_INSTR_OFFSET + 10 /*executions*/);
+	//__print_memory_specific(mem_block, ADDR_INSTR_OFFSET, ADDR_INSTR_OFFSET + 10 /*executions*/);
+
+	 //Successful termination/completion = return low 8-bits of the value in register $2.
+    INSTR_TYPE exit_code = C.reg[2] & 0xFF;
+    // cout<<"return "<<exit_code<<endl;
+    exit(exit_code);
 
 	return 0;
 } // END OF MAIN
@@ -128,7 +131,7 @@ int get_index_from_addr(const uint32_t &addr, vector<pair<uint32_t, uint32_t>> &
 			return i;
 		}
 	}
-	cerr << "ERROR: Invalid memory address in memory block." << endl;
+	//cerr << "ERROR: Invalid memory address in memory block." << endl;
 	exit(-10); // Could not find address
 }
 

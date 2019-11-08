@@ -6,7 +6,7 @@ int r_type_instructions::execute()
 {
     /* Opcode - 6 bits, Source 1 - 5 bits, Source 2 - 5 bits, Dest - 5 bits, Shift - 5 bits, Function - 6 bits */
 
-    cerr << ">> Executing R type instruction ";
+    //cerr << ">> Executing R type instruction ";
     code = (C->instr & 0xFC000000) >> 26; //right shift 26
     src1 = (C->instr & 0x3E00000) >> 21;
     src2 = (C->instr & 0x1F0000) >> 16;
@@ -98,35 +98,36 @@ int r_type_instructions::execute()
         // MULTU(C, src1, src2, dest, shift, func);
         return 1;
     default:
+        exit(-12);
         return -12;
     }
 }
 
 void r_type_instructions::ADDU(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest)
 {
-    cerr << "ADDU" << endl;
+    //cerr << "ADDU" << endl;
     C->reg[dest] = static_cast<uint32_t>(static_cast<uint32_t>(C->reg[src1]) + static_cast<uint32_t>(C->reg[src2]));
     C->npc = C->pc + 1;
 }
 void r_type_instructions::AND(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest)
 {
-    cerr << "AND" << endl;
+    //cerr << "AND" << endl;
     C->reg[dest] = C->reg[src1] & C->reg[src2];
     C->npc = C->pc + 1;
 }
 void r_type_instructions::OR(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest)
 {
-    cerr << "OR" << endl;
+    //cerr << "OR" << endl;
     C->reg[dest] = C->reg[src1] | C->reg[src2];
     C->npc = C->pc + 1;
 }
 
 void r_type_instructions::JR(CPU *&C, INSTR_TYPE &src1)
 {
-    cerr << "JR" << endl;
+    //cerr << "JR" << endl;
     if (C->reg[src1] % 4 != 0)
     {
-        cerr << "Address Error Exception: Invalid instruction";
+        //cerr << "Address Error Exception: Invalid instruction";
         exit(-12);
     }
     else
@@ -136,31 +137,31 @@ void r_type_instructions::JR(CPU *&C, INSTR_TYPE &src1)
 }
 
 void r_type_instructions::SLL(CPU *&C, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &shift){
-    cerr << "SLL" << endl;
+    ////cerr << "SLL" << endl;
     C->reg[dest] = C->reg[src2] << shift;
     C->npc = C->pc + 1;
 }
 
 // void r_type_instructions::SLTU(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &shift, INSTR_TYPE &func)
 // {
-//     cerr << "SLTU" << endl;
+//     ////cerr << "SLTU" << endl;
 // }
 
 void r_type_instructions::SUBU(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest)
 {
-    cerr << "SUBU" << endl;
+    //cerr << "SUBU" << endl;
     C->reg[dest] = static_cast<uint32_t>(static_cast<uint32_t>(C->reg[src1]) - static_cast<uint32_t>(C->reg[src2]));
     C->npc = C->pc + 1;
 }
 void r_type_instructions::XOR(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest)
 {
-    cerr << "XOR" << endl;
+    //cerr << "XOR" << endl;
     C->reg[dest] = C->reg[src1] ^ C->reg[src2];
     C->npc = C->pc + 1;
 }
 void r_type_instructions::ADD(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest)
 {
-    cerr << "ADD" << endl;
+    //cerr << "ADD" << endl;
     C->reg[dest] = C->reg[src1] + C->reg[src2]; // TODO, OVERFLOWS
     C->npc = C->pc + 1;
 }

@@ -9,7 +9,7 @@ int j_type_instructions::execute()
 	Address data - 26 bits
 	*/
 
-    cerr << ">> Executing J type instruction ";
+    //cerr << ">> Executing J type instruction ";
     code = (C->instr & 0xFC000000) >> 26;
     jdata = (C->instr & 0x3EFFFFF);
 
