@@ -1,8 +1,6 @@
 #include <iostream>
 #include <cstdlib>
-#include "instruction_class.h"
-#include "r_type_instruction.h"
-#include <map>
+#include <vector>
 #define ADDR_INSTR 0x10000000
 #define ADDR_INSTR_LENGTH 0x1000000
 using namespace std;
@@ -12,29 +10,15 @@ int main()
 {
 
     uint32_t testbinary = 0b00000010101010101111100000101010;
-    map<int, pair<Instruction, uint32_t>> imem;
-
-    char instr_type = get_instruction_type(testbinary);
-    cerr << "Type: " << instr_type << endl;
-    if (instr_type == 'r')
-    {
-        R_type_instruction instruction(testbinary);
-        pair<Instruction, uint32_t> testpair(instruction, 0xFFFFFFFF);
-        imem.emplace(1, testpair);
-    }
-    else if (instr_type == 'i')
-    {
-        /* code */
-    }
-    else if (instr_type == 'j')
-    {
-        /* code */
-    }
-    else
-    {
-        exit(-10);
-    }
-    return 0;
+    vector<int32_t> reg;
+    reg.resize(32, 0);
+    // LOAD REGISTERS
+    reg[1] = 0x9FFFFFFF;
+    reg[2] = 0x9FFFFFFF;
+    int32_t temp = reg[1] + reg[2];
+    // OPERATION
+    cout << reg[1] << " + " << reg[2] << endl;
+    cout << "OUTPUT: " << temp << endl;
 }
 
 char get_instruction_type(uint32_t &instruction)

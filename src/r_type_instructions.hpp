@@ -63,6 +63,34 @@ public:
     void JALR(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &shift, INSTR_TYPE &func);
     void MULT(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &shift, INSTR_TYPE &func);
     void MULTU(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &shift, INSTR_TYPE &func);
+    void ADDU(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest);
+    void AND(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest);
+    void JR(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest);
+    void OR(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest);
+    // void SLTU(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &shift, INSTR_TYPE &func);
+    void SUBU(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest);
+    // //COMPLEXITY 2
+    void XOR(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest);
+    void ADD(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest);
+    // void ALL(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &shift, INSTR_TYPE &func);
+    // void SLT(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &shift, INSTR_TYPE &func);
+    // void SRA(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &shift, INSTR_TYPE &func);
+    // void SRAV(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &shift, INSTR_TYPE &func);
+    // void SRL(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &shift, INSTR_TYPE &func);
+    // void SUB(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &shift, INSTR_TYPE &func);
+    // //COMPLEXITY 3
+    // void MFHI(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &shift, INSTR_TYPE &func);
+    // void MFLO(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &shift, INSTR_TYPE &func);
+    // void MTHI(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &shift, INSTR_TYPE &func);
+    // void MTLO(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &shift, INSTR_TYPE &func);
+    // void SLLV(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &shift, INSTR_TYPE &func);
+    // void SRLV(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &shift, INSTR_TYPE &func);
+    // //COMPLEXITY 4
+    // void DIV(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &shift, INSTR_TYPE &func);
+    // void DIVU(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &shift, INSTR_TYPE &func);
+    // void JALR(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &shift, INSTR_TYPE &func);
+    // void MULT(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &shift, INSTR_TYPE &func);
+    // void MULTU(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &shift, INSTR_TYPE &func);
 
 private:
 };

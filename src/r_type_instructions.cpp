@@ -17,16 +17,16 @@ int r_type_instructions::execute()
     switch (func)
     {
     case 0x21:
-        ADDU(S, src1, src2, dest, shift, func);
+        ADDU(S, src1, src2, dest);
         return 1;
     case 0x44:
-        AND(S, src1, src2, dest, shift, func);
+        AND(S, src1, src2, dest);
         return 1;
     case 0X8:
-        //JR(S, src1, src2, dest, shift, func);
+        JR(S, src1, src2, dest);
         return 1;
     case 0X25:
-        // OR(S, src1, src2, dest, shift, func);
+        OR(S, src1, src2, dest);
         return 1;
     case 0X2B:
         // SLTU(S, src1, src2, dest, shift, func);
@@ -102,26 +102,26 @@ int r_type_instructions::execute()
     }
 }
 
-void r_type_instructions::ADDU(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &shift, INSTR_TYPE &func)
+void r_type_instructions::ADDU(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest)
 {
     cerr << "ADDU" << endl;
     S->reg[dest] = static_cast<uint32_t>(static_cast<uint32_t>(S->reg[src1]) + static_cast<uint32_t>(S->reg[src2]));
     S->npc = S->pc + 1;
 }
-void r_type_instructions::AND(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &shift, INSTR_TYPE &func)
+void r_type_instructions::AND(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest)
 {
     cerr << "AND" << endl;
     S->reg[dest] = S->reg[src1] & S->reg[src2];
     S->npc = S->pc + 1;
 }
-void r_type_instructions::OR(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &shift, INSTR_TYPE &func)
+void r_type_instructions::OR(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest)
 {
     cerr << "OR" << endl;
     S->reg[dest] = S->reg[src1] | S->reg[src2];
     S->npc = S->pc + 1;
 }
 
-void r_type_instructions::JR(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &shift, INSTR_TYPE &func)
+void r_type_instructions::JR(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest)
 {
     if (S->reg[src1] % 4 != 0)
     {
@@ -129,7 +129,7 @@ void r_type_instructions::JR(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INST
     }
     else
     {
-        S->npc = S->reg[src1] / 4;
+        S->npc = S->reg[src1] >> 2;
     }
 }
 
@@ -143,18 +143,26 @@ void r_type_instructions::SLL(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INS
 // {
 //     cerr << "SLTU" << endl;
 // }
-// void r_type_instructions::SUBU(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &shift, INSTR_TYPE &func)
-// {
-//     cerr << "SUBU" << endl;
-// }
-// void r_type_instructions::XOR(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &shift, INSTR_TYPE &func)
-// {
-//     cerr << "XOR" << endl;
-// }
-// void r_type_instructions::ADD(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &shift, INSTR_TYPE &func)
-// {
-//     cerr << "ADD" << endl;
-// }
+
+void r_type_instructions::SUBU(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest)
+{
+    cerr << "SUBU" << endl;
+    S->reg[dest] = static_cast<uint32_t>(static_cast<uint32_t>(S->reg[src1]) - static_cast<uint32_t>(S->reg[src2]));
+    S->npc = S->pc + 1;
+}
+void r_type_instructions::XOR(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest)
+{
+    cerr << "XOR" << endl;
+    S->reg[dest] = S->reg[src1] ^ S->reg[src2];
+    S->npc = S->pc + 1;
+}
+void r_type_instructions::ADD(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest)
+{
+    cerr << "ADD" << endl;
+    S->reg[dest] = S->reg[src1] + S->reg[src2]; // TODO, OVERFLOWS
+    S->npc = S->pc + 1;
+}
+
 // void r_type_instructions::ALL(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &shift, INSTR_TYPE &func)
 // {
 //     cerr << "ALL" << endl;

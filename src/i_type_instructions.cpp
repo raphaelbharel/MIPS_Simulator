@@ -29,7 +29,7 @@ int i_type_instructions::execute()
     switch (code)
     {
     case 0X8:
-        // ADDI(S, src1, dest, sx_idata);
+        ADDI(S, src1, dest, sx_idata);
         return 1;
     case 0X9:
         ADDIU(S, src1, dest, sx_idata);
@@ -105,8 +105,17 @@ int i_type_instructions::execute()
 void i_type_instructions::ADDI(State *&S, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
 {
     cerr << "ADDI" << endl;
-
-    S->npc = S->pc + 1;
+    if (((S->reg[src1] < 0) && (sx_idata < 0) && (S->reg[src1] + sx_idata >= 0)) ||
+        ((S->reg[src1] > 0) && (sx_idata > 0) && (S->reg[src1] + sx_idata <= 0)))
+    {
+        throw "Exception: Arithmetic Overflow!";
+        exit(-10);
+    }
+    else
+    {
+        S->reg[dest] = S->reg[src1] + sx_idata;
+        S->npc = S->pc + 1;
+    }
 }
 
 void i_type_instructions::ADDIU(State *&S, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
@@ -119,103 +128,123 @@ void i_type_instructions::ADDIU(State *&S, INSTR_TYPE &src1, INSTR_TYPE &dest, I
 void i_type_instructions::ANDI(State *&S, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &idata)
 {
     cerr << "ANDI" << endl;
-    int32_t temp = S->reg[src1]; //register might contained signed number
+    S->reg[dest] = S->reg[src1] & idata;
     S->npc = S->pc + 1;
 }
 
 void i_type_instructions::BEQ(State *&S, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
 {
     cerr << "BEQ" << endl;
+    if (S->reg[src1] == S->reg[dest])
+    {
+        S->npc = sx_idata;
+    }
+    else
+    {
+        S->npc = S->pc + 1;
+    }
 }
 void i_type_instructions::BNE(State *&S, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
 {
     cerr << "BNE" << endl;
+    if (S->reg[src1] != S->reg[dest])
+    {
+        S->npc = sx_idata; // Supposedly 16bit shifted left (x4) but since our memory space is divided by 4, don't need to shift
+    }
+    else
+    {
+        S->npc = S->pc + 1;
+    }
 }
-void i_type_instructions::LBU(State *&S, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
-{
-    cerr << "LBU" << endl;
-}
-void i_type_instructions::LB(State *&S, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
-{
-    cerr << "LB" << endl;
-}
-void i_type_instructions::LHU(State *&S, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
-{
-    cerr << "LHU" << endl;
-}
-void i_type_instructions::LH(State *&S, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
-{
-    cerr << "LH" << endl;
-}
-void i_type_instructions::LUI(State *&S, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &idata)
-{
-    cerr << "LUI" << endl;
-}
-void i_type_instructions::LW(State *&S, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
-{
-    cerr << "LW" << endl;
-}
-void i_type_instructions::LWL(State *&S, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
-{
-    cerr << "LWL" << endl;
-}
-void i_type_instructions::LWR(State *&S, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
-{
-    cerr << "LWR" << endl;
-}
+// void i_type_instructions::LBU(State *&S, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
+// {
+//     cerr << "LBU" << endl; // Load byte unsigned LBU $1 16bOFFSET($2)
+// }
+// void i_type_instructions::LB(State *&S, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
+// {
+//     cerr << "LB" << endl;
+// }
+// void i_type_instructions::LHU(State *&S, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
+// {
+//     cerr << "LHU" << endl;
+// }
+// void i_type_instructions::LH(State *&S, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
+// {
+//     cerr << "LH" << endl;
+// }
+// void i_type_instructions::LUI(State *&S, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &idata)
+// {
+//     cerr << "LUI" << endl;
+// }
+// void i_type_instructions::LW(State *&S, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
+// {
+//     cerr << "LW" << endl;
+// }
+// void i_type_instructions::LWL(State *&S, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
+// {
+//     cerr << "LWL" << endl;
+// }
+// void i_type_instructions::LWR(State *&S, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
+// {
+//     cerr << "LWR" << endl;
+// }
 void i_type_instructions::ORI(State *&S, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &idata)
 {
     cerr << "ORI" << endl;
+    S->reg[dest] = S->reg[src1] | idata;
+    S->npc = S->pc + 1;
 }
 void i_type_instructions::XORI(State *&S, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &idata)
 {
     cerr << "XORI" << endl;
+    S->reg[dest] = S->reg[src1] ^ idata;
+    S->npc = S->pc + 1;
 }
-void i_type_instructions::SLTI(State *&S, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
-{
-    cerr << "SLTI" << endl;
-}
-void i_type_instructions::SLTIU(State *&S, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
-{
-    cerr << "SLTIU" << endl;
-}
-void i_type_instructions::SB(State *&S, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
-{
-    cerr << "SB" << endl;
-}
-void i_type_instructions::SH(State *&S, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
-{
-    cerr << "SH" << endl;
-}
-void i_type_instructions::SW(State *&S, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
-{
-    cerr << "SW" << endl;
-}
-void i_type_instructions::BGEZ(State *&S, INSTR_TYPE &src1, INSTR_TYPE &sx_idata)
-{
-    cerr << "BGEZ" << endl;
-}
-void i_type_instructions::BGEZAL(State *&S, INSTR_TYPE &src1, INSTR_TYPE &sx_idata)
-{
-    cerr << "BGEZAL" << endl;
-}
-void i_type_instructions::BGTZ(State *&S, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
-{
-    cerr << "BGTZ" << endl;
-}
-void i_type_instructions::BLEZ(State *&S, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
-{
-    cerr << "BLEZ" << endl;
-}
-void i_type_instructions::BLTZ(State *&S, INSTR_TYPE &src1, INSTR_TYPE &sx_idata)
-{
-    cerr << "BLTZ" << endl;
-}
-void i_type_instructions::BLTZAL(State *&S, INSTR_TYPE &src1, INSTR_TYPE &sx_idata)
-{
-    cerr << "BLTZAL" << endl;
-}
-void i_type_instructions::BDECODER(State *&S, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
-{
-    cerr << "BDECODER" << endl;
-}
+// void i_type_instructions::SLTI(State *&S, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
+// {
+//     cerr << "SLTI" << endl;
+// }
+// void i_type_instructions::SLTIU(State *&S, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
+// {
+//     cerr << "SLTIU" << endl;
+// }
+// void i_type_instructions::SB(State *&S, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
+// {
+//     cerr << "SB" << endl;
+// }
+// void i_type_instructions::SH(State *&S, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
+// {
+//     cerr << "SH" << endl;
+// }
+// void i_type_instructions::SW(State *&S, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
+// {
+//     cerr << "SW" << endl;
+// }
+// void i_type_instructions::BGEZ(State *&S, INSTR_TYPE &src1, INSTR_TYPE &sx_idata)
+// {
+//     cerr << "BGEZ" << endl;
+// }
+// void i_type_instructions::BGEZAL(State *&S, INSTR_TYPE &src1, INSTR_TYPE &sx_idata)
+// {
+//     cerr << "BGEZAL" << endl;
+// }
+// void i_type_instructions::BGTZ(State *&S, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
+// {
+//     cerr << "BGTZ" << endl;
+// }
+// void i_type_instructions::BLEZ(State *&S, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
+// {
+//     cerr << "BLEZ" << endl;
+// }
+// void i_type_instructions::BLTZ(State *&S, INSTR_TYPE &src1, INSTR_TYPE &sx_idata)
+// {
+//     cerr << "BLTZ" << endl;
+// }
+// void i_type_instructions::BLTZAL(State *&S, INSTR_TYPE &src1, INSTR_TYPE &sx_idata)
+// {
+//     cerr << "BLTZAL" << endl;
+// }
+// void i_type_instructions::BDECODER(State *&S, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
+// {
+//     cerr << "BDECODER" << endl;
+// }
