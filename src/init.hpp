@@ -37,14 +37,14 @@ typedef char BUFFER_TYPE;
 typedef uint32_t MEM_TYPE;
 typedef int32_t REG_TYPE;
 
-class State
+class CPU
 {
 public:
     ADDR_TYPE pc;
     ADDR_TYPE npc;
     INSTR_TYPE instr;
     std::vector<REG_TYPE> reg;
-    State(std::vector<MEM_TYPE> &mem_block)
+    CPU(std::vector<MEM_TYPE> &mem_block)
     {
         pc = ADDR_INSTR_OFFSET; // PC starts at beginning of executable memory
         npc = ADDR_INSTR_OFFSET;

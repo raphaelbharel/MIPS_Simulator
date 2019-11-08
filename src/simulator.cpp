@@ -57,24 +57,24 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 	}
 
 	// Initialize state and instruction classes
-	State S(mem_block);
-	i_type_instructions i_instruction(S);
-	r_type_instructions r_instruction(S);
-	j_type_instructions j_instruction(S);
+	CPU C(mem_block);
+	i_type_instructions i_instruction(C);
+	r_type_instructions r_instruction(C);
+	j_type_instructions j_instruction(C);
 
 	// Executing instructions
 	int executions = 0;
-	for (int address = ADDR_INSTR_OFFSET; (address < ADDR_INSTR_OFFSET + ADDR_INSTR_LENGTH) && (mem_block[S.pc] != 0); /*address++*/)
+	for (int address = ADDR_INSTR_OFFSET; (address < ADDR_INSTR_OFFSET + ADDR_INSTR_LENGTH) && (mem_block[C.pc] != 0); /*address++*/)
 	{
-		S.reg[0] = 0; // $0 is always 0 on every clock cycle
-		S.pc = S.npc; //currently the PC is offset from 0. Calibrate it to base.
-		S.instr = mem_block[S.pc];
-		if (!S.instr) // If instruction is just 0 ie empty
+		C.reg[0] = 0; // $0 is always 0 on every clock cycle
+		C.pc = C.npc; //currently the PC is offset from 0. Calibrate it to base.
+		C.instr = mem_block[C.pc];
+		if (!C.instr) // If instruction is just 0 ie empty
 		{
 			break;
 		}
 
-		char instr_type = read_instruction(S.instr);
+		char instr_type = read_instruction(C.instr);
 		switch (instr_type)
 		{
 		case 'r':
@@ -90,12 +90,12 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 			cerr << "ERROR: FAILED TO READ INSTRUCTION." << endl;
 			exit(-10);
 		}
-		S.view_regs();
+		C.view_regs();
 		executions++;
 	}
 	cerr << "Executions: " << executions << endl;
 	//__print_memory(mem_block);
-	__print_memory_specific(mem_block, ADDR_INSTR_OFFSET, ADDR_INSTR_OFFSET + 10/*executions*/);
+	__print_memory_specific(mem_block, ADDR_INSTR_OFFSET, ADDR_INSTR_OFFSET + 10 /*executions*/);
 
 	return 0;
 } // END OF MAIN

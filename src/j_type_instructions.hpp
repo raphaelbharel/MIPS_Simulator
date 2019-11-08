@@ -10,27 +10,27 @@ public:
     uint32_t jdata = 0;
     uint32_t sx_jdata = 0;
 
-    State *S;
+    CPU *C;
 
-    j_type_instructions(State &cpu_state)
+    j_type_instructions(CPU &cpu_state)
     {
-        S = &cpu_state;
+        C = &cpu_state;
     }
 
     void display()
     {
         std::cerr << "i_type_instruction state: " << std::endl;
-        std::cerr << std::hex << "pc: " << S->pc << std::endl;
-        std::cerr << std::hex << "npc: " << S->npc << std::endl;
-        std::cerr << std::hex << "instr: " << S->instr << std::endl;
+        std::cerr << std::hex << "pc: " << C->pc << std::endl;
+        std::cerr << std::hex << "npc: " << C->npc << std::endl;
+        std::cerr << std::hex << "instr: " << C->instr << std::endl;
         std::cout << "code: " << std::bitset<CODE_SIZE>(code) << std::endl;
         std::cout << "adata: " << std::bitset<J_ADDRESS_SIZE>(jdata) << std::endl;
     }
     int execute();
     //COMPLEXITY 3
-    void J(State *&S, INSTR_TYPE &jdata);
+    void J(CPU *&C, INSTR_TYPE &jdata);
     //COMPLEXITY 4
-    void JAL(State *&S, INSTR_TYPE &jdata);
+    void JAL(CPU *&C, INSTR_TYPE &jdata);
 
 private:
 };

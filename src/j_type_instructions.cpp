@@ -10,8 +10,8 @@ int j_type_instructions::execute()
 	*/
 
     cerr << ">> Executing J type instruction ";
-    code = (S->instr & 0xFC000000) >> 26;
-    jdata = (S->instr & 0x3EFFFFF);
+    code = (C->instr & 0xFC000000) >> 26;
+    jdata = (C->instr & 0x3EFFFFF);
 
     // // Sign extend 16bit immediate-> TODO for J instr?
     // INSTR_TYPE sx_adata;
@@ -27,22 +27,22 @@ int j_type_instructions::execute()
     switch (code)
     {
     case 0x2:
-        // J(S, jdata);
+        // J(C, jdata);
         return 1;
     case 0x3:
-        //JAL(S, jdata);
+        //JAL(C, jdata);
         return 1;
     default:
         return -12;
     }
 }
 
-// void j_type_instructions::J(State *&S, INSTR_TYPE &jdata)
+// void j_type_instructions::J(CPU *&C, INSTR_TYPE &jdata)
 // {
 //     cerr << "J" << endl;
 // }
 
-// void j_type_instructions::JAL(State *&S, INSTR_TYPE &jdata)
+// void j_type_instructions::JAL(CPU *&C, INSTR_TYPE &jdata)
 // {
 //     cerr << "JAL" << endl;
 // }
