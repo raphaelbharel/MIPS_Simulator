@@ -126,7 +126,8 @@ void r_type_instructions::JR(CPU *&C, INSTR_TYPE &src1)
     cerr << "JR" << endl;
     if (C->reg[src1] % 4 != 0)
     {
-        cerr << "Address Error Exception: target address in src1";
+        cerr << "Address Error Exception: Invalid instruction";
+        exit(-12);
     }
     else
     {

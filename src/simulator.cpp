@@ -64,7 +64,7 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 
 	// Executing instructions
 	int executions = 0;
-	for (int address = ADDR_INSTR_OFFSET; (address < ADDR_INSTR_OFFSET + ADDR_INSTR_LENGTH) && (mem_block[C.pc] != 0); /*address++*/)
+	for (int address = ADDR_INSTR_OFFSET; address < ADDR_INSTR_OFFSET + ADDR_INSTR_LENGTH; /*&& (mem_block[C.pc] != 0); address++*/)
 	{
 		C.reg[0] = 0; // $0 is always 0 on every clock cycle
 		C.pc = C.npc; //currently the PC is offset from 0. Calibrate it to base.
@@ -75,20 +75,23 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 		}
 
 		char instr_type = read_instruction(C.instr);
+
+		int exit_code;
+
 		switch (instr_type)
 		{
 		case 'r':
-			r_instruction.execute();
+			exit_code = r_instruction.execute();
 			break;
 		case 'i':
-			i_instruction.execute();
+			exit_code = i_instruction.execute();
 			break;
 		case 'j':
-			j_instruction.execute();
+			exit_code = j_instruction.execute();
 			break;
 		default:
-			cerr << "ERROR: FAILED TO READ INSTRUCTION." << endl;
-			exit(-10);
+			cerr << "ERROR: INVALID INSTRUCTION." << endl;
+			exit(-12);
 		}
 		C.view_regs();
 		executions++;
