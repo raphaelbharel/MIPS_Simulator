@@ -51,7 +51,7 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 	{
 		while (binStream.get(c))
 		{
-			//cerr << c << endl;
+			cerr << c << endl;
 			if(c==48){ //48 is the ASCII code for digit 0
 				single_register.push_back(0);
 			}

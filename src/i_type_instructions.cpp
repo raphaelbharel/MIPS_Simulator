@@ -11,7 +11,7 @@ int i_type_instructions::execute()
 	Immediate constant - 16 bits
 	*/
 
-    //cerr << ">> Executing I type instruction ";
+    cerr << ">> Executing I type instruction ";
     code = (C ->instr & 0xFC000000) >> 26;
     src1 = (C ->instr & 0x3E00000) >> 21;
     dest = (C ->instr & 0x1F0000) >> 16;
@@ -104,7 +104,7 @@ int i_type_instructions::execute()
 
 void i_type_instructions::ADDI(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
 {
-    //cerr << "ADDI" << endl;
+    cerr << "ADDI" << endl;
     if (((C->reg[src1] < 0) && (sx_idata < 0) && (C->reg[src1] + sx_idata >= 0)) ||
         ((C->reg[src1] > 0) && (sx_idata > 0) && (C->reg[src1] + sx_idata <= 0)))
     {
@@ -120,21 +120,21 @@ void i_type_instructions::ADDI(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INST
 
 void i_type_instructions::ADDIU(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
 {
-    //cerr << "ADDIU" << endl;
+    cerr << "ADDIU" << endl;
     C->reg[dest] = static_cast<uint32_t>(static_cast<uint32_t>(C->reg[src1]) + sx_idata);
     C->npc = C->pc + 1;
 }
 
 void i_type_instructions::ANDI(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &idata)
 {
-    //cerr << "ANDI" << endl;
+    cerr << "ANDI" << endl;
     C->reg[dest] = C->reg[src1] & idata;
     C->npc = C->pc + 1;
 }
 
 void i_type_instructions::BEQ(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
 {
-    //cerr << "BEQ" << endl;
+    cerr << "BEQ" << endl;
     if (C->reg[src1] == C->reg[dest])
     {
         C->npc = sx_idata;
@@ -146,7 +146,7 @@ void i_type_instructions::BEQ(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR
 }
 void i_type_instructions::BNE(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
 {
-    //cerr << "BNE" << endl;
+    cerr << "BNE" << endl;
     if (C->reg[src1] != C->reg[dest])
     {
         C->npc = sx_idata; // Supposedly 16bit shifted left (x4) but since our memory space is divided by 4, don't need to shift
@@ -190,13 +190,13 @@ void i_type_instructions::BNE(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR
 // }
 void i_type_instructions::ORI(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &idata)
 {
-    //cerr << "ORI" << endl;
+    cerr << "ORI" << endl;
     C->reg[dest] = C->reg[src1] | idata;
     C->npc = C->pc + 1;
 }
 void i_type_instructions::XORI(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &idata)
 {
-    //cerr << "XORI" << endl;
+    cerr << "XORI" << endl;
     C->reg[dest] = C->reg[src1] ^ idata;
     C->npc = C->pc + 1;
 }

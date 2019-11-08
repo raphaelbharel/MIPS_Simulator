@@ -15,7 +15,7 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 {
 	if (argc != 2)
 	{
-		//cerr << "ERROR: Incorrect number of arguments: " << endl;
+		cerr << "ERROR: Incorrect number of arguments: " << endl;
 		cerr << argv[0] << ":" << argv[1] << endl;
 		return 1;
 	}
@@ -88,13 +88,13 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 			j_instruction.execute();
 			break;
 		default:
-			//cerr << "ERROR: INVALID INSTRUCTION." << endl;
+			cerr << "ERROR: INVALID INSTRUCTION." << endl;
 			exit(-12);
 		}
-		//C.view_regs();
+		C.view_regs();
 		executions++;
 	}
-	//cerr << "Executions: " << executions << endl;
+	cerr << "Executions: " << executions << endl;
 	//__print_memory(mem_block);
 	//__print_memory_specific(mem_block, ADDR_INSTR_OFFSET, ADDR_INSTR_OFFSET + 10 /*executions*/);
 
@@ -131,7 +131,7 @@ int get_index_from_addr(const uint32_t &addr, vector<pair<uint32_t, uint32_t>> &
 			return i;
 		}
 	}
-	//cerr << "ERROR: Invalid memory address in memory block." << endl;
+	cerr << "ERROR: Invalid memory address in memory block." << endl;
 	exit(-10); // Could not find address
 }
 
