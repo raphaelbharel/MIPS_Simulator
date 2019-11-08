@@ -124,13 +124,13 @@ void r_type_instructions::OR(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INST
 void r_type_instructions::JR(State *&S, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest)
 {
     cerr << "JR" << endl;
-    // if (S->reg[src1] % 4 != 0)
-    // {
-    //     cerr << "Address Error Exception: target address in src1";
-    // }
-    // else
+    if (S->reg[src1] % 4 != 0)
     {
-        S->npc = S->reg[src1];
+        cerr << "Address Error Exception: target address in src1";
+    }
+    else
+    {
+        S->npc = S->reg[src1]>>2;
     }
 }
 
