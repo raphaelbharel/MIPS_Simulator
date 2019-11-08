@@ -1,0 +1,29 @@
+RETCODE = $? //store value of $! string into RETCODE
+
+echo $RETCODE 
+[["$RETCODE" == "246"]] //Check if it has a particular value?
+echo $? //prints out the output of previous instruction (0, which is good)
+
+[["$RETCODE" != "246"]] //Check if retcode does not equal 246
+echo $? //should return 1 as it DOESNT hold
+
+[["$RETCODE" == "246"]] || echo "Hello"
+//will return true or false. If it's not true, execute echo "Hello"
+
+
+test.sh FILE:
+
+#!/bin/bash //THIS MAKES IT A BASH SCRIPT FILE.
+
+bin/simulator
+RETCODE=$?
+
+if [["RETCODE" == 246]] ; then
+  echo "Success";
+else
+  echo "Failure";
+
+
+//If you just run it like this, won't be allowed. Unix permissions.
+chmod u+x test.sh //makes test.sh executable for user
+
