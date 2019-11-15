@@ -23,35 +23,34 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 	string binName = argv[1]; // Reading second argument from command line
 	// string binName = "src/test4.bin";				// Reading second argument from command line
 	ifstream binStream;								// Create binary stream object
-	binStream.open(binName, ios::binary | ios::in); // Load .bin file as a binary file
+
+	binStream.open(binName, ios::binary); // Load .bin file as a binary file
 	if (!binStream.is_open())
 	{
 		cerr << "ERROR: Cannot open binary file." << endl;
 		return 1;
 	}
-	vector<BUFFER_TYPE> buffer(BUFFER_SIZE, 0);
+
+	char buffer[4]; //to hold 4 bytes
 	vector<MEM_TYPE> mem_block; // vector of uint32_t holding memory
+	
 	mem_block.resize(MEM_SIZE); //or , 0xFC000000
 
 	// Fill instruction memory
 	ADDR_TYPE address = ADDR_INSTR_OFFSET; //starting from 0x4000000
 	while (!binStream.eof())
 	{
-		binStream.read(buffer.data(), buffer.size()); // Reading 32 bits at a time, buffer.data() is a 32bit array
-		streamsize s = binStream.gcount();			  // # of bits read
-		if (s == 0)
-		{
-			break; // Ensures stream size 0 reads do not get converted to memory (reached end of bitStream)
-		}
-		MEM_TYPE binNo = 0;
-		int weight = s - 1;
-		for (auto it = buffer.begin(); it != buffer.end(); ++it, --weight)
-		{
-			if (*it == '1') // IMPORTANT: iterator is a pointer to a char so it must be verfied with a char ''
-			{
-				binNo += (1 << weight);
-			}
-		}
+		binStream.read(buffer, 4);
+		binStream.peek(); // Check for eof on the next byte
+
+		MEM_TYPE binNo = (static_cast<unsigned char>(buffer[0]) << 24) 
+            | (static_cast<unsigned char>(buffer[1]) << 16) 
+            | (static_cast<unsigned char>(buffer[2]) << 8) 
+            | static_cast<unsigned char>(buffer[3]);
+
+		cerr << hex << binNo << endl;
+
+
 		mem_block[address] = binNo;
 		address += 1;
 	}

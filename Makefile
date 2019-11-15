@@ -59,17 +59,17 @@ simulator3: bin/mips_simulator src/test3.bin
 simulator4: bin/mips_simulator src/test4.bin
 	./bin/mips_simulator src/test4.bin
 
-simulator_addiu1: bin/mips_simulator src/addiu_1.bin
-	./bin/mips_simulator src/addiu_1.bin
+simulator_addiu1: bin/mips_simulator src/new_addiu_1.bin
+	./bin/mips_simulator src/new_addiu_1.bin
 
-simulator_addiu2: bin/mips_simulator src/addiu_2.bin
-	./bin/mips_simulator src/addiu_2.bin
+simulator_addiu2: bin/mips_simulator src/new_addiu_2.bin
+	./bin/mips_simulator src/new_addiu_2.bin
 
-simulator_sll: bin/mips_simulator src/sll.bin
-	./bin/mips_simulator src/sll.bin
+simulator_sll: bin/mips_simulator src/new_sll.bin
+	./bin/mips_simulator src/new_sll.bin
 
-simulator_jr: bin/mips_simulator src/jr_1.bin
-	./bin/mips_simulator src/jr_1.bin
+simulator_jr: bin/mips_simulator src/new_JR.bin
+	./bin/mips_simulator src/new_JR.bin
 
 #----------------------------------------------------
 #TESTBENCH
