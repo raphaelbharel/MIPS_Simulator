@@ -63,10 +63,15 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 
 	// Executing instructions
 	int executions = 0;
+	ADDR_TYPE next_instruction;
+
+
 	for (int address = ADDR_INSTR_OFFSET; address < ADDR_INSTR_OFFSET + ADDR_INSTR_LENGTH; /*&& (mem_block[C.pc] != 0); address++*/)
 	{
+		C.display();
 		C.reg[0] = 0; // $0 is always 0 on every clock cycle
-		C.pc = C.npc; //currently the PC is offset from 0. Calibrate it to base.
+		next_instruction = C.npc; //The preserved next instruction enables a branch delay
+		
 		C.instr = mem_block[C.pc];
 		if (!C.instr) // If instruction is just 0 ie empty
 		{
@@ -92,6 +97,8 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 		}
 		C.view_regs();
 		executions++;
+
+		C.pc = next_instruction;
 	}
 	cerr << "Executions: " << executions << endl;
 	//__print_memory(mem_block);
