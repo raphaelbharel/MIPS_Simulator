@@ -66,7 +66,7 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 	ADDR_TYPE next_instruction;
 
 
-	for (int address = ADDR_INSTR_OFFSET; address < ADDR_INSTR_OFFSET + ADDR_INSTR_LENGTH; /*&& (mem_block[C.pc] != 0); address++*/)
+	for (; C.pc>=ADDR_INSTR_OFFSET &&C.pc < ADDR_INSTR_OFFSET + ADDR_INSTR_LENGTH; /*&& (mem_block[C.pc] != 0); address++*/)
 	{
 		C.display();
 		C.reg[0] = 0; // $0 is always 0 on every clock cycle
@@ -96,8 +96,8 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 			exit(-12);
 		}
 		C.view_regs();
-		executions++;
 
+		executions++;
 		C.pc = next_instruction;
 	}
 	cerr << "Executions: " << executions << endl;

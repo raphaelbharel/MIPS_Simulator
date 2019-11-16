@@ -114,7 +114,7 @@ void i_type_instructions::ADDI(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INST
     else
     {
         C->reg[dest] = C->reg[src1] + sx_idata;
-        C->npc = C->pc + 1;
+        C->npc = C->npc + 1;
     }
 }
 
@@ -122,14 +122,14 @@ void i_type_instructions::ADDIU(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INS
 {
     cerr << "ADDIU" << endl;
     C->reg[dest] = static_cast<uint32_t>(static_cast<uint32_t>(C->reg[src1]) + sx_idata);
-    C->npc = C->pc + 1;
+    C->npc = C->npc + 1;
 }
 
 void i_type_instructions::ANDI(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &idata)
 {
     cerr << "ANDI" << endl;
     C->reg[dest] = C->reg[src1] & idata;
-    C->npc = C->pc + 1;
+    C->npc = C->npc + 1;
 }
 
 void i_type_instructions::BEQ(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
@@ -141,7 +141,7 @@ void i_type_instructions::BEQ(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR
     }
     else
     {
-        C->npc = C->pc + 1;
+        C->npc = C->npc + 1;
     }
 }
 void i_type_instructions::BNE(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
@@ -153,7 +153,7 @@ void i_type_instructions::BNE(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR
     }
     else
     {
-        C->npc = C->pc + 1;
+        C->npc = C->npc + 1;
     }
 }
 // void i_type_instructions::LBU(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
@@ -192,13 +192,13 @@ void i_type_instructions::ORI(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR
 {
     cerr << "ORI" << endl;
     C->reg[dest] = C->reg[src1] | idata;
-    C->npc = C->pc + 1;
+    C->npc = C->npc + 1;
 }
 void i_type_instructions::XORI(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &idata)
 {
     cerr << "XORI" << endl;
     C->reg[dest] = C->reg[src1] ^ idata;
-    C->npc = C->pc + 1;
+    C->npc = C->npc + 1;
 }
 // void i_type_instructions::SLTI(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
 // {

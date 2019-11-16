@@ -107,19 +107,19 @@ void r_type_instructions::ADDU(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &src2, INST
 {
     cerr << "ADDU" << endl;
     C->reg[dest] = static_cast<uint32_t>(static_cast<uint32_t>(C->reg[src1]) + static_cast<uint32_t>(C->reg[src2]));
-    C->npc = C->pc + 1;
+    C->npc = C->npc + 1;
 }
 void r_type_instructions::AND(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest)
 {
     cerr << "AND" << endl;
     C->reg[dest] = C->reg[src1] & C->reg[src2];
-    C->npc = C->pc + 1;
+    C->npc = C->npc + 1;
 }
 void r_type_instructions::OR(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest)
 {
     cerr << "OR" << endl;
     C->reg[dest] = C->reg[src1] | C->reg[src2];
-    C->npc = C->pc + 1;
+    C->npc = C->npc + 1;
 }
 
 void r_type_instructions::JR(CPU *&C, INSTR_TYPE &src1)
@@ -139,7 +139,7 @@ void r_type_instructions::JR(CPU *&C, INSTR_TYPE &src1)
 void r_type_instructions::SLL(CPU *&C, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &shift){
     cerr << "SLL" << endl;
     C->reg[dest] = C->reg[src2] << shift;
-    C->npc = C->pc + 1;
+    C->npc = C->npc + 1;
 }
 
 // void r_type_instructions::SLTU(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &shift, INSTR_TYPE &func)
@@ -151,19 +151,19 @@ void r_type_instructions::SUBU(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &src2, INST
 {
     cerr << "SUBU" << endl;
     C->reg[dest] = static_cast<uint32_t>(static_cast<uint32_t>(C->reg[src1]) - static_cast<uint32_t>(C->reg[src2]));
-    C->npc = C->pc + 1;
+    C->npc = C->npc + 1;
 }
 void r_type_instructions::XOR(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest)
 {
     cerr << "XOR" << endl;
     C->reg[dest] = C->reg[src1] ^ C->reg[src2];
-    C->npc = C->pc + 1;
+    C->npc = C->npc + 1;
 }
 void r_type_instructions::ADD(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest)
 {
     cerr << "ADD" << endl;
     C->reg[dest] = C->reg[src1] + C->reg[src2]; // TODO, OVERFLOWS
-    C->npc = C->pc + 1;
+    C->npc = C->npc + 1;
 }
 
 // void r_type_instructions::SLT(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &shift, INSTR_TYPE &func)
