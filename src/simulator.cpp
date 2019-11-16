@@ -103,7 +103,7 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 	cout << "Return code: " << exit_code << endl;
 	exit(exit_code);
 
-	return 0:
+	return 0;
 } // END OF	MAIN
 
 // FUNCTION DEFINITIONS
