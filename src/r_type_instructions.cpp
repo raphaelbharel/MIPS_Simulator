@@ -40,10 +40,10 @@ int r_type_instructions::execute()
         // XOR(C, src1, src2, dest, shift, func);
         return 1;
     case 0X20:
-        // ADD(C, src1, src2, dest, shift, func);
+        ADD(C, src1, src2, dest);
         return 1;
     case 0X0:
-         SLL(C, src2, dest, shift);
+        SLL(C, src2, dest, shift);
         return 1;
     case 0X2A:
         // SLT(C, src1, src2, dest, shift, func);
@@ -132,11 +132,12 @@ void r_type_instructions::JR(CPU *&C, INSTR_TYPE &src1)
     }
     else
     {
-        C->npc = C->reg[src1]>>2;
+        C->npc = C->reg[src1] >> 2;
     }
 }
 
-void r_type_instructions::SLL(CPU *&C, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &shift){
+void r_type_instructions::SLL(CPU *&C, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &shift)
+{
     cerr << "SLL" << endl;
     C->reg[dest] = C->reg[src2] << shift;
     C->npc = C->npc + 1;
@@ -162,8 +163,16 @@ void r_type_instructions::XOR(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR
 void r_type_instructions::ADD(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest)
 {
     cerr << "ADD" << endl;
-    C->reg[dest] = C->reg[src1] + C->reg[src2]; // TODO, OVERFLOWS
-    C->npc = C->npc + 1;
+    if (((C->reg[src1] < 0) && (C->reg[src2] < 0) && (C->reg[src1] + C->reg[src2] >= 0)) ||
+        ((C->reg[src1] > 0) && (C->reg[src2] > 0) && (C->reg[src1] + C->reg[src2] <= 0)))
+    {
+        throw(static_cast<int>(ARITHMETIC_EXIT_CODE));
+    }
+    else
+    {
+        C->reg[dest] = C->reg[src1] + C->reg[src2];
+        C->npc = C->npc + 1;
+    }
 }
 
 // void r_type_instructions::SLT(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &shift, INSTR_TYPE &func)

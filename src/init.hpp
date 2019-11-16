@@ -30,6 +30,11 @@
 #define I_ADATA_SIZE 16
 #define J_ADDRESS_SIZE 26
 #define MEM_SIZE 0xC000002 //0x30000008 / 4
+#define ARITHMETIC_EXIT_CODE -10
+#define MEMORY_EXIT_CODE -11
+#define INSTRUCTION_EXIT_CODE -12
+#define INTERNAL_EXIT_CODE -20
+#define IO_EXIT_CODE -21
 
 typedef uint32_t INSTR_TYPE;
 typedef uint32_t ADDR_TYPE;
@@ -47,7 +52,7 @@ public:
     CPU(std::vector<MEM_TYPE> &mem_block)
     {
         pc = ADDR_INSTR_OFFSET; // PC starts at beginning of executable memory
-        npc = ADDR_INSTR_OFFSET+1;
+        npc = ADDR_INSTR_OFFSET + 1;
         instr = mem_block[ADDR_INSTR_OFFSET]; //start from first
         reg.resize(REGISTER_SIZE, 0);
     }
