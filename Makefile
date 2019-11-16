@@ -74,6 +74,8 @@ simulator_jr: bin/mips_simulator src/new_JR.bin
 simulator_DT_jr: bin/mips_simulator src/JR-return-immediate.mips.bin
 		./bin/mips_simulator src/JR-return-immediate.mips.bin
 
+simulator_formative_test: bin/mips_simulator Formative_Tests/ADD-wrap.mips.bin
+		./bin/mips_simulator Formative_Tests/ADD-wrap.mips.bin
 #----------------------------------------------------
 #TESTBENCH
 #----------------------------------------------------
@@ -85,7 +87,7 @@ testbench:
 	$(CC) $(CPPFLAGS) test/tb.cpp -o bin/mips_testbench
 
 #Run tests on MIPS_Simulator
-bin/mips_testbench: bin/mips_simulatorg
+bin/mips_testbench: bin/mips_simulator
 	#run tests
 	#any temp files to be stored in test/temp
 	#output of testbench created in test/output. i.e per test logfiles

@@ -56,7 +56,7 @@ int i_type_instructions::execute()
         // LH(C , src1, dest, sx_idata);
         return 1;
     case 0XF:
-        // LUI(C , src1, dest, idata);
+        LUI(C , src1, dest, idata);
         return 1;
     case 0X23:
         // LW(C , src1, dest, sx_idata);
@@ -86,7 +86,7 @@ int i_type_instructions::execute()
         // XORI(C, src1, dest, idata);
         return 1;
     case 0XD:
-        // ORI(C, src1, dest, idata);
+         ORI(C, src1, dest, idata);
         return 1;
     case 0X7:
         // BGTZ(C, src1, dest, sx_idata);
@@ -172,10 +172,21 @@ void i_type_instructions::BNE(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR
 // {
 //     cerr << "LH" << endl;
 // }
-// void i_type_instructions::LUI(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &idata)
-// {
-//     cerr << "LUI" << endl;
-// }
+
+void i_type_instructions::LUI(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &idata)
+{
+    cerr << "LUI" << endl;
+    //Shift IDATA by 16 bits, load into RT (DEST). Exceptions: none. 
+    if(src1==0){
+        idata = idata << 16;
+        C->reg[dest] = idata;
+    }
+    else{
+        cerr << "src1 != 0. Making LUI invalid. Error not yet thrown.";
+    }
+   
+   C->npc = C->npc+1;
+}
 // void i_type_instructions::LW(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
 // {
 //     cerr << "LW" << endl;

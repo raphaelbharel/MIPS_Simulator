@@ -21,7 +21,6 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 	}
 
 	string binName = argv[1]; // Reading second argument from command line
-	// string binName = "src/test4.bin";				// Reading second argument from command line
 	ifstream binStream;								// Create binary stream object
 
 	binStream.open(binName, ios::binary); // Load .bin file as a binary file
@@ -106,7 +105,7 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 
 	 //Successful termination/completion = return low 8-bits of the value in register $2.
     INSTR_TYPE exit_code = C.reg[2] & 0xFF;
-    // cout<<"return "<<exit_code<<endl;
+     cout<<"Return code: "<<exit_code<<endl;
     exit(exit_code);
 
 	return 0;
