@@ -49,7 +49,6 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 
 		cerr << hex << binNo << endl;
 
-
 		mem_block[address] = binNo;
 		address += 1;
 	}
@@ -65,16 +64,12 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 	ADDR_TYPE next_instruction;
 
 
-	for (; C.pc>=ADDR_INSTR_OFFSET &&C.pc < ADDR_INSTR_OFFSET + ADDR_INSTR_LENGTH; /*&& (mem_block[C.pc] != 0); address++*/)
+	for (; C.pc>=ADDR_INSTR_OFFSET && C.pc < ADDR_INSTR_OFFSET + ADDR_INSTR_LENGTH; /*&& (mem_block[C.pc] != 0); address++*/)
 	{
 		C.reg[0] = 0; // $0 is always 0 on every clock cycle
 		next_instruction = C.npc; //The preserved next instruction enables a branch delay
 		
 		C.instr = mem_block[C.pc];
-		if (!C.instr) // If instruction is just 0 ie empty
-		{
-			break;
-		}
 
 		char instr_type = read_instruction(C.instr);
 

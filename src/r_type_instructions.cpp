@@ -40,7 +40,7 @@ int r_type_instructions::execute()
         // XOR(C, src1, src2, dest, shift, func);
         return 1;
     case 0X20:
-        // ADD(C, src1, src2, dest, shift, func);
+         ADD(C, src1, src2, dest);
         return 1;
     case 0X0:
          SLL(C, src2, dest, shift);
