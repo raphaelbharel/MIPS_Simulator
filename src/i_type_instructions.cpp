@@ -189,10 +189,32 @@ void i_type_instructions::LUI(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR
 
     C->npc = C->npc + 1;
 }
-// void i_type_instructions::LW(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
-// {
-//     cerr << "LW" << endl;
-// }
+
+void i_type_instructions::LW(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
+{
+    cerr << "LW" << endl;
+    ADDR_TYPE effective_address = src1+sx_idata;
+    MEM_TYPE value;
+
+    if(effective_address%4!=0){
+        throw "Exception: Address Error Exception";
+        exit(-11);
+    }
+    else{
+        effective_address = effective_address >> 2;
+        //if effective address = ADDR_GETC, call std::getchar (i.e. take first 8 bits of memory)
+        if(effective_address==ADDR_GETC){
+            //value = mem_block[effective_address]; //!!! MUST IMPLEMENT
+            C->reg[dest] = value & 0x000000FF;
+        }
+        else{
+            //C->reg[dest] = mem_block[effective_address]; //!! MUST IMPLEMENT
+        }
+    }
+
+    C->npc = C->npc + 1;
+}
+
 // void i_type_instructions::LWL(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
 // {
 //     cerr << "LWL" << endl;
