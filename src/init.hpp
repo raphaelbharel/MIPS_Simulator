@@ -42,13 +42,37 @@ typedef char BUFFER_TYPE;
 typedef uint32_t MEM_TYPE;
 typedef int32_t REG_TYPE;
 
+// Function declarations
 char read_char();
 char read_instruction(INSTR_TYPE &instruction);
-template <typename T>
-void __vertical_print_vector(const std::vector<T> &v);
+
 void __print_memory(const std::vector<MEM_TYPE> &v);
 void __print_memory_specific(const std::vector<MEM_TYPE> &v, const int &start_index, const int &end_index);
 
+// Template functions
+template <typename T>
+int sign_extend_int32(const T &data, const int &initial_length){
+    T temp = data;
+    int rv = temp;
+    if(temp >> (initial_length-1)){ // Checking MSB
+        int extension = 0xFFFFFFFF >> initial_length;
+        extension = extension << initial_length;
+        rv = extension | temp;
+    } 
+    return static_cast<int>(rv);
+}
+// template <typename T>
+// void __vertical_print_vector(const std::vector<T> &v)
+// {
+//     cerr << "Printing vector of size " << v.size() << ":\nSTART [" << endl;
+//     for (auto &elem : v)
+//     {
+//         cerr << hex << elem << "\n";
+//     }
+//     cerr << "] END" << endl;
+// }
+
+// Class definitions
 class CPU
 {
 public:

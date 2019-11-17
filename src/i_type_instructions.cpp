@@ -69,7 +69,7 @@ int i_type_instructions::execute()
         // SH(C, src1, dest, sx_idata);
         return 1;
     case 0X2B:
-        // SW(C, src1, dest, sx_idata);
+        SW(C, src1, dest, sx_idata);
         return 1;
     case 0XA:
         // SLTI(C, src1, dest, sx_idata);
@@ -189,34 +189,19 @@ void i_type_instructions::LW(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_
     INSTR_TYPE raw_mem_addr = sx_idata + C->reg[src1];
     INSTR_TYPE mem_addr = raw_mem_addr / 4;
 
-    if ((mem_addr < 0) && ((raw_mem_addr & 0x3) != 0)) // If either of the two LSB of address are non-zero then throw exception
+    if ((mem_addr < 0) || (raw_mem_addr%4 != 0)) // If either of the two LSB of address are non-zero then throw exception
     {
         throw(static_cast<int>(MEMORY_EXIT_CODE));
     }
     else if (mem_addr == ADDR_GETC)
     {
         char input = read_char();
-        uint32_t sx_input;
-        if (input >> 15)
-        {
-            sx_input = 0xFFFFFF00 | input;
-        }
-        else
-        {
-            sx_input = input;
-        }
-
-        // C->[dest] =
+        C->reg[dest] = sign_extend_int32(input, 8);
     }
-    else if (mem_addr == ADDR_PUTC)
+    else // Normal LW
     {
-        char input;
-        cin >> input;
-        int32_t sx_input = static_cast<int32_t>(input);
-        cout << sx_input << endl;
-    }
-    else
-    {
+        // MEM_TYPE sx_word = 
+        // C->reg[dest] = 
     }
 }
 // void i_type_instructions::LWL(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
@@ -255,10 +240,27 @@ void i_type_instructions::XORI(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INST
 // {
 //     cerr << "SH" << endl;
 // }
-// void i_type_instructions::SW(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
-// {
-//     cerr << "SW" << endl;
-// }
+void i_type_instructions::SW(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
+{
+    cerr << "SW" << endl;
+    INSTR_TYPE raw_mem_addr = sx_idata + C->reg[src1];
+    INSTR_TYPE mem_addr = raw_mem_addr / 4;
+
+    if ((mem_addr < 0) || (raw_mem_addr%4 != 0)) // If either of the two LSB of address are non-zero then throw exception
+    {
+        throw(static_cast<int>(MEMORY_EXIT_CODE));
+    }
+    else if (mem_addr == ADDR_PUTC)
+    {
+        cout << (C->reg[dest] & 0xFF) << "\n"; // Write to std::cout
+    }
+    else // Normal SW
+    {
+        // MEM_TYPE sx_word = 
+        // C->reg[dest] = 
+    }
+
+}
 // void i_type_instructions::BGEZ(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &sx_idata)
 // {
 //     cerr << "BGEZ" << endl;

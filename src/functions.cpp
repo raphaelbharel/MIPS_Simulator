@@ -8,11 +8,11 @@ char read_char()
     char in = getchar();
     if (cin.eof())
     {
-        return 0xFF;
+        return 0xFF; // Return -1 if EOF
     }
     if (!cin.good())
     {
-        throw(static_cast<int>(IO_EXIT_CODE));
+        throw(static_cast<int>(IO_EXIT_CODE)); // Throw if error
     }
     return in;
 }
@@ -33,17 +33,6 @@ char read_instruction(INSTR_TYPE &instruction)
 }
 
 // Helper functions
-template <typename T>
-void __vertical_print_vector(const std::vector<T> &v)
-{
-    cerr << "Printing vector of size " << v.size() << ":\nSTART [" << endl;
-    for (auto &elem : v)
-    {
-        cerr << hex << elem << "\n";
-    }
-    cerr << "] END" << endl;
-}
-
 void __print_memory(const std::vector<MEM_TYPE> &v)
 {
     cerr << "__MEMORY_BLOCK__" << v.size() << "\n";

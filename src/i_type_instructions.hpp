@@ -49,7 +49,7 @@ public:
     // void SLTIU(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata);
     // void SB(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata);
     // void SH(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata);
-    // void SW(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata);
+    void SW(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata);
     // void BGEZ(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &sx_idata);
     // void BGEZAL(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &sx_idata);
     // void BGTZ(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata);
