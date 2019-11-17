@@ -39,7 +39,7 @@ MIPS_LDFLAGS = -nostdlib -Wl,-melf32btsmip -march=mips1 -nostartfiles -mno-check
 # Build simulator, write output file in bin folder as mips_simulator
 
 SRC_FILES = src/simulator.cpp src/functions.cpp src/r_type_instructions.cpp src/i_type_instructions.cpp  src/j_type_instructions.cpp
-
+DEBUG_SETTING = 1
 bin/mips_simulator: $(SRC_FILES)
 	mkdir -p bin
 	$(CC) $(CPPFLAGS) $(SRC_FILES) -o bin/mips_simulator
@@ -75,10 +75,19 @@ simulator_DT_jr: bin/mips_simulator Formative_Tests/JR-return-immediate-nodelay.
 		./bin/mips_simulator Formative_Tests/JR-return-immediate-nodelay.mips.bin
 
 simulator_formative_test: bin/mips_simulator Formative_Tests/JR-return-immediate.mips.bin
-		./bin/mips_simulator Formative_Tests/JR-return-immediate.mips.bin
+		./bin/mips_simulator Formative_Tests/JR-return-immediate.mips.bin $(DEBUG_SETTING)
 
 test_LW_getc: bin/mips_simulator Formative_Tests/LW-getc.mips.bin
-		./bin/mips_simulator Formative_Tests/LW-getc.mips.bin
+		./bin/mips_simulator Formative_Tests/LW-getc.mips.bin $(DEBUG_SETTING)
+
+test-LW-read-data-section: bin/mips_simulator Formative_Tests/LW-read-data-section.mips.bin
+		./bin/mips_simulator Formative_Tests/LW-read-data-section.mips.bin $(DEBUG_SETTING)
+
+test-SW-putc: bin/mips_simulator Formative_Tests/SW-putc.mips.bin
+		./bin/mips_simulator Formative_Tests/SW-putc.mips.bin $(DEBUG_SETTING)
+
+test-SW-read-write-data-section: bin/mips_simulator Formative_Tests/SW-read-write-data-section.mips.bin
+		./bin/mips_simulator Formative_Tests/SW-read-write-data-section.mips.bin $(DEBUG_SETTING)
 
 #----------------------------------------------------
 #TESTBENCH
@@ -93,6 +102,9 @@ testbench:
 	mkdir -p bin
 	cp -a testbench/mips_testbench bin/
 	chmod u+x bin/mips_testbench 
+
+run_testbench: bin/mips_testbench
+		./bin/mips_testbench
 	
 clean:
 	rm bin/mips_simulator

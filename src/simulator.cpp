@@ -2,16 +2,26 @@
 
 using namespace std;
 
+
 int main(int argc /* argument count */, char *argv[] /* argument list */)
 {
 	try
 	{
-		if (argc != 2)
+		bool DEBUG = 0;
+		if (argc > 3)
 		{
 			cerr << "Error: Incorrect number of arguments: " << endl;
 			return 1;
-		}
+		} else if (argc == 3) {
+			DEBUG = stoi(argv[2]);
+			cerr << "+--------------------------------------------------------------------------------+" << endl;
+			if(DEBUG) { cerr << ">> ENTERING DEBUGGING MODE: DEBUG CODE("  << DEBUG <<  ")" << endl;}
+			else {cerr << ">> RUNNING WITHOUT DEBUGGING MODE: DEBUG CODE("  << DEBUG <<  ")" << endl;}
+			cerr << "+--------------------------------------------------------------------------------+" << endl;
 
+		}
+		
+		
 		string binName = argv[1]; // Reading second argument from command line
 		ifstream binStream;		  // Create binary stream object
 
@@ -36,7 +46,7 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 
 			MEM_TYPE binNo = (static_cast<unsigned char>(buffer[0]) << 24) | (static_cast<unsigned char>(buffer[1]) << 16) | (static_cast<unsigned char>(buffer[2]) << 8) | static_cast<unsigned char>(buffer[3]);
 
-			cerr << hex << binNo << endl;
+			if (DEBUG) {cerr << hex << binNo << endl;}
 
 			mem_block[address] = binNo;
 			address += 1;
@@ -44,7 +54,7 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 
 		// Initialize state and instruction classes
 		CPU C(mem_block);
-		i_type_instructions i_instruction(C);
+		i_type_instructions i_instruction(C, DEBUG);
 		r_type_instructions r_instruction(C);
 		j_type_instructions j_instruction(C);
 
@@ -76,14 +86,13 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 			default:
 				throw(static_cast<int>(INSTRUCTION_EXIT_CODE));
 			}
-			C.display();
-			C.view_regs();
+			if (DEBUG) {C.display();}
+			if (DEBUG) {C.view_regs();}
 
 			executions++;
 			C.pc = next_instruction;
 		}
-		cerr << "Executions: " << executions << endl;
-
+		if (DEBUG) {cerr << "Executions: " << executions << endl;}
 		//Successful termination/completion = return low 8-bits of the value in register $2.
 		INSTR_TYPE SUCCESSFUL_EXIT_CODE = C.reg[2] & 0xFF;
 		cerr << ">> PROGRAM EXITED WITH RETURN CODE: " << SUCCESSFUL_EXIT_CODE << endl;
