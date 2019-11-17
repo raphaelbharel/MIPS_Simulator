@@ -41,7 +41,7 @@ int i_type_instructions::execute()
         // BEQ(C , src1, dest, sx_idata);
         return 1;
     case 0X5:
-        // BNE(C , src1, dest, sx_idata);
+        BNE(C, src1, dest, sx_idata);
         return 1;
     case 0X24:
         // LBU(C , src1, dest, sx_idata);
