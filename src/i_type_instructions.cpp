@@ -12,14 +12,7 @@ int i_type_instructions::execute()
     dest = (C->instr & 0x1F0000) >> 16;
     idata = (C->instr & 0xFFFF);
     // Sign extend 16bit immediate
-    if (idata >> 15)
-    {
-        sx_idata = idata | 0xFFFF0000;
-    }
-    else
-    {
-        sx_idata = idata;
-    }
+    sx_idata = sign_extend_int32(idata, 16);
 
     switch (code)
     {
@@ -97,7 +90,7 @@ int i_type_instructions::execute()
     }
 }
 
-void i_type_instructions::ADDI(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
+void i_type_instructions::ADDI(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_t &sx_idata)
 {
     cerr << "ADDI" << endl;
     if (((C->reg[src1] < 0) && (sx_idata < 0) && (C->reg[src1] + sx_idata >= 0)) ||
@@ -112,7 +105,7 @@ void i_type_instructions::ADDI(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INST
     }
 }
 
-void i_type_instructions::ADDIU(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
+void i_type_instructions::ADDIU(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_t &sx_idata)
 {
     cerr << "ADDIU" << endl;
     C->reg[dest] = static_cast<uint32_t>(static_cast<uint32_t>(C->reg[src1]) + sx_idata);
@@ -126,7 +119,7 @@ void i_type_instructions::ANDI(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INST
     C->npc = C->npc + 1;
 }
 
-void i_type_instructions::BEQ(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
+void i_type_instructions::BEQ(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_t &sx_idata)
 {
     cerr << "BEQ" << endl;
     if (C->reg[src1] == C->reg[dest])
@@ -138,7 +131,7 @@ void i_type_instructions::BEQ(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR
         C->npc = C->npc + 1;
     }
 }
-void i_type_instructions::BNE(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
+void i_type_instructions::BNE(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_t &sx_idata)
 {
     cerr << "BNE" << endl;
     if (C->reg[src1] != C->reg[dest])
@@ -150,19 +143,19 @@ void i_type_instructions::BNE(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR
         C->npc = C->npc + 1;
     }
 }
-// void i_type_instructions::LBU(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
+// void i_type_instructions::LBU(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_t &sx_idata)
 // {
 //     cerr << "LBU" << endl; // Load byte unsigned LBU $1 16bOFFSET($2)
 // }
-// void i_type_instructions::LB(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
+// void i_type_instructions::LB(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_t &sx_idata)
 // {
 //     cerr << "LB" << endl;
 // }
-// void i_type_instructions::LHU(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
+// void i_type_instructions::LHU(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_t &sx_idata)
 // {
 //     cerr << "LHU" << endl;
 // }
-// void i_type_instructions::LH(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
+// void i_type_instructions::LH(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_t &sx_idata)
 // {
 //     cerr << "LH" << endl;
 // }
@@ -183,7 +176,7 @@ void i_type_instructions::LUI(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR
 
     C->npc = C->npc + 1;
 }
-void i_type_instructions::LW(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
+void i_type_instructions::LW(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_t &sx_idata)
 {
     cerr << "LW" << endl;
     INSTR_TYPE raw_mem_addr = sx_idata + C->reg[src1];
@@ -204,11 +197,11 @@ void i_type_instructions::LW(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_
         // C->reg[dest] = 
     }
 }
-// void i_type_instructions::LWL(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
+// void i_type_instructions::LWL(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_t &sx_idata)
 // {
 //     cerr << "LWL" << endl;
 // }
-// void i_type_instructions::LWR(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
+// void i_type_instructions::LWR(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_t &sx_idata)
 // {
 //     cerr << "LWR" << endl;
 // }
@@ -224,23 +217,23 @@ void i_type_instructions::XORI(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INST
     C->reg[dest] = C->reg[src1] ^ idata;
     C->npc = C->npc + 1;
 }
-// void i_type_instructions::SLTI(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
+// void i_type_instructions::SLTI(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_t &sx_idata)
 // {
 //     cerr << "SLTI" << endl;
 // }
-// void i_type_instructions::SLTIU(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
+// void i_type_instructions::SLTIU(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_t &sx_idata)
 // {
 //     cerr << "SLTIU" << endl;
 // }
-// void i_type_instructions::SB(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
+// void i_type_instructions::SB(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_t &sx_idata)
 // {
 //     cerr << "SB" << endl;
 // }
-// void i_type_instructions::SH(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
+// void i_type_instructions::SH(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_t &sx_idata)
 // {
 //     cerr << "SH" << endl;
 // }
-void i_type_instructions::SW(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
+void i_type_instructions::SW(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_t &sx_idata)
 {
     cerr << "SW" << endl;
     INSTR_TYPE raw_mem_addr = sx_idata + C->reg[src1];
@@ -261,31 +254,31 @@ void i_type_instructions::SW(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_
     }
 
 }
-// void i_type_instructions::BGEZ(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &sx_idata)
+// void i_type_instructions::BGEZ(CPU *&C, INSTR_TYPE &src1, int32_t &sx_idata)
 // {
 //     cerr << "BGEZ" << endl;
 // }
-// void i_type_instructions::BGEZAL(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &sx_idata)
+// void i_type_instructions::BGEZAL(CPU *&C, INSTR_TYPE &src1, int32_t &sx_idata)
 // {
 //     cerr << "BGEZAL" << endl;
 // }
-// void i_type_instructions::BGTZ(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
+// void i_type_instructions::BGTZ(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_t &sx_idata)
 // {
 //     cerr << "BGTZ" << endl;
 // }
-// void i_type_instructions::BLEZ(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
+// void i_type_instructions::BLEZ(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_t &sx_idata)
 // {
 //     cerr << "BLEZ" << endl;
 // }
-// void i_type_instructions::BLTZ(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &sx_idata)
+// void i_type_instructions::BLTZ(CPU *&C, INSTR_TYPE &src1, int32_t &sx_idata)
 // {
 //     cerr << "BLTZ" << endl;
 // }
-// void i_type_instructions::BLTZAL(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &sx_idata)
+// void i_type_instructions::BLTZAL(CPU *&C, INSTR_TYPE &src1, int32_t &sx_idata)
 // {
 //     cerr << "BLTZAL" << endl;
 // }
-// void i_type_instructions::BDECODER(CPU *&S, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
+// void i_type_instructions::BDECODER(CPU *&S, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_t &sx_idata)
 // {
 //     cerr << "BDECODER" << endl;
 // }
