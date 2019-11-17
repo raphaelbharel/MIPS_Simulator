@@ -59,9 +59,10 @@ public:
     void display()
     {
         std::cerr << "__DISPLAY__" << std::endl;
-        std::cerr << std::hex << "pc: " << pc << std::endl;
-        std::cerr << std::hex << "npc: " << npc << std::endl;
-        std::cerr << std::hex << "instr: " << instr << std::endl;
+        std::cerr << "| " << std::hex << "pc: " << pc << std::endl;
+        std::cerr << "| " << std::hex << "npc: " << npc << std::endl;
+        std::cerr << "| " << std::hex << "instr: " << instr << std::endl;
+        std::cerr << "-----------" << std::endl;
     }
 
     void view_regs()
@@ -69,8 +70,10 @@ public:
         std::cerr << "__REGISTERS__" << std::endl;
         for (int index = 0; index < REGISTER_SIZE; index++)
         {
-            std::cerr << "$" << index << " : " << reg[index] << std::endl;
+            std::cerr << "| "
+                      << "$" << index << "\t" << reg[index] << std::endl;
         }
+        std::cerr << "-------------" << std::endl;
     }
     void update()
     {

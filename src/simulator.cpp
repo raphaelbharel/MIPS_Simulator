@@ -28,7 +28,7 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 		binStream.open(binName, ios::binary); // Load .bin file as a binary file
 		if (!binStream.is_open())
 		{
-			cerr << "ERROR: Cannot open binary file." << endl;
+			cerr << "Error: Cannot open binary file." << endl;
 			return 1;
 		}
 
@@ -84,8 +84,7 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 				j_instruction.execute();
 				break;
 			default:
-				cerr << "ERROR: INVALID INSTRUCTION." << endl;
-				exit(-12);
+				throw(static_cast<int>(INSTRUCTION_EXIT_CODE));
 			}
 			C.display();
 			C.view_regs();
