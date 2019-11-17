@@ -1,0 +1,18 @@
+#!/bin/bash
+
+echo "Hello from testbench"
+
+#Run tests on MIPS_Simulator
+#1. Open directory of TESTS
+#2. For each test, take RETCODE 
+#3. Store retcode into CSV
+#4. Get extra information by matching .txt with .bin 
+
+	#any temp files to be stored in test/temp
+	#output of testbench created in test/output. i.e per test logfiles
+	#once all tests run, print CSV file to stdout, with each row corresponding to one execution of Simulator under test.
+
+for file in $testbench/tests
+do
+	./bin/mips_simulator file
+done

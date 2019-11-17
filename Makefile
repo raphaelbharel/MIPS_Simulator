@@ -87,15 +87,13 @@ test_LW_getc: bin/mips_simulator Formative_Tests/LW-getc.mips.bin
 
 # Dummy for build testbench to conform to spec. Could do nothing. 
 testbench: 
+#bash file executable to be held in bin/mips_testbench. Can copy from test.
+#u+x bin/mips_testbench (give user permissions, making it executable)
+#TODO: add functionality to make bin folder if not present.
 	mkdir -p bin
-	$(CC) $(CPPFLAGS) test/tb.cpp -o bin/mips_testbench
-
-#Run tests on MIPS_Simulator
-bin/mips_testbench: bin/mips_simulator
-	#run tests
-	#any temp files to be stored in test/temp
-	#output of testbench created in test/output. i.e per test logfiles
-	#once all tests run, print CSV file to stdout, with each row corresponding to one execution of Simulator under test.
-
+	cp -a testbench/mips_testbench bin/
+	chmod u+x bin/mips_testbench 
+	
 clean:
 	rm bin/mips_simulator
+	rm bin/mips_testbench
