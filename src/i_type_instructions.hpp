@@ -34,12 +34,12 @@ public:
     void ADDIU(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata);
     void ANDI(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &idata);
     void BEQ(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata);
-    void BNE(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata);
+    void BNE(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &idata);
     // void LBU(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata);
     // void LB(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata);
     // void LHU(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata);
     // void LH(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata);
-     void LUI(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &idata);
+    void LUI(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &idata);
     // void LW(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata);
     // void LWL(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata);
     // void LWR(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata);

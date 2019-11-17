@@ -75,7 +75,7 @@ simulator_DT_jr: bin/mips_simulator src/JR-return-immediate.mips.bin
 		./bin/mips_simulator src/JR-return-immediate.mips.bin
 
 simulator_formative_test: bin/mips_simulator Formative_Tests/ADD-wrap.mips.bin
-		./bin/mips_simulator Formative_Tests/ADD-wrap.mips.bin
+		./bin/mips_simulator Formative_Tests/BNE-loop.mips.bin
 #----------------------------------------------------
 #TESTBENCH
 #----------------------------------------------------
