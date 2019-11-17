@@ -39,8 +39,9 @@
 typedef uint32_t INSTR_TYPE;
 typedef uint32_t ADDR_TYPE;
 typedef char BUFFER_TYPE;
-typedef uint32_t MEM_TYPE;
+typedef int32_t MEM_TYPE;
 typedef int32_t REG_TYPE;
+
 
 // Function declarations
 char read_char();

@@ -11,11 +11,13 @@ public:
     uint32_t dest = 0;
     uint32_t idata = 0;
     int32_t sx_idata = 0;
+    bool DEBUG = 0;
     CPU *C;
 
-    i_type_instructions(CPU &cpu_state)
+    i_type_instructions(CPU &cpu_state, const bool &debug)
     {
         C = &cpu_state;
+        DEBUG = debug;
     }
 
     void display()

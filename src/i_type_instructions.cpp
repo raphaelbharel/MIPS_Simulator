@@ -179,8 +179,8 @@ void i_type_instructions::LUI(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR
 void i_type_instructions::LW(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_t &sx_idata)
 {
     cerr << "LW" << endl;
-    INSTR_TYPE raw_mem_addr = sx_idata + C->reg[src1];
-    INSTR_TYPE mem_addr = raw_mem_addr / 4;
+    int32_t raw_mem_addr = sx_idata + C->reg[src1];
+    int32_t mem_addr = raw_mem_addr / 4;
 
     if ((mem_addr < 0) || (raw_mem_addr%4 != 0)) // If either of the two LSB of address are non-zero then throw exception
     {
@@ -193,8 +193,8 @@ void i_type_instructions::LW(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_
     }
     else // Normal LW
     {
-        // MEM_TYPE sx_word = 
-        // C->reg[dest] = 
+        if (DEBUG) {cerr << hex << ">> LW Effective memory address: " << mem_addr << "\n";}
+        C->reg[dest] = (*(C->mem))[mem_addr]; // mem is a pointer to the memory block
     }
 }
 // void i_type_instructions::LWL(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_t &sx_idata)
