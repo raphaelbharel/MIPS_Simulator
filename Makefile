@@ -83,6 +83,8 @@ test_LW_getc: bin/mips_simulator Formative_Tests/LW-getc.mips.bin
 test-LW-read-data-section: bin/mips_simulator Formative_Tests/LW-read-data-section.mips.bin
 		./bin/mips_simulator Formative_Tests/LW-read-data-section.mips.bin $(DEBUG_SETTING)
 
+test-SW-putc: bin/mips_simulator Formative_Tests/SW-putc.mips.bin
+		./bin/mips_simulator Formative_Tests/SW-putc.mips.bin $(DEBUG_SETTING)
 #----------------------------------------------------
 #TESTBENCH
 #----------------------------------------------------

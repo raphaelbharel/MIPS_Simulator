@@ -93,7 +93,6 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 			C.pc = next_instruction;
 		}
 		if (DEBUG) {cerr << "Executions: " << executions << endl;}
-
 		//Successful termination/completion = return low 8-bits of the value in register $2.
 		INSTR_TYPE SUCCESSFUL_EXIT_CODE = C.reg[2] & 0xFF;
 		cerr << ">> PROGRAM EXITED WITH RETURN CODE: " << SUCCESSFUL_EXIT_CODE << endl;

@@ -181,6 +181,7 @@ void i_type_instructions::LW(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_
     cerr << "LW" << endl;
     int32_t raw_mem_addr = sx_idata + C->reg[src1];
     int32_t mem_addr = raw_mem_addr / 4;
+    if (DEBUG) {cerr << hex << ">> LW Effective memory address: " << mem_addr << "\n";}
 
     if ((mem_addr < 0) || (raw_mem_addr%4 != 0)) // If either of the two LSB of address are non-zero then throw exception
     {
@@ -193,9 +194,9 @@ void i_type_instructions::LW(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_
     }
     else // Normal LW
     {
-        if (DEBUG) {cerr << hex << ">> LW Effective memory address: " << mem_addr << "\n";}
         C->reg[dest] = (*(C->mem))[mem_addr]; // mem is a pointer to the memory block
     }
+    C->npc = C->npc + 1;
 }
 // void i_type_instructions::LWL(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_t &sx_idata)
 // {
@@ -238,6 +239,7 @@ void i_type_instructions::SW(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_
     cerr << "SW" << endl;
     INSTR_TYPE raw_mem_addr = sx_idata + C->reg[src1];
     INSTR_TYPE mem_addr = raw_mem_addr / 4;
+    if (DEBUG) {cerr << hex << ">> SW Effective memory address: " << mem_addr << "\n";}
 
     if ((mem_addr < 0) || (raw_mem_addr%4 != 0)) // If either of the two LSB of address are non-zero then throw exception
     {
@@ -249,10 +251,9 @@ void i_type_instructions::SW(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_
     }
     else // Normal SW
     {
-        // MEM_TYPE sx_word = 
-        // C->reg[dest] = 
+        (*(C->mem))[mem_addr] = C->reg[dest]; // mem is a pointer to the memory block
     }
-
+    C->npc = C->npc + 1;
 }
 // void i_type_instructions::BGEZ(CPU *&C, INSTR_TYPE &src1, int32_t &sx_idata)
 // {
