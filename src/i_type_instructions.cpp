@@ -12,10 +12,10 @@ int i_type_instructions::execute()
 	*/
 
     cerr << ">> Executing I type instruction ";
-    code = (C ->instr & 0xFC000000) >> 26;
-    src1 = (C ->instr & 0x3E00000) >> 21;
-    dest = (C ->instr & 0x1F0000) >> 16;
-    idata = (C ->instr & 0xFFFF);
+    code = (C->instr & 0xFC000000) >> 26;
+    src1 = (C->instr & 0x3E00000) >> 21;
+    dest = (C->instr & 0x1F0000) >> 16;
+    idata = (C->instr & 0xFFFF);
     // Sign extend 16bit immediate
     if (idata >> 15)
     {
@@ -29,19 +29,19 @@ int i_type_instructions::execute()
     switch (code)
     {
     case 0X8:
-        ADDI(C , src1, dest, sx_idata);
+        ADDI(C, src1, dest, sx_idata);
         return 1;
     case 0X9:
-        ADDIU(C , src1, dest, sx_idata);
+        ADDIU(C, src1, dest, sx_idata);
         return 1;
     case 0XC:
-        ANDI(C , src1, dest, idata);
+        ANDI(C, src1, dest, idata);
         return 1;
     case 0X4:
         // BEQ(C , src1, dest, sx_idata);
         return 1;
     case 0X5:
-        // BNE(C , src1, dest, sx_idata);
+        BNE(C, src1, dest, sx_idata);
         return 1;
     case 0X24:
         // LBU(C , src1, dest, sx_idata);
@@ -56,7 +56,7 @@ int i_type_instructions::execute()
         // LH(C , src1, dest, sx_idata);
         return 1;
     case 0XF:
-        LUI(C , src1, dest, idata);
+        LUI(C, src1, dest, idata);
         return 1;
     case 0X23:
         // LW(C , src1, dest, sx_idata);
@@ -86,7 +86,7 @@ int i_type_instructions::execute()
         // XORI(C, src1, dest, idata);
         return 1;
     case 0XD:
-         ORI(C, src1, dest, idata);
+        ORI(C, src1, dest, idata);
         return 1;
     case 0X7:
         // BGTZ(C, src1, dest, sx_idata);
@@ -149,7 +149,7 @@ void i_type_instructions::BNE(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR
     cerr << "BNE" << endl;
     if (C->reg[src1] != C->reg[dest])
     {
-        C->npc = sx_idata; // Supposedly 16bit shifted left (x4) but since our memory space is divided by 4, don't need to shift
+        C->npc = C->npc + sx_idata; // Supposedly 16bit shifted left (x4) but since our memory space is divided by 4, don't need to shift
     }
     else
     {
@@ -176,16 +176,18 @@ void i_type_instructions::BNE(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR
 void i_type_instructions::LUI(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &idata)
 {
     cerr << "LUI" << endl;
-    //Shift IDATA by 16 bits, load into RT (DEST). Exceptions: none. 
-    if(src1==0){
+    //Shift IDATA by 16 bits, load into RT (DEST). Exceptions: none.
+    if (src1 == 0)
+    {
         idata = idata << 16;
         C->reg[dest] = idata;
     }
-    else{
+    else
+    {
         cerr << "src1 != 0. Making LUI invalid. Error not yet thrown.";
     }
-   
-   C->npc = C->npc+1;
+
+    C->npc = C->npc + 1;
 }
 // void i_type_instructions::LW(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
 // {

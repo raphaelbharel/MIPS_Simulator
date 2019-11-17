@@ -75,7 +75,7 @@ simulator_DT_jr: bin/mips_simulator Formative_Tests/JR-return-immediate-nodelay.
 		./bin/mips_simulator Formative_Tests/JR-return-immediate-nodelay.mips.bin
 
 simulator_formative_test: bin/mips_simulator Formative_Tests/ADD-wrap.mips.bin
-		./bin/mips_simulator Formative_Tests/ADD-wrap.mips.bin
+		./bin/mips_simulator Formative_Tests/BNE-loop.mips.bin
 #----------------------------------------------------
 #TESTBENCH
 #----------------------------------------------------
