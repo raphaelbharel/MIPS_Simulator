@@ -74,8 +74,8 @@ simulator_jr: bin/mips_simulator src/new_JR.bin
 simulator_DT_jr: bin/mips_simulator Formative_Tests/JR-return-immediate-nodelay.mips.bin
 		./bin/mips_simulator Formative_Tests/JR-return-immediate-nodelay.mips.bin
 
-simulator_formative_test: bin/mips_simulator Formative_Tests/JR-return-immediate.mips.bin
-		./bin/mips_simulator Formative_Tests/JR-return-immediate.mips.bin
+simulator_formative_test: bin/mips_simulator Formative_Tests/ADD-wrap.mips.bin
+		./bin/mips_simulator Formative_Tests/ADD-wrap.mips.bin
 
 test_LW_getc: bin/mips_simulator Formative_Tests/LW-getc.mips.bin
 		./bin/mips_simulator Formative_Tests/LW-getc.mips.bin
