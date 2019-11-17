@@ -59,7 +59,7 @@ int i_type_instructions::execute()
         LUI(C, src1, dest, idata);
         return 1;
     case 0X23:
-        // LW(C , src1, dest, sx_idata);
+        LW(C, src1, dest, sx_idata);
         return 1;
     case 0X22:
         // LWL(C , src1, dest, sx_idata);
@@ -83,7 +83,7 @@ int i_type_instructions::execute()
         // SLTIU(C, src1, dest, sx_idata);
         return 1;
     case 0XE:
-        // XORI(C, src1, dest, idata);
+        XORI(C, src1, dest, idata);
         return 1;
     case 0XD:
         ORI(C, src1, dest, idata);
@@ -108,8 +108,7 @@ void i_type_instructions::ADDI(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INST
     if (((C->reg[src1] < 0) && (sx_idata < 0) && (C->reg[src1] + sx_idata >= 0)) ||
         ((C->reg[src1] > 0) && (sx_idata > 0) && (C->reg[src1] + sx_idata <= 0)))
     {
-        throw "Exception: Arithmetic Overflow!";
-        exit(-10);
+        throw(static_cast<int>(ARITHMETIC_EXIT_CODE));
     }
     else
     {
@@ -137,7 +136,7 @@ void i_type_instructions::BEQ(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR
     cerr << "BEQ" << endl;
     if (C->reg[src1] == C->reg[dest])
     {
-        C->npc = sx_idata;
+        C->npc = C->npc + sx_idata;
     }
     else
     {
@@ -189,10 +188,34 @@ void i_type_instructions::LUI(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR
 
     C->npc = C->npc + 1;
 }
-// void i_type_instructions::LW(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
-// {
-//     cerr << "LW" << endl;
-// }
+void i_type_instructions::LW(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
+{
+    cerr << "LW" << endl;
+    INSTR_TYPE raw_mem_addr = sx_idata + C->reg[src1];
+    INSTR_TYPE mem_addr = raw_mem_addr / 4;
+
+    if ((mem_addr < 0) && ((raw_mem_addr & 0x3) != 0)) // If either of the two LSB of address are non-zero then throw exception
+    {
+        throw(static_cast<int>(MEMORY_EXIT_CODE));
+    }
+    else if (mem_addr == ADDR_GETC)
+    {
+        char input = read_char();
+        int32_t sx_input = static_cast<int32_t>(input);
+        cout << sx_input << endl;
+        // C->[dest] =
+    }
+    else if (mem_addr == ADDR_PUTC)
+    {
+        char input;
+        cin >> input;
+        int32_t sx_input = static_cast<int32_t>(input);
+        cout << sx_input << endl;
+    }
+    else
+    {
+    }
+}
 // void i_type_instructions::LWL(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata)
 // {
 //     cerr << "LWL" << endl;

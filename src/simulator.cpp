@@ -1,24 +1,14 @@
-// g++ -std=c++11 simulator_1.cpp -o simulator_1
 #include "headers.hpp"
 
 using namespace std;
 
-// FUNCTION DECLARATIONS
-template <typename T>
-void __vertical_print_vector(const vector<T> &v);
-void __print_memory(const vector<MEM_TYPE> &v);
-char read_instruction(INSTR_TYPE &instruction);
-void __print_memory_specific(const vector<MEM_TYPE> &v, const int &start_index, const int &end_index);
-
-// MAIN
 int main(int argc /* argument count */, char *argv[] /* argument list */)
 {
 	try
 	{
 		if (argc != 2)
 		{
-			cerr << "ERROR: Incorrect number of arguments: " << endl;
-			cerr << argv[0] << ":" << argv[1] << endl;
+			cerr << "Error: Incorrect number of arguments: " << endl;
 			return 1;
 		}
 
@@ -96,7 +86,7 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 
 		//Successful termination/completion = return low 8-bits of the value in register $2.
 		INSTR_TYPE SUCCESSFUL_EXIT_CODE = C.reg[2] & 0xFF;
-		cout << "Return code: " << SUCCESSFUL_EXIT_CODE << endl;
+		cout << ">> PROGRAM EXITED WITH RETURN CODE: " << SUCCESSFUL_EXIT_CODE << endl;
 		exit(SUCCESSFUL_EXIT_CODE);
 	}
 	catch (const int EXIT_CODE) // Exception handling
@@ -127,52 +117,4 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 	}
 
 	return 0;
-} // END OF	MAIN
-
-// FUNCTION DEFINITIONS
-char read_instruction(INSTR_TYPE &instruction)
-{
-	INSTR_TYPE opcode = (instruction & 0xFC000000) >> 26; // First 6 bits
-	switch (opcode)
-	{
-	case 0:
-		return 'r';
-	case 0x2:
-	case 0x3:
-		return 'j';
-	default:
-		return 'i';
-	}
-}
-
-// HELPER FUNCTIONS
-// Arbitrary type print vector function
-template <typename T>
-void __vertical_print_vector(const vector<T> &v)
-{
-	cerr << "Printing vector of size " << v.size() << ":\nSTART [" << endl;
-	for (auto &elem : v)
-	{
-		cerr << hex << elem << "\n";
-	}
-	cerr << "] END" << endl;
-}
-
-void __print_memory(const vector<MEM_TYPE> &v)
-{
-	cerr << "Printing vector of size " << v.size() << ":\nSTART [" << endl;
-	for (int index = 0; index < MEM_SIZE; index++)
-	{
-		cerr << hex << index << ":" << v[index] << "\n";
-	}
-	cerr << "] END" << endl;
-}
-void __print_memory_specific(const vector<MEM_TYPE> &v, const int &start_index, const int &end_index)
-{
-	cerr << "Printing vector of size " << v.size() << ":\nSTART [" << endl;
-	for (int index = start_index; index < end_index; index++)
-	{
-		cerr << hex << index << ":" << v[index] << "\n";
-	}
-	cerr << "] END" << endl;
 }
