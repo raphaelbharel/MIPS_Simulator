@@ -42,6 +42,13 @@ typedef char BUFFER_TYPE;
 typedef uint32_t MEM_TYPE;
 typedef int32_t REG_TYPE;
 
+char read_char();
+char read_instruction(INSTR_TYPE &instruction);
+template <typename T>
+void __vertical_print_vector(const std::vector<T> &v);
+void __print_memory(const std::vector<MEM_TYPE> &v);
+void __print_memory_specific(const std::vector<MEM_TYPE> &v, const int &start_index, const int &end_index);
+
 class CPU
 {
 public:
@@ -58,28 +65,24 @@ public:
     }
     void display()
     {
-        std::cerr << "__DISPLAY__" << std::endl;
+        std::cerr << "+--{DISPLAY}--+" << std::endl;
         std::cerr << "| " << std::hex << "pc: " << pc << std::endl;
         std::cerr << "| " << std::hex << "npc: " << npc << std::endl;
         std::cerr << "| " << std::hex << "instr: " << instr << std::endl;
-        std::cerr << "-----------" << std::endl;
+        std::cerr << "+-------------+" << std::endl
+                  << "\n";
     }
 
     void view_regs()
     {
-        std::cerr << "__REGISTERS__" << std::endl;
+        std::cerr << "+--{REGISTERS}--+ " << std::endl;
         for (int index = 0; index < REGISTER_SIZE; index++)
         {
             std::cerr << "| "
                       << "$" << index << "\t" << reg[index] << std::endl;
         }
-        std::cerr << "-------------" << std::endl;
-    }
-    void update()
-    {
-        pc = npc; // Update the pc
-        npc += 4; // Update next pc
-        // Update instructions
+        std::cerr << "+---------------+" << std::endl
+                  << "\n";
     }
 
 private:
