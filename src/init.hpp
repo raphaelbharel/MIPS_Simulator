@@ -80,11 +80,14 @@ public:
     ADDR_TYPE npc;
     INSTR_TYPE instr;
     std::vector<REG_TYPE> reg;
+    std::vector<MEM_TYPE>  * mem;
+
     CPU(std::vector<MEM_TYPE> &mem_block)
     {
         pc = ADDR_INSTR_OFFSET; // PC starts at beginning of executable memory
         npc = ADDR_INSTR_OFFSET + 1;
         instr = mem_block[ADDR_INSTR_OFFSET]; //start from first
+        mem = &mem_block; // Pointer to memory block
         reg.resize(REGISTER_SIZE, 0);
     }
     void display()
