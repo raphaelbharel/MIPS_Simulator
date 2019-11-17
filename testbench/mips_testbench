@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "Hello from testbench"
+echo "Hello from testbench"  
 
 #Run tests on MIPS_Simulator
 #1. Open directory of TESTS
