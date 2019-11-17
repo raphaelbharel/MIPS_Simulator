@@ -4,12 +4,7 @@ using namespace std;
 
 int i_type_instructions::execute()
 {
-    /*
-	Opcode - 6 bits
-	Source 1 - 5 bits
-	Dest - 5 bits
-	Immediate constant - 16 bits
-	*/
+    /* Opcode - 6 bits, Source 1 - 5 bits, Dest - 5 bits, Immediate constant - 16 bits */
 
     cerr << ">> Executing I type instruction ";
     code = (C->instr & 0xFC000000) >> 26;
@@ -38,7 +33,7 @@ int i_type_instructions::execute()
         ANDI(C, src1, dest, idata);
         return 1;
     case 0X4:
-        // BEQ(C , src1, dest, sx_idata);
+        BEQ(C, src1, dest, sx_idata);
         return 1;
     case 0X5:
         BNE(C, src1, dest, sx_idata);
@@ -201,8 +196,16 @@ void i_type_instructions::LW(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_
     else if (mem_addr == ADDR_GETC)
     {
         char input = read_char();
-        int32_t sx_input = static_cast<int32_t>(input);
-        cout << sx_input << endl;
+        uint32_t sx_input;
+        if (input >> 15)
+        {
+            sx_input = 0xFFFFFF00 | input;
+        }
+        else
+        {
+            sx_input = input;
+        }
+
         // C->[dest] =
     }
     else if (mem_addr == ADDR_PUTC)
