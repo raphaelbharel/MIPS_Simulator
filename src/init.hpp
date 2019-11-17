@@ -39,8 +39,9 @@
 typedef uint32_t INSTR_TYPE;
 typedef uint32_t ADDR_TYPE;
 typedef char BUFFER_TYPE;
-typedef uint32_t MEM_TYPE;
+typedef int32_t MEM_TYPE;
 typedef int32_t REG_TYPE;
+
 
 // Function declarations
 char read_char();
@@ -51,15 +52,15 @@ void __print_memory_specific(const std::vector<MEM_TYPE> &v, const int &start_in
 
 // Template functions
 template <typename T>
-int sign_extend_int32(const T &data, const int &initial_length){
+int32_t sign_extend_int32(const T &data, const int &initial_length){
     T temp = data;
-    int rv = temp;
+    int32_t rv = temp;
     if(temp >> (initial_length-1)){ // Checking MSB
         int extension = 0xFFFFFFFF >> initial_length;
         extension = extension << initial_length;
         rv = extension | temp;
     } 
-    return static_cast<int>(rv);
+    return static_cast<int32_t>(rv);
 }
 // template <typename T>
 // void __vertical_print_vector(const std::vector<T> &v)
@@ -80,11 +81,14 @@ public:
     ADDR_TYPE npc;
     INSTR_TYPE instr;
     std::vector<REG_TYPE> reg;
+    std::vector<MEM_TYPE>  * mem;
+
     CPU(std::vector<MEM_TYPE> &mem_block)
     {
         pc = ADDR_INSTR_OFFSET; // PC starts at beginning of executable memory
         npc = ADDR_INSTR_OFFSET + 1;
         instr = mem_block[ADDR_INSTR_OFFSET]; //start from first
+        mem = &mem_block; // Pointer to memory block
         reg.resize(REGISTER_SIZE, 0);
     }
     void display()

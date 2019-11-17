@@ -10,12 +10,14 @@ public:
     uint32_t src1 = 0;
     uint32_t dest = 0;
     uint32_t idata = 0;
-    uint32_t sx_idata = 0;
+    int32_t sx_idata = 0;
+    bool DEBUG = 0;
     CPU *C;
 
-    i_type_instructions(CPU &cpu_state)
+    i_type_instructions(CPU &cpu_state, const bool &debug)
     {
         C = &cpu_state;
+        DEBUG = debug;
     }
 
     void display()
@@ -30,33 +32,33 @@ public:
         std::cout << "idata: " << std::bitset<I_ADATA_SIZE>(idata) << std::endl;
     }
     int execute();
-    void ADDI(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata);
-    void ADDIU(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata);
+    void ADDI(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_t &sx_idata);
+    void ADDIU(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_t &sx_idata);
     void ANDI(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &idata);
-    void BEQ(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata);
-    void BNE(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &idata);
-    // void LBU(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata);
-    // void LB(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata);
-    // void LHU(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata);
-    // void LH(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata);
+    void BEQ(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_t &sx_idata);
+    void BNE(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_t &sx_idata);
+    // void LBU(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_t &sx_idata);
+    // void LB(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_t &sx_idata);
+    // void LHU(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_t &sx_idata);
+    // void LH(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_t &sx_idata);
     void LUI(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &idata);
-    void LW(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata);
-    // void LWL(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata);
-    // void LWR(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata);
+    void LW(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_t &sx_idata);
+    // void LWL(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_t &sx_idata);
+    // void LWR(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_t &sx_idata);
     void ORI(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &idata);
     void XORI(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &idata);
-    // void SLTI(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata);
-    // void SLTIU(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata);
-    // void SB(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata);
-    // void SH(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata);
-    void SW(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata);
-    // void BGEZ(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &sx_idata);
-    // void BGEZAL(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &sx_idata);
-    // void BGTZ(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata);
-    // void BLEZ(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata);
-    // void BLTZ(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &sx_idata);
-    // void BLTZAL(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &sx_idata);
-    // void BDECODER(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &sx_idata);
+    // void SLTI(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_t &sx_idata);
+    // void SLTIU(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_t &sx_idata);
+    // void SB(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_t &sx_idata);
+    // void SH(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_t &sx_idata);
+    void SW(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_t &sx_idata);
+    // void BGEZ(CPU *&C, INSTR_TYPE &src1, int32_t &sx_idata);
+    // void BGEZAL(CPU *&C, INSTR_TYPE &src1, int32_t &sx_idata);
+    // void BGTZ(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_t &sx_idata);
+    // void BLEZ(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_t &sx_idata);
+    // void BLTZ(CPU *&C, INSTR_TYPE &src1, int32_t &sx_idata);
+    // void BLTZAL(CPU *&C, INSTR_TYPE &src1, int32_t &sx_idata);
+    // void BDECODER(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_t &sx_idata);
 
 private:
 };
