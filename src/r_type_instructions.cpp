@@ -49,36 +49,36 @@ int r_type_instructions::execute()
         SLT(C, src1, src2, dest);
         return 1;
     case 0x3:
-        // SRA(C, src1, src2, dest);
+        SRA(C, src1, src2, dest);
         return 1;
     case 0x7:
-        // SRAV(C, src1, src2, dest);
+        SRAV(C, src1, src2, dest);
         return 1;
     case 0x2:
-        // SRL(C, src1, src2, dest);
+        SRL(C, src2, dest);
         return 1;
     case 0x22:
-        // SUB(C, src1, src2, dest);
+        SUB(C, src1, src2, dest);
         return 1;
 
     //COMPLEXITY 3
     case 0x10:
-        // MFHI(C, src1, src2, dest);
+        MFHI(C, src1);
         return 1;
     case 0x12:
-        // MFLO(C, src1, src2, dest);
+        MFLO(C, src1);
         return 1;
     case 0x11:
-        // MTHI(C, src1, src2, dest);
+        MTHI(C, dest);
         return 1;
     case 0x13:
-        // MTLO(C, src1, src2, dest);
+        MTLO(C, dest);
         return 1;
     case 0x4:
-        // SLLV(C, src1, src2, dest);
+        SLLV(C, src1, src2, dest);
         return 1;
     case 0x6:
-        // SRLV(C, src1, src2, dest);
+        SRLV(C, src1, src2, dest);
         return 1;
 
     //COMPLEXITY 4
@@ -200,63 +200,96 @@ void r_type_instructions::SLT(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR
     C->npc = C->npc + 1;
 }
 
-// void r_type_instructions::SRA(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &func)
-// {
-//     cerr << "SRA" << endl;
-// }
-// void r_type_instructions::SRAV(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &func)
-// {
-//     cerr << "SRAV" << endl;
-// }
-// void r_type_instructions::SRL(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &func)
-// {
-//     cerr << "SRL" << endl;
-// }
-// void r_type_instructions::SUB(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &func)
-// {
-//     cerr << "SUB" << endl;
-// }
-// void r_type_instructions::MFHI(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &func)
-// {
-//     cerr << "MFHI" << endl;
-// }
-// void r_type_instructions::MFLO(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &func)
-// {
-//     cerr << "MFLO" << endl;
-// }
-// void r_type_instructions::MTHI(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &func)
-// {
-//     cerr << "MTHI" << endl;
-// }
-// void r_type_instructions::MTLO(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &func)
-// {
-//     cerr << "MTLO" << endl;
-// }
-// void r_type_instructions::SLLV(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &func)
-// {
-//     cerr << "SLLV" << endl;
-// }
-// void r_type_instructions::SRLV(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &func)
-// {
-//     cerr << "SRLV" << endl;
-// }
-// void r_type_instructions::DIV(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &func)
+void r_type_instructions::SRA(CPU *&C, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &shift)
+{
+    cerr << "SRA" << endl;
+    C->reg[dest] = static_cast<int32_t>(C->reg[src2]) >> shift;
+    C->npc = C->npc + 1;
+}
+void r_type_instructions::SRAV(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest)
+{
+    cerr << "SRAV" << endl;
+    C->reg[dest] = static_cast<int32_t>(C->reg[src2]) >> (C->reg[src1] & 0x1F); // Shift by low order 5 bits
+    C->npc = C->npc + 1;
+}
+
+void r_type_instructions::SRL(CPU *&C, INSTR_TYPE &src2, INSTR_TYPE &dest)
+{
+    cerr << "SRL" << endl;
+    C->reg[dest] = static_cast<uint32_t>(C->reg[src2]) >> shift; // Casting as uint32
+    C->npc = C->npc + 1;
+}
+void r_type_instructions::SUB(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest)
+{
+    cerr << "SUB" << endl;
+    // if +ve - -ve => -ve or -ve - +ve => +ve gives arithmetic overflow
+    if (((C->reg[src1] > 0) && (C->reg[src2] < 0) && (C->reg[src1] - C->reg[src2] <= 0)) ||
+        ((C->reg[src1] < 0) && (C->reg[src2] > 0) && (C->reg[src1] - C->reg[src2] >= 0)))
+    {
+        throw(static_cast<int>(ARITHMETIC_EXIT_CODE));
+    }
+    else
+    {
+        C->reg[dest] = C->reg[src1] - C->reg[src2];
+        C->npc = C->npc + 1;
+    }
+}
+
+void r_type_instructions::MFHI(CPU *&C, INSTR_TYPE &dest)
+{
+    cerr << "MFHI" << endl;
+    C->reg[dest] = C->regHI;
+    C->npc = C->npc + 1;
+}
+void r_type_instructions::MFLO(CPU *&C, INSTR_TYPE &dest)
+{
+    cerr << "MFLO" << endl;
+    C->reg[dest] = C->regLO;
+    C->npc = C->npc + 1;
+}
+void r_type_instructions::MTHI(CPU *&C, INSTR_TYPE &src1)
+{
+    cerr << "MTHI" << endl;
+    C->regHI = C->reg[src1];
+    C->npc = C->npc + 1;
+}
+void r_type_instructions::MTLO(CPU *&C, INSTR_TYPE &src1)
+{
+    cerr << "MTLO" << endl;
+    C->regLO = C->reg[src1];
+    C->npc = C->npc + 1;
+}
+void r_type_instructions::SLLV(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest)
+{
+    cerr << "SLLV" << endl;
+    C->reg[dest] = C->reg[src2] << (C->reg[src1] & 0x1F); // Shifted by low order 5 bits
+    C->npc = C->npc + 1;
+}
+
+void r_type_instructions::SRLV(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest)
+{
+    cerr << "SRLV" << endl;
+    C->reg[dest] = static_cast<uint32_t>(C->reg[src2]) >> (C->reg[src1] & 0x1F); // Casting as uint32, shift by low order 5 bits
+    C->npc = C->npc + 1;
+}
+
+// void r_type_instructions::DIV(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest)
 // {
 //     cerr << "DIV" << endl;
 // }
-// void r_type_instructions::DIVU(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &func)
+// void r_type_instructions::DIVU(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest)
 // {
 //     cerr << "DIVU" << endl;
 // }
-// void r_type_instructions::JALR(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &func)
+// void r_type_instructions::JALR(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest)
 // {
 //     cerr << "JALR" << endl;
 // }
-// void r_type_instructions::MULT(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &func)
+// void r_type_instructions::MULT(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest)
 // {
 //     cerr << "MULT" << endl;
 // }
-// void r_type_instructions::MULTU(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &func)
+// void r_type_instructions::MULTU(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest)
 // {
 //     cerr << "MULTU" << endl;
 // }
