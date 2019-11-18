@@ -3,9 +3,9 @@
 echo "TESTBENCH: RUNNING ALL TESTS"  
 
 #Run tests on MIPS_Simulator
-#1. Open directory of TESTS
-#2. For each test, take RETCODE 
-#3. Store retcode into CSV
+#1. Open directory of TESTS X
+#2. For each test, take RETCODE X
+#3. Store retcode into CSV X
 #4. Get extra information by matching .txt with .bin 
 
 	#any temp files to be stored in test/temp
@@ -14,7 +14,7 @@ echo "TESTBENCH: RUNNING ALL TESTS"
 
 printf "TEST,RETCODE\n" >> test/output/log.csv
 
-for file in test/input/*
+for file in test/input/*.bin
 do
 	name=${file##*/}
 	./bin/mips_simulator test/input/${name}
@@ -22,4 +22,25 @@ do
 	#printf "Host\tDate\tOperation\tDuration\n" >> log.csv
 	#printf "$host\t$(date)\tTime Taken to checkout\t$Time_checkout\n" >> log.csv
 	printf  "${name},${RETCODE}\n" >> test/output/log.csv
+
+	filename='test/input/ADDU-wrap.txt'
+	head -1 $filename |
+	while read line;  do
+		# reading each line
+		#echo "$line"
+		n=0
+		values=$(echo $line | tr ";" "\n")
+		for value in $values
+		do
+    	printf "$value,">> test/output/testing.csv
+			if (($n == 2))
+			then
+				echo $n
+				#COMPARE RETCODE, DETERMINE PASS/FAIL
+			fi
+			n=$((n+1))
+		done
+		printf "\n">> test/output/testing.csv
+	done
+
 done
