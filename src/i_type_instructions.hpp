@@ -52,13 +52,12 @@ public:
     void SB(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_t &sx_idata);
     void SH(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_t &sx_idata);
     void SW(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_t &sx_idata);
-    // void BGEZ(CPU *&C, INSTR_TYPE &src1, int32_t &sx_idata);
-    // void BGEZAL(CPU *&C, INSTR_TYPE &src1, int32_t &sx_idata);
-    // void BGTZ(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_t &sx_idata);
-    // void BLEZ(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_t &sx_idata);
-    // void BLTZ(CPU *&C, INSTR_TYPE &src1, int32_t &sx_idata);
-    // void BLTZAL(CPU *&C, INSTR_TYPE &src1, int32_t &sx_idata);
-    // void BDECODER(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_t &sx_idata);
+    void BGTZ(CPU *&C, INSTR_TYPE &src1, int32_t &sx_idata);
+    void BLEZ(CPU *&C, INSTR_TYPE &src1, int32_t &sx_idata);
+    void BGEZ(CPU *&C, INSTR_TYPE &src1, int32_t &sx_idata);
+    void BGEZAL(CPU *&C, INSTR_TYPE &src1, int32_t &sx_idata);
+    void BLTZ(CPU *&C, INSTR_TYPE &src1, int32_t &sx_idata);
+    void BLTZAL(CPU *&C, INSTR_TYPE &src1, int32_t &sx_idata);
 
 private:
 };

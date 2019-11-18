@@ -16,74 +16,90 @@ int i_type_instructions::execute()
 
     switch (code)
     {
-    case 0X8:
+    case 0x8:
         ADDI(C, src1, dest, sx_idata);
         return 1;
-    case 0X9:
+    case 0x9:
         ADDIU(C, src1, dest, sx_idata);
         return 1;
-    case 0XC:
+    case 0xC:
         ANDI(C, src1, dest, idata);
         return 1;
-    case 0X4:
+    case 0x4:
         BEQ(C, src1, dest, sx_idata);
         return 1;
-    case 0X5:
+    case 0x5:
         BNE(C, src1, dest, sx_idata);
         return 1;
-    case 0X24:
+    case 0x24:
         LBU(C, src1, dest, sx_idata);
         return 1;
-    case 0X20:
+    case 0x20:
         LB(C, src1, dest, sx_idata);
         return 1;
-    case 0X25:
+    case 0x25:
         LHU(C, src1, dest, sx_idata);
         return 1;
-    case 0X21:
+    case 0x21:
         LH(C, src1, dest, sx_idata);
         return 1;
-    case 0XF:
+    case 0xF:
         LUI(C, src1, dest, idata);
         return 1;
-    case 0X23:
+    case 0x23:
         LW(C, src1, dest, sx_idata);
         return 1;
-    case 0X22:
+    case 0x22:
         LWL(C, src1, dest, sx_idata);
         return 1;
-    case 0X26:
+    case 0x26:
         LWR(C, src1, dest, sx_idata);
         return 1;
-    case 0X28:
+    case 0x28:
         SB(C, src1, dest, sx_idata);
         return 1;
-    case 0X29:
+    case 0x29:
         SH(C, src1, dest, sx_idata);
         return 1;
-    case 0X2B:
+    case 0x2B:
         SW(C, src1, dest, sx_idata);
         return 1;
-    case 0XA:
+    case 0xA:
         SLTI(C, src1, dest, sx_idata);
         return 1;
-    case 0XB:
+    case 0xB:
         SLTIU(C, src1, dest, sx_idata);
         return 1;
-    case 0XE:
+    case 0xE:
         XORI(C, src1, dest, idata);
         return 1;
-    case 0XD:
+    case 0xD:
         ORI(C, src1, dest, idata);
         return 1;
-    case 0X7:
-        // BGTZ(C, src1, dest, sx_idata);
+    case 0x7:
+        BGTZ(C, src1, sx_idata);
         return 1;
-    case 0X6:
-        // BLEZ(C, src1, dest, sx_idata);
+    case 0x6:
+        BLEZ(C, src1, sx_idata);
         return 1;
-    case 0X1:
-        // BDECODER(C, src1, dest, sx_idata);
+    case 0x1: // REGIMM, filter by dest reg
+        {
+            switch(dest) 
+            {
+            case 0x0:
+                BLTZ(C, src1, sx_idata);
+                return 1;
+            case 0x1:
+                BGEZ(C, src1, sx_idata);
+                return 1;
+            case 0x10:
+                BLTZAL(C, src1, sx_idata);
+                return 1;
+            case 0x11:
+                BGEZAL(C, src1, sx_idata);
+                return 1;
+            }
+        }
         return 1;
     default:
         throw(static_cast<int>(INSTRUCTION_EXIT_CODE));
@@ -442,15 +458,13 @@ void i_type_instructions::SLTI(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int3
     {
         C->reg[dest] = 0;
     }
+    C->npc = C->npc + 1;
 }
 
 void i_type_instructions::SLTIU(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_t &sx_idata)
 {
     cerr << "SLTIU" << endl;
-    uint32_t unsigned_src1 = static_cast<uint32_t>(C->reg[src1]);
-    uint32_t unsigned_sx_idata = static_cast<uint32_t>(sx_idata);
-
-    if (unsigned_src1 < unsigned_sx_idata)
+    if (static_cast<uint32_t>(C->reg[src1]) < static_cast<uint32_t>(sx_idata))
     {
         C->reg[dest] = 1;
     }
@@ -458,6 +472,7 @@ void i_type_instructions::SLTIU(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int
     {
         C->reg[dest] = 0;
     }
+    C->npc = C->npc + 1;
 }
 
 void i_type_instructions::SB(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_t &sx_idata)
@@ -521,31 +536,84 @@ void i_type_instructions::SW(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_
     }
     C->npc = C->npc + 1;
 }
-// void i_type_instructions::BGEZ(CPU *&C, INSTR_TYPE &src1, int32_t &sx_idata)
-// {
-//     cerr << "BGEZ" << endl;
-// }
-// void i_type_instructions::BGEZAL(CPU *&C, INSTR_TYPE &src1, int32_t &sx_idata)
-// {
-//     cerr << "BGEZAL" << endl;
-// }
-// void i_type_instructions::BGTZ(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_t &sx_idata)
-// {
-//     cerr << "BGTZ" << endl;
-// }
-// void i_type_instructions::BLEZ(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_t &sx_idata)
-// {
-//     cerr << "BLEZ" << endl;
-// }
-// void i_type_instructions::BLTZ(CPU *&C, INSTR_TYPE &src1, int32_t &sx_idata)
-// {
-//     cerr << "BLTZ" << endl;
-// }
-// void i_type_instructions::BLTZAL(CPU *&C, INSTR_TYPE &src1, int32_t &sx_idata)
-// {
-//     cerr << "BLTZAL" << endl;
-// }
-// void i_type_instructions::BDECODER(CPU *&S, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_t &sx_idata)
-// {
-//     cerr << "BDECODER" << endl;
-// }
+
+void i_type_instructions::BGTZ(CPU *&C, INSTR_TYPE &src1, int32_t &sx_idata)
+{
+    cerr << "BGTZ" << endl;
+    if (C->reg[src1] > 0)
+    {
+        C->npc = C->npc + sx_idata; // Supposedly 16bit shifted left (x4) but since our memory space is divided by 4, don't need to shift
+    }
+    else
+    {
+        C->npc = C->npc + 1;
+    }
+}
+
+void i_type_instructions::BGEZ(CPU *&C, INSTR_TYPE &src1, int32_t &sx_idata)
+{
+    cerr << "BGEZ" << endl;
+    if (C->reg[src1] >= 0)
+    {
+        C->npc = C->npc + sx_idata; // Supposedly 16bit shifted left (x4) but since our memory space is divided by 4, don't need to shift
+    }
+    else
+    {
+        C->npc = C->npc + 1;
+    }
+}
+void i_type_instructions::BGEZAL(CPU *&C, INSTR_TYPE &src1, int32_t &sx_idata)
+{
+    cerr << "BGEZAL" << endl;
+    if (C->reg[src1] >= 0)
+    {
+        C->reg[31] = C->npc; // Storing return address of npc into $31
+        C->npc = C->npc + sx_idata; // Supposedly 16bit shifted left (x4) but since our memory space is divided by 4, don't need to shift
+    }
+    else
+    {
+        C->npc = C->npc + 1;
+    }
+}
+
+void i_type_instructions::BLEZ(CPU *&C, INSTR_TYPE &src1, int32_t &sx_idata)
+{
+    cerr << "BLEZ" << endl;
+    if (C->reg[src1] <= 0)
+    {
+        C->npc = C->npc + sx_idata; // Supposedly 16bit shifted left (x4) but since our memory space is divided by 4, don't need to shift
+    }
+    else
+    {
+        C->npc = C->npc + 1;
+    }
+}
+
+void i_type_instructions::BLTZ(CPU *&C, INSTR_TYPE &src1, int32_t &sx_idata)
+{
+    cerr << "BLTZ" << endl;
+    if (C->reg[src1] < 0)
+    {
+        C->npc = C->npc + sx_idata; // Supposedly 16bit shifted left (x4) but since our memory space is divided by 4, don't need to shift
+    }
+    else
+    {
+        C->npc = C->npc + 1;
+    }
+}
+
+
+void i_type_instructions::BLTZAL(CPU *&C, INSTR_TYPE &src1, int32_t &sx_idata)
+{
+    cerr << "BLTZAL" << endl;
+    if (C->reg[src1] < 0)
+    {
+        C->reg[31] = C->npc; // Storing return address of npc into $31
+        C->npc = C->npc + sx_idata; // Supposedly 16bit shifted left (x4) but since our memory space is divided by 4, don't need to shift
+    }
+    else
+    {
+        C->npc = C->npc + 1;
+    }
+
+}
