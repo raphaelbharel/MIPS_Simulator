@@ -1,4 +1,4 @@
-SW-read-write-data-section;SW;246;David_Thomas;Hello
+SW-read-write-data-section;SW;5;David_Thomas;Hello
 tests/bin/SW-read-write-data-section.mips.elf:     file format elf32-tradbigmips
 
 

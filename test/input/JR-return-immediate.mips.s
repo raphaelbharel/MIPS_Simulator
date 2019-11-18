@@ -1,4 +1,4 @@
-JR-return-immediate;JR;246;David_Thomas;Hello
+JR-return-immediate;JR;5;David_Thomas;Hello
 tests/bin/JR-return-immediate.mips.elf:     file format elf32-tradbigmips
 
 

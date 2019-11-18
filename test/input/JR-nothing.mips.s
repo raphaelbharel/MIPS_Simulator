@@ -1,4 +1,4 @@
-JR-nothing;JR;246;David_Thomas;Hello
+JR-nothing;JR;0;David_Thomas;Hello
 tests/bin/JR-nothing.mips.elf:     file format elf32-tradbigmips
 
 

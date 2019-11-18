@@ -1,4 +1,4 @@
-JR-return-immediate-nodelay;JR;246;David_Thomas;Hello
+JR-return-immediate-nodelay;JR;10;David_Thomas;Hello
 tests/bin/JR-return-immediate-nodelay.mips.elf:     file format elf32-tradbigmips
 
 
