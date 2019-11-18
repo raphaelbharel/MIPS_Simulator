@@ -9,12 +9,13 @@ public:
     uint32_t code = 0;
     uint32_t jdata = 0;
     uint32_t sx_jdata = 0;
-
+    bool DEBUG = 0;
     CPU *C;
 
-    j_type_instructions(CPU &cpu_state)
+    j_type_instructions(CPU &cpu_state, const bool &debug)
     {
         C = &cpu_state;
+        DEBUG = debug;
     }
 
     void display()
@@ -27,9 +28,7 @@ public:
         std::cout << "adata: " << std::bitset<J_ADDRESS_SIZE>(jdata) << std::endl;
     }
     int execute();
-    //COMPLEXITY 3
     void J(CPU *&C, INSTR_TYPE &jdata);
-    //COMPLEXITY 4
     void JAL(CPU *&C, INSTR_TYPE &jdata);
 
 private:
