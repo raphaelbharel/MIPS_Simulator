@@ -63,16 +63,6 @@ int32_t sign_extend_int32(const T &data, const int &initial_length)
     }
     return static_cast<int32_t>(rv);
 }
-// template <typename T>
-// void __vertical_print_vector(const std::vector<T> &v)
-// {
-//     cerr << "Printing vector of size " << v.size() << ":\nSTART [" << endl;
-//     for (auto &elem : v)
-//     {
-//         cerr << hex << elem << "\n";
-//     }
-//     cerr << "] END" << endl;
-// }
 
 // Class definitions
 class CPU

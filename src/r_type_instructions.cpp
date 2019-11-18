@@ -31,8 +31,6 @@ int r_type_instructions::execute()
     case 0x2B:
         SLTU(C, src1, src2, dest);
         return 1;
-
-    //COMPLEXITY 2
     case 0x23:
         SUBU(C, src1, src2, dest);
         return 1;
@@ -60,8 +58,6 @@ int r_type_instructions::execute()
     case 0x22:
         SUB(C, src1, src2, dest);
         return 1;
-
-    //COMPLEXITY 3
     case 0x10:
         MFHI(C, src1);
         return 1;
@@ -80,8 +76,6 @@ int r_type_instructions::execute()
     case 0x6:
         SRLV(C, src1, src2, dest);
         return 1;
-
-    //COMPLEXITY 4
     case 0x1A:
         DIV(C, src1, src2);
         return 1;

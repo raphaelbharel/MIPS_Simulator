@@ -4,25 +4,11 @@ using namespace std;
 
 int j_type_instructions::execute()
 {
-    /*
-	Opcode - 6 bits
-	Address data - 26 bits
-	*/
+    /* Opcode - 6 bits, Address data - 26 bits */
 
     cerr << ">> Executing J type instruction ";
     code = (C->instr & 0xFC000000) >> 26;
     jdata = (C->instr & 0x3EFFFFF);
-
-    // // Sign extend 16bit immediate-> TODO for J instr?
-    // INSTR_TYPE sx_adata;
-    // if (adata >> 15)
-    // {
-    //     sx_adata = adata | 0xFFFF0000;
-    // }
-    // else
-    // {
-    //     sx_adata = adata;
-    // }
 
     switch (code)
     {
@@ -33,7 +19,7 @@ int j_type_instructions::execute()
         JAL(C, jdata);
         return 1;
     default:
-        return -12;
+        throw(static_cast<int>(INSTRUCTION_EXIT_CODE));
     }
 }
 

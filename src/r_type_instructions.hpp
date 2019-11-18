@@ -12,11 +12,13 @@ public:
     uint32_t dest = 0;
     uint32_t shift = 0;
     uint32_t func = 0;
+    bool DEBUG = 0;
     CPU *C;
 
-    r_type_instructions(CPU &cpu_state)
+    r_type_instructions(CPU &cpu_state, const bool &debug)
     {
         C = &cpu_state;
+        DEBUG = debug;
     }
 
     void display()
@@ -34,14 +36,12 @@ public:
     }
     int execute();
 
-    //COMPLEXITY 1
     void ADDU(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest);
     void AND(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest);
     void JR(CPU *&C, INSTR_TYPE &src1);
     void OR(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest);
     void SLTU(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest);
     void SUBU(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest);
-    //COMPLEXITY 2
     void XOR(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest);
     void ADD(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest);
     void SLL(CPU *&C, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR_TYPE &shift);
@@ -50,14 +50,12 @@ public:
     void SRAV(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest);
     void SRL(CPU *&C, INSTR_TYPE &src2, INSTR_TYPE &dest);
     void SUB(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest);
-    // //COMPLEXITY 3
     void MFHI(CPU *&C, INSTR_TYPE &dest);
     void MFLO(CPU *&C, INSTR_TYPE &dest);
     void MTHI(CPU *&C, INSTR_TYPE &src1);
     void MTLO(CPU *&C, INSTR_TYPE &src1);
     void SLLV(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest);
     void SRLV(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest);
-    // //COMPLEXITY 4
     void DIV(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &src2);
     void DIVU(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &src2);
     void MULT(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &src2);
