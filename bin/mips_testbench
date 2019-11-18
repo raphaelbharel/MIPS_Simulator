@@ -23,7 +23,7 @@ do
 	#printf "$host\t$(date)\tTime Taken to checkout\t$Time_checkout\n" >> log.csv
 	printf  "${name},${RETCODE}\n" >> test/output/log.csv
 
-	filename='test/input/ADDU-wrap.txt'
+	filename='test/input/ADDU-wrap.mips.s'
 	head -1 $filename |
 	while read line;  do
 		# reading each line
@@ -35,8 +35,7 @@ do
     	printf "$value,">> test/output/testing.csv
 			if (($n == 2))
 			then
-				echo $n
-				#COMPARE RETCODE, DETERMINE PASS/FAIL
+				echo "Expected value: ${value} , Returned value: ${RETCODE}"
 			fi
 			n=$((n+1))
 		done
