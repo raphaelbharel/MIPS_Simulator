@@ -98,6 +98,8 @@ int i_type_instructions::execute()
             case 0x11:
                 BGEZAL(C, src1, sx_idata);
                 return 1;
+            default:
+                throw(static_cast<int>(INSTRUCTION_EXIT_CODE));
             }
         }
         return 1;
