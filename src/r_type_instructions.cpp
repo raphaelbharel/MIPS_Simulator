@@ -83,19 +83,19 @@ int r_type_instructions::execute()
 
     //COMPLEXITY 4
     case 0x1A:
-        // DIV(C, src1, src2, dest);
+        DIV(C, src1, src2);
         return 1;
     case 0x1B:
-        // DIVU(C, src1, src2, dest);
+        DIVU(C, src1, src2);
         return 1;
     case 0x5:
-        // JALR(C, src1, src2, dest);
+        JALR(C, src1, dest);
         return 1;
     case 0x18:
-        // MULT(C, src1, src2, dest);
+        MULT(C, src1, src2);
         return 1;
     case 0x19:
-        // MULTU(C, src1, src2, dest);
+        MULTU(C, src1, src2);
         return 1;
     default:
         throw(static_cast<int>(INSTRUCTION_EXIT_CODE));
@@ -128,7 +128,7 @@ void r_type_instructions::JR(CPU *&C, INSTR_TYPE &src1)
     cerr << "JR" << endl;
     if (C->reg[src1] % 4 != 0)
     {
-        throw(static_cast<int>(INSTRUCTION_EXIT_CODE));
+        throw(static_cast<int>(MEMORY_EXIT_CODE));
     }
     else
     {
@@ -273,23 +273,49 @@ void r_type_instructions::SRLV(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &src2, INST
     C->npc = C->npc + 1;
 }
 
-// void r_type_instructions::DIV(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest)
-// {
-//     cerr << "DIV" << endl;
-// }
-// void r_type_instructions::DIVU(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest)
-// {
-//     cerr << "DIVU" << endl;
-// }
-// void r_type_instructions::JALR(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest)
-// {
-//     cerr << "JALR" << endl;
-// }
-// void r_type_instructions::MULT(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest)
-// {
-//     cerr << "MULT" << endl;
-// }
-// void r_type_instructions::MULTU(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest)
-// {
-//     cerr << "MULTU" << endl;
-// }
+void r_type_instructions::DIV(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &src2)
+{
+    cerr << "DIV" << endl;
+    C->regLO = C->reg[src1] / C->reg[src2];
+    C->regHI = C->reg[src1] % C->reg[src2];
+    C->npc = C->npc + 1;
+}
+
+void r_type_instructions::DIVU(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &src2)
+{
+    cerr << "DIVU" << endl;
+    C->regLO = static_cast<uint32_t>(C->reg[src1]) / static_cast<uint32_t>(C->reg[src2]);
+    C->regHI = static_cast<uint32_t>(C->reg[src1]) % static_cast<uint32_t>(C->reg[src2]);
+    C->npc = C->npc + 1;
+}
+
+void r_type_instructions::MULT(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &src2)
+{
+    cerr << "MULT" << endl;
+    int64_t product = static_cast<int64_t>(C->reg[src1]) * static_cast<int64_t>(C->reg[src2]);
+    C->regLO = static_cast<MEM_TYPE>(product & 0xFFFFFFFF);
+    C->regHI = static_cast<MEM_TYPE>(product >> 32);
+    C->npc = C->npc + 1;
+}
+void r_type_instructions::MULTU(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &src2)
+{
+    cerr << "MULTU" << endl;
+    uint64_t product = static_cast<uint64_t>(C->reg[src1]) * static_cast<uint64_t>(C->reg[src2]);
+    C->regLO = static_cast<MEM_TYPE>(product & 0xFFFFFFFF);
+    C->regHI = static_cast<MEM_TYPE>(product >> 32);
+    C->npc = C->npc + 1;
+}
+
+void r_type_instructions::JALR(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest)
+{
+    cerr << "JALR" << endl;
+    C->reg[dest] = C->npc; // Store return address in dest reg
+    if (C->reg[src1] % 4 != 0)
+    {
+        throw(static_cast<int>(MEMORY_EXIT_CODE));
+    }
+    else
+    {
+        C->npc = C->npc + C->reg[src1]; // Add offset to npc
+    }
+}

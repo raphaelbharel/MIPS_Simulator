@@ -58,11 +58,11 @@ public:
     void SLLV(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest);
     void SRLV(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest);
     // //COMPLEXITY 4
-    // void DIV(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest);
-    // void DIVU(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest);
-    // void JALR(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest);
-    // void MULT(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest);
-    // void MULTU(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR_TYPE &dest);
+    void DIV(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &src2);
+    void DIVU(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &src2);
+    void MULT(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &src2);
+    void MULTU(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &src2);
+    void JALR(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest);
 
 private:
 };
