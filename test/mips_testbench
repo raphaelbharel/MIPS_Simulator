@@ -12,7 +12,14 @@ echo "TESTBENCH: RUNNING ALL TESTS"
 	#output of testbench created in test/output. i.e per test logfiles
 	#once all tests run, print CSV file to stdout, with each row corresponding to one execution of Simulator under test.
 
-for file in $testbench/tests
+printf "TEST,RETCODE\n" >> test/output/log.csv
+
+for file in test/input/*
 do
-	./bin/mips_simulator file
+	name=${file##*/}
+	./bin/mips_simulator test/input/${name}
+	RETCODE=$?
+	#printf "Host\tDate\tOperation\tDuration\n" >> log.csv
+	#printf "$host\t$(date)\tTime Taken to checkout\t$Time_checkout\n" >> log.csv
+	printf  "${name},${RETCODE}\n" >> test/output/log.csv
 done

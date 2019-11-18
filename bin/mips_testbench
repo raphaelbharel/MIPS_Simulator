@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "Hello from testbench"
+echo "TESTBENCH: RUNNING ALL TESTS"  
 
 #Run tests on MIPS_Simulator
 #1. Open directory of TESTS
@@ -12,9 +12,14 @@ echo "Hello from testbench"
 	#output of testbench created in test/output. i.e per test logfiles
 	#once all tests run, print CSV file to stdout, with each row corresponding to one execution of Simulator under test.
 
-for file in testbench/tests/*
+printf "TEST,RETCODE\n" >> test/output/log.csv
+
+for file in test/input/*
 do
 	name=${file##*/}
-	echo "${name}"
-	./bin/mips_simulator testbench/tests/${name}
+	./bin/mips_simulator test/input/${name}
+	RETCODE=$?
+	#printf "Host\tDate\tOperation\tDuration\n" >> log.csv
+	#printf "$host\t$(date)\tTime Taken to checkout\t$Time_checkout\n" >> log.csv
+	printf  "${name},${RETCODE}\n" >> test/output/log.csv
 done
