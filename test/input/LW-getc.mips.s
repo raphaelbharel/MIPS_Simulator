@@ -1,4 +1,4 @@
-LW-getc;LW;88;David_Thomas;Hello
+LW-getc;LW;88;m8pple
 tests/bin/LW-getc.mips.elf:     file format elf32-tradbigmips
 
 

@@ -1,4 +1,4 @@
-BNE-loop;BNE;10;David_Thomas;Hello
+BNE-loop;BNE;10;m8pple
 tests/bin/BNE-loop.mips.elf:     file format elf32-tradbigmips
 
 

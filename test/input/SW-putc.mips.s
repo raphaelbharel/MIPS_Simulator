@@ -1,4 +1,4 @@
-SW-putc;SW;0;David_Thomas;Hello
+SW-putc;SW;0;m8pple
 tests/bin/SW-putc.mips.elf:     file format elf32-tradbigmips
 
 

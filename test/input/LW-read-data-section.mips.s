@@ -1,4 +1,4 @@
-LW-read-data-section;LW;0;David_Thomas;Hello
+LW-read-data-section;LW;0;m8pple
 tests/bin/LW-read-data-section.mips.elf:     file format elf32-tradbigmips
 
 
