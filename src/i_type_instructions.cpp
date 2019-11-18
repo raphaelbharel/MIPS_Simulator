@@ -56,19 +56,19 @@ int i_type_instructions::execute()
         LWR(C, src1, dest, sx_idata);
         return 1;
     case 0X28:
-        // SB(C , src1, dest, sx_idata);
+        SB(C, src1, dest, sx_idata);
         return 1;
     case 0X29:
-        // SH(C, src1, dest, sx_idata);
+        SH(C, src1, dest, sx_idata);
         return 1;
     case 0X2B:
         SW(C, src1, dest, sx_idata);
         return 1;
     case 0XA:
-        // SLTI(C, src1, dest, sx_idata);
+        SLTI(C, src1, dest, sx_idata);
         return 1;
     case 0XB:
-        // SLTIU(C, src1, dest, sx_idata);
+        SLTIU(C, src1, dest, sx_idata);
         return 1;
     case 0XE:
         XORI(C, src1, dest, idata);
@@ -86,7 +86,7 @@ int i_type_instructions::execute()
         // BDECODER(C, src1, dest, sx_idata);
         return 1;
     default:
-        return -12;
+        throw(static_cast<int>(INSTRUCTION_EXIT_CODE));
     }
 }
 
@@ -154,7 +154,7 @@ void i_type_instructions::LBU(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32
         cerr << hex << ">> LBU Effective memory address: " << mem_addr << "\n";
     }
 
-    if (mem_addr < 0)
+    if (mem_addr < ADDR_DATA || mem_addr > (ADDR_DATA + ADDR_DATA_OFFSET)) // If either of the two LSB of address are non-zero then throw exception
     {
         throw(static_cast<int>(MEMORY_EXIT_CODE));
     }
@@ -166,13 +166,13 @@ void i_type_instructions::LBU(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32
         C->reg[dest] = 0xFF000000 & word_at_address;
         break;
     case 1:
-        C->reg[dest] = 0x00FF0000 & word_at_address;
+        C->reg[dest] = 0xFF0000 & word_at_address;
         break;
     case 2:
-        C->reg[dest] = 0x0000FF00 & word_at_address;
+        C->reg[dest] = 0xFF00 & word_at_address;
         break;
     case 3:
-        C->reg[dest] = 0x000000FF & word_at_address;
+        C->reg[dest] = 0xFF & word_at_address;
         break;
     default:
         throw(static_cast<int>(MEMORY_EXIT_CODE));
@@ -191,7 +191,7 @@ void i_type_instructions::LB(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_
         cerr << hex << ">> LB Effective memory address: " << mem_addr << "\n";
     }
 
-    if (mem_addr < 0)
+    if (mem_addr < ADDR_DATA || mem_addr > (ADDR_DATA + ADDR_DATA_OFFSET)) // If either of the two LSB of address are non-zero then throw exception
     {
         throw(static_cast<int>(MEMORY_EXIT_CODE));
     }
@@ -204,15 +204,15 @@ void i_type_instructions::LB(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_
         C->reg[dest] = 0xFF000000 & word_at_address; // doesn't need to sign extend
         break;
     case 1:
-        pre_sx = 0x00FF0000 & word_at_address;
+        pre_sx = 0xFF0000 & word_at_address;
         C->reg[dest] = sign_extend_int32(pre_sx, 24);
         break;
     case 2:
-        pre_sx = 0x0000FF00 & word_at_address;
+        pre_sx = 0xFF00 & word_at_address;
         C->reg[dest] = sign_extend_int32(pre_sx, 16);
         break;
     case 3:
-        pre_sx = 0x000000FF & word_at_address;
+        pre_sx = 0xFF & word_at_address;
         C->reg[dest] = sign_extend_int32(pre_sx, 8);
         break;
     default:
@@ -233,7 +233,7 @@ void i_type_instructions::LHU(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32
         cerr << hex << ">> LBU Effective memory address: " << mem_addr << "\n";
     }
 
-    if ((mem_addr < 0) || (mem_addr % 2 != 0)) // LSB non zero i.e. not multiple of 2
+    if (mem_addr < ADDR_DATA || mem_addr > (ADDR_DATA + ADDR_DATA_OFFSET) || (mem_addr % 2 != 0)) // LSB non zero i.e. not multiple of 2
     {
         throw(static_cast<int>(MEMORY_EXIT_CODE));
     }
@@ -245,7 +245,7 @@ void i_type_instructions::LHU(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32
         C->reg[dest] = 0xFFFF0000 & word_at_address;
         break;
     case 2:
-        C->reg[dest] = 0x0000FFFF & word_at_address;
+        C->reg[dest] = 0xFFFF & word_at_address;
         break;
     default:
         throw(static_cast<int>(MEMORY_EXIT_CODE));
@@ -264,7 +264,7 @@ void i_type_instructions::LH(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_
         cerr << hex << ">> LH Effective memory address: " << mem_addr << "\n";
     }
 
-    if ((mem_addr < 0) || (mem_addr % 2 != 0)) // LSB non zero i.e. not multiple of 2
+    if (mem_addr < ADDR_DATA || mem_addr > (ADDR_DATA + ADDR_DATA_OFFSET) || (mem_addr % 2 != 0)) // LSB non zero i.e. not multiple of 2
     {
         throw(static_cast<int>(MEMORY_EXIT_CODE));
     }
@@ -277,7 +277,7 @@ void i_type_instructions::LH(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_
         C->reg[dest] = 0xFFFF0000 & word_at_address;
         break;
     case 2:
-        pre_sx = 0x0000FFFF & word_at_address;
+        pre_sx = 0xFFFF & word_at_address;
         C->reg[dest] = sign_extend_int32(pre_sx, 16);
         break;
     default:
@@ -315,7 +315,8 @@ void i_type_instructions::LW(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_
         cerr << hex << ">> LW Effective memory address: " << mem_addr << "\n";
     }
 
-    if ((mem_addr < 0) || (raw_mem_addr % 4 != 0)) // If either of the two LSB of address are non-zero then throw exception
+    if (mem_addr < ADDR_DATA || mem_addr > (ADDR_DATA + ADDR_DATA_OFFSET) || (raw_mem_addr % 4 != 0))
+    // If either of the two LSB of address are non-zero then throw exception
     {
         throw(static_cast<int>(MEMORY_EXIT_CODE));
     }
@@ -342,7 +343,7 @@ void i_type_instructions::LWL(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32
         cerr << hex << ">> LWL Effective memory address: " << mem_addr << "\n";
     }
 
-    if (mem_addr < 0)
+    if (mem_addr < ADDR_DATA || mem_addr > (ADDR_DATA + ADDR_DATA_OFFSET)) // If either of the two LSB of address are non-zero then throw exception
     {
         throw(static_cast<int>(MEMORY_EXIT_CODE));
     }
@@ -356,16 +357,16 @@ void i_type_instructions::LWL(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32
         C->reg[dest] = word_at_address; // Overwrite entire register
         break;
     case 1:
-        MSBytes = (0x00FFFFFF & word_at_address) << 8;
-        C->reg[dest] = (C->reg[dest] & 0x000000FF) | MSBytes; // Merge contents
+        MSBytes = (0xFFFFFF & word_at_address) << 8;
+        C->reg[dest] = (C->reg[dest] & 0xFF) | MSBytes; // Merge contents
         break;
     case 2:
-        MSBytes = (0x0000FFFF & word_at_address) << 16;
-        C->reg[dest] = (C->reg[dest] & 0x0000FFFF) | MSBytes; // Merge contents
+        MSBytes = (0xFFFF & word_at_address) << 16;
+        C->reg[dest] = (C->reg[dest] & 0xFFFF) | MSBytes; // Merge contents
         break;
     case 3:
-        MSBytes = (0x000000FF & word_at_address) << 24;
-        C->reg[dest] = (C->reg[dest] & 0x00FFFFFF) | MSBytes; // Merge contents
+        MSBytes = (0xFF & word_at_address) << 24;
+        C->reg[dest] = (C->reg[dest] & 0xFFFFFF) | MSBytes; // Merge contents
         break;
     default:
         throw(static_cast<int>(MEMORY_EXIT_CODE));
@@ -385,7 +386,7 @@ void i_type_instructions::LWR(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32
         cerr << hex << ">> LWR Effective memory address: " << mem_addr << "\n";
     }
 
-    if (mem_addr < 0)
+    if (mem_addr < ADDR_DATA || mem_addr > (ADDR_DATA + ADDR_DATA_OFFSET)) // If either of the two LSB of address are non-zero then throw exception
     {
         throw(static_cast<int>(MEMORY_EXIT_CODE));
     }
@@ -429,22 +430,72 @@ void i_type_instructions::XORI(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INST
     C->reg[dest] = C->reg[src1] ^ idata;
     C->npc = C->npc + 1;
 }
-// void i_type_instructions::SLTI(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_t &sx_idata)
-// {
-//     cerr << "SLTI" << endl;
-// }
-// void i_type_instructions::SLTIU(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_t &sx_idata)
-// {
-//     cerr << "SLTIU" << endl;
-// }
-// void i_type_instructions::SB(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_t &sx_idata)
-// {
-//     cerr << "SB" << endl;
-// }
-// void i_type_instructions::SH(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_t &sx_idata)
-// {
-//     cerr << "SH" << endl;
-// }
+
+void i_type_instructions::SLTI(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_t &sx_idata)
+{
+    cerr << "SLTI" << endl;
+    if (C->reg[src1] < sx_idata)
+    {
+        C->reg[dest] = 1;
+    }
+    else
+    {
+        C->reg[dest] = 0;
+    }
+}
+
+void i_type_instructions::SLTIU(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_t &sx_idata)
+{
+    cerr << "SLTIU" << endl;
+    uint32_t unsigned_src1 = static_cast<uint32_t>(C->reg[src1]);
+    uint32_t unsigned_sx_idata = static_cast<uint32_t>(sx_idata);
+
+    if (unsigned_src1 < unsigned_sx_idata)
+    {
+        C->reg[dest] = 1;
+    }
+    else
+    {
+        C->reg[dest] = 0;
+    }
+}
+
+void i_type_instructions::SB(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_t &sx_idata)
+{
+    cerr << "SB" << endl;
+    INSTR_TYPE raw_mem_addr = sx_idata + C->reg[src1];
+    INSTR_TYPE mem_addr = raw_mem_addr / 4;
+    if (DEBUG)
+    {
+        cerr << hex << ">> SW Raw memory address: " << raw_mem_addr << "\n";
+        cerr << hex << ">> SW Effective memory address: " << mem_addr << "\n";
+    }
+    if (mem_addr < ADDR_DATA || mem_addr > (ADDR_DATA + ADDR_DATA_OFFSET))
+    {
+        throw(static_cast<int>(MEMORY_EXIT_CODE));
+    }
+    (*(C->mem))[mem_addr] = C->reg[dest] & 0xFF;
+    C->npc = C->npc + 1;
+}
+
+void i_type_instructions::SH(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_t &sx_idata)
+{
+    cerr << "SH" << endl;
+    INSTR_TYPE raw_mem_addr = sx_idata + C->reg[src1];
+    INSTR_TYPE mem_addr = raw_mem_addr / 4;
+    if (DEBUG)
+    {
+        cerr << hex << ">> SW Raw memory address: " << raw_mem_addr << "\n";
+        cerr << hex << ">> SW Effective memory address: " << mem_addr << "\n";
+    }
+    if (mem_addr < ADDR_DATA || mem_addr > (ADDR_DATA + ADDR_DATA_OFFSET) || (raw_mem_addr % 2 != 0))
+    {
+        throw(static_cast<int>(MEMORY_EXIT_CODE));
+    }
+    (*(C->mem))[mem_addr] = C->reg[dest] & 0xFFFF;
+    C->npc = C->npc + 1;
+}
+
 void i_type_instructions::SW(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_t &sx_idata)
 {
     cerr << "SW" << endl;
@@ -452,10 +503,11 @@ void i_type_instructions::SW(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_
     INSTR_TYPE mem_addr = raw_mem_addr / 4;
     if (DEBUG)
     {
+        cerr << hex << ">> SW Raw memory address: " << raw_mem_addr << "\n";
         cerr << hex << ">> SW Effective memory address: " << mem_addr << "\n";
     }
 
-    if ((mem_addr < 0) || (raw_mem_addr % 4 != 0)) // If either of the two LSB of address are non-zero then throw exception
+    if (mem_addr < ADDR_DATA || mem_addr > (ADDR_DATA + ADDR_DATA_OFFSET) || (raw_mem_addr % 4 != 0)) // If either of the two LSB of address are non-zero then throw exception
     {
         throw(static_cast<int>(MEMORY_EXIT_CODE));
     }
