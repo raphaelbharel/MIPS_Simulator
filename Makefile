@@ -66,6 +66,10 @@ test-SW-putc: bin/mips_simulator Formative_Tests/SW-putc.mips.bin
 test-SW-read-write-data-section: bin/mips_simulator Formative_Tests/SW-read-write-data-section.mips.bin
 		./bin/mips_simulator Formative_Tests/SW-read-write-data-section.mips.bin $(DEBUG_SETTING)
 
+test-ADD: bin/mips_simulator test/input/add4.bin
+		./bin/mips_simulator test/input/add4.bin $(DEBUG_SETTING)
+
+
 #----------------------------------------------------
 #TESTBENCH
 #----------------------------------------------------
@@ -76,14 +80,18 @@ test-SW-read-write-data-section: bin/mips_simulator Formative_Tests/SW-read-writ
 #TODO: add functionality to make bin folder if not present.
 #MAKE: error: always saying "up to date"
 
-testbench: 
+
+bin/mips_testbench: 
 	mkdir -p bin 
 	cp -a test/mips_testbench bin/
 	chmod u+x bin/mips_testbench 
 
-run_testbench: bin/mips_testbench
+runtests: bin/mips_testbench bin/mips_simulator
 		./bin/mips_testbench
 	
 clean:
 	rm bin/mips_simulator
 	rm bin/mips_testbench
+cleartests:
+	rm test/output/log.csv
+	rm test/output/testing.csv
