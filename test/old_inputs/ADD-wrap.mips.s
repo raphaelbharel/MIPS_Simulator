@@ -1,4 +1,4 @@
-ADD-wrap;ADD1;246;m8pple
+ADD-wrap;ADD;246;m8pple
 tests/bin/ADD-wrap.mips.elf:     file format elf32-tradbigmips
 
 

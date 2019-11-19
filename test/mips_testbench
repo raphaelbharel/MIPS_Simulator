@@ -20,6 +20,7 @@ do
 	RETCODE=$?
 	NUMTESTS=0
 	COUNT=0
+
 	#printf "Host\tDate\tOperation\tDuration\n" >> log.csv
 	#printf "$host\t$(date)\tTime Taken to checkout\t$Time_checkout\n" >> log.csv
 	printf  "${name},${RETCODE}\n" >> test/output/log.csv
@@ -38,10 +39,10 @@ do
 				echo -e "[INFO] Expected: ${value}\n[INFO] Returned: ${RETCODE}"
 				if ((${value} == ${RETCODE}))
 				then
-					echo "Pass"
+					echo "-> PASS"
 					printf "Pass,">> test/output/testing.csv
 				else
-					echo "Fail"
+					echo "-> FAIL"
 					printf "Fail,">> test/output/testing.csv
 				fi
 			else
