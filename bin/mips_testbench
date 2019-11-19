@@ -1,6 +1,5 @@
 #!/bin/bash
-
-echo "TESTBENCH: RUNNING ALL TESTS"  
+echo -e "+-------------------+\n| RUNNING ALL TESTS |\n+-------------------+"
 
 #Run tests on MIPS_Simulator
 #1. Open directory of TESTS X
@@ -19,13 +18,15 @@ do
 	name=${file##*/}
 	./bin/mips_simulator test/input/${name}
 	RETCODE=$?
+	NUMTESTS=0
+	COUNT=0
 	#printf "Host\tDate\tOperation\tDuration\n" >> log.csv
 	#printf "$host\t$(date)\tTime Taken to checkout\t$Time_checkout\n" >> log.csv
 	printf  "${name},${RETCODE}\n" >> test/output/log.csv
-
+	echo "[INFO] Testing: ${name}"
 	filename="${file%.*}.s"
 	head -1 $filename |
-	while read line;  do
+	while read -r line;  do
 		# reading each line
 		#echo "$line"
 		n=0
@@ -34,7 +35,7 @@ do
 		do
 			if (($n == 2))
 			then
-				echo "Expected value: ${value} , Returned value: ${RETCODE}"
+				echo -e "[INFO] Expected: ${value}\n[INFO] Returned: ${RETCODE}"
 				if ((${value} == ${RETCODE}))
 				then
 					echo "Pass"
@@ -50,5 +51,7 @@ do
 		done
 		printf "\n">> test/output/testing.csv
 	done
-
 done
+
+echo "$COUNT/$NUMTESTS test cases passed."
+echo -e "+--------------------+\n| ALL TESTS COMPLETE |\n+--------------------+"
