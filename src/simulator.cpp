@@ -6,7 +6,7 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 {
 	try
 	{
-		bool DEBUG = 1;
+		bool DEBUG = 0;
 		if (argc > 3)
 		{
 			cerr << "Error: Incorrect number of arguments: " << endl;
@@ -58,8 +58,6 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 			instruction_mem[addr_to_index(ADDR_INSTR_OFFSET, address)] = binNo;
 			address += 1;
 		}
-
-		__print_memory_specific(instruction_mem, 0, 4);
 
 		// Initialize state and instruction classes
 		CPU C(instruction_mem);
