@@ -15,8 +15,8 @@
 #define ADDR_NULL 0x00000000
 #define ADDR_INSTR_LENGTH 0x400000  //0x1000000 / 4
 #define ADDR_INSTR_OFFSET 0x4000000 //0x10000000 / 4
-#define ADDR_DATA 0x8000000         //0x20000000 / 4
-#define ADDR_DATA_OFFSET 0x1000000  //0x4000000 / 4
+#define ADDR_DATA_OFFSET 0x8000000         //0x20000000 / 4
+#define ADDR_DATA 0x1000000  //0x4000000 / 4
 #define ADDR_GETC 0xC000000         //0x30000000 / 4
 #define ADDR_PUTC 0xC000001         //0x30000004 / 4
 #define BUFFER_SIZE 32
@@ -45,7 +45,7 @@ typedef int32_t REG_TYPE;
 // Function declarations
 char read_char();
 char read_instruction(INSTR_TYPE &instruction);
-
+uint32_t addr_to_index(const uint32_t &base, const uint32_t &loc);
 void __print_memory(const std::vector<MEM_TYPE> &v);
 void __print_memory_specific(const std::vector<MEM_TYPE> &v, const int &start_index, const int &end_index);
 
@@ -72,17 +72,17 @@ public:
     ADDR_TYPE npc;
     INSTR_TYPE instr;
     std::vector<REG_TYPE> reg;
-    std::vector<MEM_TYPE> *mem;
+    std::vector<MEM_TYPE> mem;
     REG_TYPE regHI = 0;
     REG_TYPE regLO = 0;
 
-    CPU(std::vector<MEM_TYPE> &mem_block)
+    CPU(std::vector<MEM_TYPE>instruction_mem)
     {
         pc = ADDR_INSTR_OFFSET; // PC starts at beginning of executable memory
         npc = ADDR_INSTR_OFFSET + 1;
-        instr = mem_block[ADDR_INSTR_OFFSET]; //start from first
-        mem = &mem_block;                     // Pointer to memory block
+        instr = instruction_mem[0]; //start from first
         reg.resize(REGISTER_SIZE, 0);
+        mem.resize(ADDR_DATA, 0); // Initialize to length of r/w data area
     }
     void display()
     {
