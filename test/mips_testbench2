@@ -1,0 +1,54 @@
+#!/bin/bash
+echo -e "+-------------------+\n| RUNNING ALL TESTS |\n+-------------------+"
+
+	#any temp files to be stored in test/temp
+	#output of testbench created in test/output. i.e per test logfiles
+	#once all tests run, print CSV file to stdout, with each row corresponding to one execution of Simulator under test.
+
+printf "TEST,RETCODE\n" >> test/output/log.csv
+
+for file in test/input/*.s
+do
+echo "[INFO] Testing: ${file}"
+	desc_name="${file##*/}"
+	echo ${file%.*}
+	bin_name = "${file%.*}.bin"
+
+	head -1 $desc_name | #Reads top line
+	while read -r line;  do
+		n=0
+		values=$(echo $line | tr ";" "\n") #Each field separated by ; and stored in values
+
+		#Process file description
+		for value in $values
+		do
+			
+		done
+
+		#Input putc into simulator
+		output = ${echo $putc | ./bin/mips_simulator test/input/${bin_name}}
+
+		echo "Expected: ${retcode} Received: ${output}"
+
+		printf "\n">> test/output/testing.csv
+	done
+done
+
+
+
+
+
+	name=${file##*/}
+	
+	input = X
+
+	${echo ${input} | ./bin/mips_simulator test/input/${bin_name}}
+
+	RETCODE=$?
+	NUMTESTS=0
+	COUNT=0
+
+	printf  "${name},${RETCODE}\n" >> test/output/log.csv
+
+echo "$COUNT/$NUMTESTS test cases passed."
+echo -e "+--------------------+\n| ALL TESTS COMPLETE |\n+--------------------+"

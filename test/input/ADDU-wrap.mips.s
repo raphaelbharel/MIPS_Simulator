@@ -1,4 +1,7 @@
-ADDU1;ADDU;254;m8pple
+#ADDU
+#254
+#m8pple
+
 TestId, Instruction, Expected Value, Author [,Message]
 
 Disassembly of section .text:
