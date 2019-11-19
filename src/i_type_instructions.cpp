@@ -197,7 +197,7 @@ void i_type_instructions::LBU(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32
     {
         throw(static_cast<int>(MEMORY_EXIT_CODE));
     }
-    MEM_TYPE word_at_address = (*(C->mem))[mem_addr]; // mem is a pointer to the memory block
+    MEM_TYPE word_at_address = C->mem[addr_to_index(ADDR_DATA_OFFSET, mem_addr)]; // mem is a pointer to the memory block
     int byte_offset = raw_mem_addr % 4;
     switch (byte_offset)
     {
@@ -237,7 +237,7 @@ void i_type_instructions::LB(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_
     {
         throw(static_cast<int>(MEMORY_EXIT_CODE));
     }
-    MEM_TYPE word_at_address = (*(C->mem))[mem_addr]; // mem is a pointer to the memory block
+    MEM_TYPE word_at_address = C->mem[addr_to_index(ADDR_DATA_OFFSET, mem_addr)]; // mem is a pointer to the memory block
     int byte_offset = raw_mem_addr % 4;
     MEM_TYPE pre_sx;
     switch (byte_offset)
@@ -282,7 +282,7 @@ void i_type_instructions::LHU(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32
     {
         throw(static_cast<int>(MEMORY_EXIT_CODE));
     }
-    MEM_TYPE word_at_address = (*(C->mem))[mem_addr]; // mem is a pointer to the memory block
+    MEM_TYPE word_at_address = C->mem[addr_to_index(ADDR_DATA_OFFSET, mem_addr)]; // mem is a pointer to the memory block
     int byte_offset = raw_mem_addr % 4;
     switch (byte_offset)
     {
@@ -316,7 +316,7 @@ void i_type_instructions::LH(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_
     {
         throw(static_cast<int>(MEMORY_EXIT_CODE));
     }
-    MEM_TYPE word_at_address = (*(C->mem))[mem_addr]; // mem is a pointer to the memory block
+    MEM_TYPE word_at_address = C->mem[addr_to_index(ADDR_DATA_OFFSET, mem_addr)]; // mem is a pointer to the memory block
     int byte_offset = raw_mem_addr % 4;
     MEM_TYPE pre_sx;
     switch (byte_offset)
@@ -381,7 +381,7 @@ void i_type_instructions::LW(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_
     }
     else // Normal LW
     {
-        C->reg[dest] = (*(C->mem))[mem_addr]; // mem is a pointer to the memory block
+        C->reg[dest] = C->mem[addr_to_index(ADDR_DATA_OFFSET, mem_addr)]; // mem is a pointer to the memory block
     }
     C->npc = C->npc + 1;
 }
@@ -404,7 +404,7 @@ void i_type_instructions::LWL(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32
     {
         throw(static_cast<int>(MEMORY_EXIT_CODE));
     }
-    MEM_TYPE word_at_address = (*(C->mem))[mem_addr]; // mem is a pointer to the memory block
+    MEM_TYPE word_at_address = C->mem[addr_to_index(ADDR_DATA_OFFSET, mem_addr)]; // mem is a pointer to the memory block
     MEM_TYPE MSBytes;
     int byte_offset = raw_mem_addr % 4;
     switch (byte_offset)
@@ -450,7 +450,7 @@ void i_type_instructions::LWR(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32
     {
         throw(static_cast<int>(MEMORY_EXIT_CODE));
     }
-    MEM_TYPE word_at_address = (*(C->mem))[mem_addr]; // mem is a pointer to the memory block
+    MEM_TYPE word_at_address = C->mem[addr_to_index(ADDR_DATA_OFFSET, mem_addr)]; // mem is a pointer to the memory block
     MEM_TYPE LSBytes;
     int byte_offset = raw_mem_addr % 4;
     switch (byte_offset)
@@ -548,7 +548,7 @@ void i_type_instructions::SB(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_
     {
         throw(static_cast<int>(MEMORY_EXIT_CODE));
     }
-    (*(C->mem))[mem_addr] = C->reg[dest] & 0xFF;
+    C->mem[addr_to_index(ADDR_DATA_OFFSET, mem_addr)] = C->reg[dest] & 0xFF;
     C->npc = C->npc + 1;
 }
 
@@ -569,7 +569,7 @@ void i_type_instructions::SH(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_
     {
         throw(static_cast<int>(MEMORY_EXIT_CODE));
     }
-    (*(C->mem))[mem_addr] = C->reg[dest] & 0xFFFF;
+    C->mem[addr_to_index(ADDR_DATA_OFFSET, mem_addr)] = C->reg[dest] & 0xFFFF;
     C->npc = C->npc + 1;
 }
 
@@ -597,7 +597,7 @@ void i_type_instructions::SW(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_
     }
     else // Normal SW
     {
-        (*(C->mem))[mem_addr] = C->reg[dest]; // mem is a pointer to the memory block
+        C->mem[addr_to_index(ADDR_DATA_OFFSET, mem_addr)] = C->reg[dest]; // mem is a pointer to the memory block
     }
     C->npc = C->npc + 1;
 }
