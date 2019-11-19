@@ -9,24 +9,15 @@ printf "TEST,RETCODE\n" >> test/output/log.csv
 
 for file in test/input/*.bin
 do
-	name=${file##*/}
-
-	echo ${id}
-	./bin/mips_simulator test/input/${name}
-
-	RETCODE=$?
-	NUMTESTS=0
-	COUNT=0
-
-	printf  "${name},${RETCODE}\n" >> test/output/log.csv
-	echo "[INFO] Testing: ${name}"
+	name=${file##*/}	
 
 	filename="${file%.*}.s"
 	sfilename="test/input/ADD-wrap.mips.s"
 
 	values=()
 
-	while IFS= read -r line || [[-n "$line"]]; do
+	#Read file values
+	while IFS= read -r line || [[ -n "$line" ]]; do
 		# reading each line
 		value="${line//#}"
 		values+=("$value")
@@ -38,8 +29,23 @@ do
 	sim_code=${values[1]}
 	user_id=${values[2]}
 	comments=${values[3]}
-	putc=${values[4]}
+	getc=${values[4]}
+	expected_putc=${values[5]}
+	
+	#Run test
+	./bin/mips_simulator test/input/${name}
 
+	RETCODE=$?
+
+	if [ $RETCODE -ge 128 ]; then
+		RETCODE=$((RETCODE-256))
+	fi
+
+	NUMTESTS=0
+	COUNT=0
+
+	printf  "${name},${RETCODE}\n" >> test/output/log.csv
+	echo "[INFO] Testing: ${name}"
 
 	echo -e "[INFO] Expected: ${sim_code}\n[INFO] Returned: ${RETCODE}"
 	if ((${sim_code} == ${RETCODE}))
