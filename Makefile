@@ -71,6 +71,11 @@ test-ADD: bin/mips_simulator test/input/add4.bin
 
 test-lwr5: bin/mips_simulator test/input/lwr5.bin
 		./bin/mips_simulator test/input/lwr5.bin $(DEBUG_SETTING)
+test-AND: bin/mips_simulator test/input/and2.bin
+		./bin/mips_simulator test/input/and2.bin $(DEBUG_SETTING)
+
+test-beq4: bin/mips_simulator test/input/beq4.bin
+		./bin/mips_simulator test/input/beq4.bin $(DEBUG_SETTING)
 
 
 #----------------------------------------------------

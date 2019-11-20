@@ -31,6 +31,11 @@ char read_instruction(INSTR_TYPE &instruction)
         return 'i';
     }
 }
+
+bool within_memory_bounds(const ADDR_TYPE &mem_addr) {
+    return (mem_addr >= ADDR_INSTR_OFFSET && mem_addr <= (ADDR_INSTR_OFFSET + ADDR_INSTR_LENGTH)) || (mem_addr >= ADDR_DATA_OFFSET && mem_addr <= (ADDR_DATA_OFFSET + ADDR_DATA_LENGTH));
+}
+
 // Helper functions
 void __print_memory(const std::vector<MEM_TYPE> &v)
 {
