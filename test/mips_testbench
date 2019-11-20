@@ -51,12 +51,14 @@ do
           outcome="Pass"
 					echo "Pass"
       else
-        message+="Output was '$output_s', expected '$putc_code'" >&2
+				outcome="Fail"
 				echo "Fail"
+				message+="Output was '$output_s', expected '$putc_code'" >&2
       fi
   else
+			outcome="Fail"
 			echo "Fail"
-      message+=" , Received output was $RETCODE wanted $sim_code"
+			message+=" , Received output was $RETCODE wanted $sim_code"
   fi
 
 	printf "${test_id},${operation},${outcome},${user_id},${comments},${message},${sim_code},${RETCODE}\n">> test/output/testing.csv
