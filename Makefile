@@ -69,6 +69,9 @@ test-SW-read-write-data-section: bin/mips_simulator Formative_Tests/SW-read-writ
 test-ADD: bin/mips_simulator test/input/add4.bin
 		./bin/mips_simulator test/input/add4.bin $(DEBUG_SETTING)
 
+test-lwr5: bin/mips_simulator test/input/lwr5.bin
+		./bin/mips_simulator test/input/lwr5.bin $(DEBUG_SETTING)
+
 
 #----------------------------------------------------
 #TESTBENCH
@@ -80,18 +83,34 @@ test-ADD: bin/mips_simulator test/input/add4.bin
 #TODO: add functionality to make bin folder if not present.
 #MAKE: error: always saying "up to date"
 
-
 bin/mips_testbench: 
 	mkdir -p bin 
 	cp -a test/mips_testbench bin/
 	chmod u+x bin/mips_testbench 
 
+bin/mips_testbench2: 
+	mkdir -p bin 
+	cp -a test/mips_testbench2 bin/
+	chmod u+x bin/mips_testbench2
+
+bin/not_my_testbench: 
+	mkdir -p bin 
+	cp -a test/not_my_testbench bin/
+	chmod u+x bin/not_my_testbench 
+
+#Run NOT MY TESTBENCH
+run_test: bin/mips_simulator bin/mips_testbench2
+	./bin/mips_testbench2 bin/mips_simulator test/input/lwr5.bin
+
 runtests: bin/mips_testbench bin/mips_simulator
-		./bin/mips_testbench
+	./bin/mips_testbench bin/mips_simulator
 	
 clean:
 	rm bin/mips_simulator
+	rm bin/mips_testbench2
 	rm bin/mips_testbench
+	rm bin/not_my_testbench
+
 cleartests:
 	rm test/output/log.csv
 	rm test/output/testing.csv

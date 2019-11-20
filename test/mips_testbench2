@@ -1,30 +1,32 @@
 #!/bin/bash
 echo -e "+-------------------+\n| RUNNING ALL TESTS |\n+-------------------+"
-
-	#any temp files to be stored in test/temp
-	#output of testbench created in test/output. i.e per test logfiles
-	#once all tests run, print CSV file to stdout, with each row corresponding to one execution of Simulator under test.
+#Input form: #bin/mips_testbench bin/mips_simulator test/input/TESTNAME
 
 printf "TEST,RETCODE\n" >> test/output/log.csv
+	
+	SIM=$1 #Simulator path (passed as first argument)
+	echo $SIM
 
-# for file in test/input/*.bin
-# do
-	# name=${file##*/}	
-	name="lwr5.bin"
-	#filename="${file%.*}.s"
-	filename="test/input/lwr5.s"
+	name="${2}.bin" #Test binary (passed as second argument)
+
+	#INSERT FILE .S
+	#assembly_filepath="${2}.s"
+	#binary_filepath=${2}.bin
+	assembly_filepath="./test/input/lwr5.s"
+	binary_filepath=$2
+	echo $binary_filepath
+	no_path_filename=$(basename -- "$assembly_filepath")
 
 	values=()
-
 	#Read file values
 	while IFS= read -r line || [[ -n "$line" ]]; do
 		# reading each line
 		value="${line//#}"
 		values+=("$value")
-	done < $filename
+	done < $assembly_filepath
 
-	no_path_filename=$(basename -- "$filename")
-	test_id="${no_path_filename%.bin}"
+	#Assigning fields to input test values
+	test_id="${no_path_filename%.}"
 	operation=${values[0]}
 	sim_code=${values[1]}
 	user_id=${values[2]}
@@ -32,20 +34,27 @@ printf "TEST,RETCODE\n" >> test/output/log.csv
 	getc=${values[4]}
 	expected_putc=${values[5]}
 
+	simout=$(echo $getc | $SIM "test/input/lwr5.bin")
+  RETCODE=$?
+	echo ${simout}
+	echo ${RETCODE}
 	#Run test
-	$input | ./bin/mips_simulator test/input/${name}
-
-	if [ -f "$getc" ]; then
-      RETCODE=$(cat "$getc" | "$1" "test/input/${name}")
-  else
-			echo $getc
-      RETCODE=$(echo $getc | "$1" "test/input/${name}")
-			echo $RETCODE
-  fi
+	# $getc | ./bin/mips_simulator test/input/${name}
+	# echo ${getc}
+	# if [ -f "$getc" ]; then
+  #     # sim_output=$(cat $getc | "$SIM" "$binary_filepath")
+	# 		simOutput=$(cat "$getc" | "$SIM" "$binary_filepath")
+	# 		echo $simOutput
+	# else
+	# 		echo ${getc}
+	# 	  simOutput=$(cat "$getc" | "$SIM" "$binary_filepath")
+	# 		echo $simOutput
+  # fi
 
 	if [ $RETCODE -ge 128 ]; then
 		RETCODE=$((RETCODE-256))
 	fi
+	echo $RETCODE
 
 	NUMTESTS=0
 	COUNT=0
