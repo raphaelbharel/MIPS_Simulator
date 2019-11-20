@@ -39,11 +39,14 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 
 		char buffer[4];				//to hold 4 bytes
 		
-		vector<MEM_TYPE> instruction_mem; // vector of uint32_t holding instruction memory
-		instruction_mem.resize(ADDR_INSTR_LENGTH);
-
+		// Initialize CPU and instruction classes
+		CPU C; 
+		i_type_instructions i_instruction(C, DEBUG);
+		r_type_instructions r_instruction(C, DEBUG);
+		j_type_instructions j_instruction(C, DEBUG);
+	
 		// Fill instruction memory
-		ADDR_TYPE address = ADDR_INSTR_OFFSET; //starting from base 0x4000000
+		int address = 0; //starting from base 0x4000000
 		while (!binStream.eof())
 		{
 			binStream.read(buffer, 4);
@@ -55,27 +58,22 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 			{
 				cerr << hex << binNo << endl;
 			}
-			instruction_mem[addr_to_index(ADDR_INSTR_OFFSET, address)] = binNo;
-			address += 1;
+			C.instruction_mem[address] = binNo;
+			address++;
 		}
 
-		// Initialize state and instruction classes
-		CPU C(instruction_mem);
-		i_type_instructions i_instruction(C, DEBUG);
-		r_type_instructions r_instruction(C, DEBUG);
-		j_type_instructions j_instruction(C, DEBUG);
-
 		// Executing instructions
+		C.instr = C.instruction_mem[0];
 		int executions = 0;
 		ADDR_TYPE next_instruction;
 
-		for (; C.pc >= ADDR_INSTR_OFFSET && C.pc < ADDR_INSTR_OFFSET + ADDR_INSTR_LENGTH; /*&& (instruction_mem[C.pc] != 0); address++*/)
+		for (; C.pc >= ADDR_INSTR_OFFSET && C.pc < ADDR_INSTR_OFFSET + ADDR_INSTR_LENGTH && C.pc != ADDR_NULL;)
 		{
 
 			C.reg[0] = 0;			  // $0 is always 0 on every clock cycle
 			next_instruction = C.npc; //The preserved next instruction enables a branch delay
 
-			C.instr = instruction_mem[addr_to_index(ADDR_INSTR_OFFSET, C.pc)];
+			C.instr = C.read_from_memory(C.pc);
 
 			char instr_type = read_instruction(C.instr);
 

@@ -205,7 +205,6 @@ void r_type_instructions::ADD(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR
     }
     else
     {
-        cerr << "adding" << endl;
         C->reg[dest] = C->reg[src1] + C->reg[src2];
         C->npc = C->npc + 1;
     }

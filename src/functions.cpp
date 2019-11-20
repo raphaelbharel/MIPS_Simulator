@@ -31,10 +31,6 @@ char read_instruction(INSTR_TYPE &instruction)
         return 'i';
     }
 }
-
-uint32_t addr_to_index(const uint32_t &base, const uint32_t &loc){ // returns array/vector index of address
-    return (loc-base);
-}
 // Helper functions
 void __print_memory(const std::vector<MEM_TYPE> &v)
 {

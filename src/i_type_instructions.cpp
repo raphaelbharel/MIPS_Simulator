@@ -193,11 +193,11 @@ void i_type_instructions::LBU(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32
         cerr << hex << ">> LBU Effective memory address: " << mem_addr << "\n";
     }
 
-    if (mem_addr < ADDR_DATA || mem_addr > (ADDR_DATA + ADDR_DATA_OFFSET)) // If either of the two LSB of address are non-zero then throw exception
+    if (mem_addr < ADDR_DATA_OFFSET || mem_addr > (ADDR_DATA_OFFSET + ADDR_DATA_LENGTH)) // If either of the two LSB of address are non-zero then throw exception
     {
         throw(static_cast<int>(MEMORY_EXIT_CODE));
     }
-    MEM_TYPE word_at_address = C->mem[addr_to_index(ADDR_DATA_OFFSET, mem_addr)]; // mem is a pointer to the memory block
+    MEM_TYPE word_at_address = C->read_from_memory(mem_addr); // mem is a pointer to the memory block
     int byte_offset = raw_mem_addr % 4;
     switch (byte_offset)
     {
@@ -233,11 +233,11 @@ void i_type_instructions::LB(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_
         cerr << hex << ">> LB Effective memory address: " << mem_addr << "\n";
     }
 
-    if (mem_addr < ADDR_DATA || mem_addr > (ADDR_DATA + ADDR_DATA_OFFSET)) // If either of the two LSB of address are non-zero then throw exception
+    if (mem_addr < ADDR_DATA_OFFSET || mem_addr > (ADDR_DATA_OFFSET + ADDR_DATA_LENGTH)) // If either of the two LSB of address are non-zero then throw exception
     {
         throw(static_cast<int>(MEMORY_EXIT_CODE));
     }
-    MEM_TYPE word_at_address = C->mem[addr_to_index(ADDR_DATA_OFFSET, mem_addr)]; // mem is a pointer to the memory block
+    MEM_TYPE word_at_address = C->read_from_memory(mem_addr); // mem is a pointer to the memory block
     int byte_offset = raw_mem_addr % 4;
     MEM_TYPE pre_sx;
     switch (byte_offset)
@@ -278,11 +278,11 @@ void i_type_instructions::LHU(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32
         cerr << hex << ">> LBU Effective memory address: " << mem_addr << "\n";
     }
 
-    if (mem_addr < ADDR_DATA || mem_addr > (ADDR_DATA + ADDR_DATA_OFFSET) || (mem_addr % 2 != 0)) // LSB non zero i.e. not multiple of 2
+    if (mem_addr < ADDR_DATA_OFFSET || mem_addr > (ADDR_DATA_OFFSET + ADDR_DATA_LENGTH) || (mem_addr % 2 != 0)) // LSB non zero i.e. not multiple of 2
     {
         throw(static_cast<int>(MEMORY_EXIT_CODE));
     }
-    MEM_TYPE word_at_address = C->mem[addr_to_index(ADDR_DATA_OFFSET, mem_addr)]; // mem is a pointer to the memory block
+    MEM_TYPE word_at_address = C->read_from_memory(mem_addr); // mem is a pointer to the memory block
     int byte_offset = raw_mem_addr % 4;
     switch (byte_offset)
     {
@@ -312,11 +312,11 @@ void i_type_instructions::LH(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_
         cerr << hex << ">> LH Effective memory address: " << mem_addr << "\n";
     }
 
-    if (mem_addr < ADDR_DATA || mem_addr > (ADDR_DATA + ADDR_DATA_OFFSET) || (mem_addr % 2 != 0)) // LSB non zero i.e. not multiple of 2
+    if (mem_addr < ADDR_DATA_OFFSET || mem_addr > (ADDR_DATA_OFFSET + ADDR_DATA_LENGTH) || (mem_addr % 2 != 0)) // LSB non zero i.e. not multiple of 2
     {
         throw(static_cast<int>(MEMORY_EXIT_CODE));
     }
-    MEM_TYPE word_at_address = C->mem[addr_to_index(ADDR_DATA_OFFSET, mem_addr)]; // mem is a pointer to the memory block
+    MEM_TYPE word_at_address = C->read_from_memory(mem_addr); // mem is a pointer to the memory block
     int byte_offset = raw_mem_addr % 4;
     MEM_TYPE pre_sx;
     switch (byte_offset)
@@ -369,20 +369,14 @@ void i_type_instructions::LW(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_
         cerr << hex << ">> LW Effective memory address: " << mem_addr << "\n";
     }
 
-    if (mem_addr < ADDR_DATA || mem_addr > (ADDR_DATA + ADDR_DATA_OFFSET) || (raw_mem_addr % 4 != 0))
-    // If either of the two LSB of address are non-zero then throw exception
+    if ((raw_mem_addr % 4 != 0) || 
+        !(mem_addr >= ADDR_INSTR_OFFSET && mem_addr <= (ADDR_INSTR_OFFSET + ADDR_INSTR_LENGTH)) || 
+        !(mem_addr >= ADDR_DATA_OFFSET && mem_addr <= (ADDR_DATA_OFFSET + ADDR_DATA_LENGTH))) // Check natural alignment
     {
         throw(static_cast<int>(MEMORY_EXIT_CODE));
     }
-    else if (mem_addr == ADDR_GETC)
-    {
-        char input = read_char();
-        C->reg[dest] = sign_extend_int32(input, 8);
-    }
-    else // Normal LW
-    {
-        C->reg[dest] = C->mem[addr_to_index(ADDR_DATA_OFFSET, mem_addr)]; // mem is a pointer to the memory block
-    }
+
+    C->reg[dest] = C->read_from_memory(mem_addr); 
     C->npc = C->npc + 1;
 }
 
@@ -400,11 +394,11 @@ void i_type_instructions::LWL(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32
         cerr << hex << ">> LWL Effective memory address: " << mem_addr << "\n";
     }
 
-    if (mem_addr < ADDR_DATA || mem_addr > (ADDR_DATA + ADDR_DATA_OFFSET)) // If either of the two LSB of address are non-zero then throw exception
+    if (mem_addr < ADDR_DATA_OFFSET || mem_addr > (ADDR_DATA_OFFSET + ADDR_DATA_LENGTH)) // If either of the two LSB of address are non-zero then throw exception
     {
         throw(static_cast<int>(MEMORY_EXIT_CODE));
     }
-    MEM_TYPE word_at_address = C->mem[addr_to_index(ADDR_DATA_OFFSET, mem_addr)]; // mem is a pointer to the memory block
+    MEM_TYPE word_at_address = C->read_from_memory(mem_addr); // mem is a pointer to the memory block
     MEM_TYPE MSBytes;
     int byte_offset = raw_mem_addr % 4;
     switch (byte_offset)
@@ -447,18 +441,18 @@ void i_type_instructions::LWR(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32
     }
 
     cerr << hex << "ADDR_DATA_OFFSET: "<< ADDR_DATA_OFFSET << "\n";
-    cerr << hex << "ADDR_DATA: "<< ADDR_DATA << "\n";
-    cerr << hex << "ADDR_DATA + OFFSET: "<< ADDR_DATA_OFFSET+ADDR_DATA  << "\n";
+    cerr << hex << "ADDR_DATA_LENGTH: "<< ADDR_DATA_LENGTH << "\n";
+    cerr << hex << "ADDR_DATA_OFFSET + LENGTH: "<< ADDR_DATA_OFFSET+ADDR_DATA_LENGTH << "\n";
 
     //Throw error if not in Readable memory zone
-    if (((mem_addr < ADDR_DATA_OFFSET) || (mem_addr > ADDR_DATA + ADDR_DATA_OFFSET - 1))
+    if (((mem_addr < ADDR_DATA_OFFSET) || (mem_addr > ADDR_DATA_OFFSET + ADDR_DATA_LENGTH - 1))
             &&((mem_addr < ADDR_INSTR_OFFSET) || (mem_addr>ADDR_INSTR_LENGTH+ADDR_INSTR_OFFSET-1))
             &&(mem_addr != ADDR_GETC)) // If either of the two LSB of address are non-zero then throw exception
     {
         throw(static_cast<int>(MEMORY_EXIT_CODE));
     }
     
-    MEM_TYPE word_at_address = C->mem[addr_to_index(ADDR_DATA_OFFSET, mem_addr)]; // mem is a pointer to the memory block
+    MEM_TYPE word_at_address = C->read_from_memory(mem_addr); // mem is a pointer to the memory block
     MEM_TYPE LSBytes;
     int byte_offset = raw_mem_addr % 4;
     switch (byte_offset)
@@ -552,11 +546,11 @@ void i_type_instructions::SB(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_
         cerr << hex << ">> SW Raw memory address: " << raw_mem_addr << "\n";
         cerr << hex << ">> SW Effective memory address: " << mem_addr << "\n";
     }
-    if (mem_addr < ADDR_DATA || mem_addr > (ADDR_DATA + ADDR_DATA_OFFSET))
+    if (mem_addr < ADDR_DATA_OFFSET || mem_addr > (ADDR_DATA_OFFSET + ADDR_DATA_LENGTH))
     {
         throw(static_cast<int>(MEMORY_EXIT_CODE));
     }
-    C->mem[addr_to_index(ADDR_DATA_OFFSET, mem_addr)] = C->reg[dest] & 0xFF;
+    C->instruction_mem[mem_addr - ADDR_DATA_OFFSET] = C->reg[dest] & 0xFF;
     C->npc = C->npc + 1;
 }
 
@@ -573,11 +567,11 @@ void i_type_instructions::SH(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_
         cerr << hex << ">> SW Raw memory address: " << raw_mem_addr << "\n";
         cerr << hex << ">> SW Effective memory address: " << mem_addr << "\n";
     }
-    if (mem_addr < ADDR_DATA || mem_addr > (ADDR_DATA + ADDR_DATA_OFFSET) || (raw_mem_addr % 2 != 0))
+    if (mem_addr < ADDR_DATA_OFFSET || mem_addr > (ADDR_DATA_OFFSET + ADDR_DATA_LENGTH) || (raw_mem_addr % 2 != 0))
     {
         throw(static_cast<int>(MEMORY_EXIT_CODE));
     }
-    C->mem[addr_to_index(ADDR_DATA_OFFSET, mem_addr)] = C->reg[dest] & 0xFFFF;
+    C->write_to_memory(C->reg[dest] & 0xFFFF, mem_addr);
     C->npc = C->npc + 1;
 }
 
@@ -595,7 +589,7 @@ void i_type_instructions::SW(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_
         cerr << hex << ">> SW Effective memory address: " << mem_addr << "\n";
     }
 
-    if (mem_addr < ADDR_DATA || mem_addr > (ADDR_DATA + ADDR_DATA_OFFSET) || (raw_mem_addr % 4 != 0)) // If either of the two LSB of address are non-zero then throw exception
+    if (mem_addr < ADDR_DATA_OFFSET || mem_addr > (ADDR_DATA_OFFSET + ADDR_DATA_LENGTH) || (raw_mem_addr % 4 != 0)) // If either of the two LSB of address are non-zero then throw exception
     {
         throw(static_cast<int>(MEMORY_EXIT_CODE));
     }
@@ -605,7 +599,7 @@ void i_type_instructions::SW(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_
     }
     else // Normal SW
     {
-        C->mem[addr_to_index(ADDR_DATA_OFFSET, mem_addr)] = C->reg[dest]; // mem is a pointer to the memory block
+        C->write_to_memory(mem_addr, C->reg[dest]); // mem is a pointer to the memory block
     }
     C->npc = C->npc + 1;
 }
