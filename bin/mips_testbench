@@ -30,32 +30,39 @@ do
 	user_id=${values[2]}
 	comments=${values[3]}
 	getc=${values[4]}
-	expected_putc=${values[5]}
+	putc_code=${values[5]}
 	
 	#Run test
-	./bin/mips_simulator test/input/${name}
+	binary_path="test/input/${name}"
+	simulator_path="./bin/mips_simulator"
 
-	RETCODE=$?
+	output_s=$(echo $getc | $simulator_path $binary_path)
+  RETCODE=$?
+
+	echo ${output_s}
+	echo ${RETCODE}
 
 	if [ $RETCODE -ge 128 ]; then
 		RETCODE=$((RETCODE-256))
 	fi
 
+	if [ "$RETCODE" = "$sim_code" ]; then
+      if [ "$output_s" = "$putc_code" ]; then
+          outcome="Pass"
+					echo "Pass"
+      else
+        message+="Output was '$output_s', expected '$putc_code'" >&2
+				echo "Fail"
+      fi
+  else
+			echo "Fail"
+      message+=" , Received output was $RETCODE wanted $sim_code"
+  fi
+
+	printf "${test_id},${operation},${outcome},${user_id},${comments},${message},${sim_code},${RETCODE}\n">> test/output/testing.csv
 	NUMTESTS=0
 	COUNT=0
 
-	printf  "${name},${RETCODE}\n" >> test/output/log.csv
-	echo "[INFO] Testing: ${name}"
-
-	echo -e "[INFO] Expected: ${sim_code}\n[INFO] Returned: ${RETCODE}"
-	if ((${sim_code} == ${RETCODE}))
-	then
-		echo "Pass"
-		printf "${test_id},${operation},Pass,${user_id},${comments},${sim_code},${RETCODE}\n">> test/output/testing.csv
-	else
-		echo "Fail"
-		printf "${test_id},${operation},Fail,${user_id},${comments},${sim_code},${RETCODE}\n">> test/output/testing.csv
-	fi
 done
 
 echo "$COUNT/$NUMTESTS test cases passed."
