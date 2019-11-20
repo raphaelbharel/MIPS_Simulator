@@ -69,7 +69,10 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 
 		for (; C.pc >= ADDR_INSTR_OFFSET && C.pc < ADDR_INSTR_OFFSET + ADDR_INSTR_LENGTH && C.pc != ADDR_NULL;)
 		{
-
+			if (DEBUG)
+			{
+				C.display();
+			}
 			C.reg[0] = 0;			  // $0 is always 0 on every clock cycle
 			next_instruction = C.npc; //The preserved next instruction enables a branch delay
 
@@ -91,17 +94,13 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 			default:
 				throw(static_cast<int>(INSTRUCTION_EXIT_CODE));
 			}
-			if (DEBUG)
-			{
-				C.display();
-			}
+			executions++;
+			C.pc = next_instruction;
+			
 			if (DEBUG)
 			{
 				C.view_regs();
 			}
-
-			executions++;
-			C.pc = next_instruction;
 		}
 
 		//Successful termination/completion = return low 8-bits of the value in register $2.
