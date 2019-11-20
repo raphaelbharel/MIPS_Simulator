@@ -55,13 +55,13 @@ do
       else
 				outcome="Fail"
 				echo "Fail"
-				message="[INFO] Expected simoutput: '$output_s', Returned putc: '$putc_code'" >&2
+				message="[INFO] Expected simoutput: '$output_s' Returned putc: '$putc_code'" >&2
 				echo ${message}
       fi
   else
 			outcome="Fail"
 			echo "Fail"
-			message="[INFO] Expected: '$RETCODE', Returned: '$sim_code'" >&2
+			message="[INFO] Expected: '$RETCODE' Returned: '$sim_code'" >&2
 			echo ${message}
   fi
 
