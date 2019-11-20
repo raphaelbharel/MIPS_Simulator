@@ -65,29 +65,14 @@ bne2.bin,2
 bne3.bin,-11
 bne4.bin,-11
 bne5.bin,0
-div1.bin,0
+div1.bin,12
 div2.bin,0
-div3.bin,0
-div4.bin,-120
+div3.bin,-4
+div4.bin,-10
 div5.bin,0
-divu1.bin,0
-divu2.bin,0
+divu1.bin,2
+divu2.bin,-1
 divu3.bin,-120
-<<<<<<< HEAD
-=======
-factorial1.bin,0
-factorial2.bin,0
-factorial3.bin,0
-factorial4.bin,0
-factorial5.bin,0
-filedump1.bin,115
-filedump2.bin,109
-filedump3.bin,-1
-filedump4.bin,1
-filedump5.bin,1
-filedump6.bin,-1
-filedump7.bin,0
->>>>>>> 098784740e36e11fab6ec04e08dddd6265d7f99e
 hello.bin,0
 j1.bin,2
 j2.bin,1
@@ -112,85 +97,51 @@ jr6.bin,-11
 lb1.bin,100
 lb10.bin,0
 lb11.bin,-11
-<<<<<<< HEAD
-lb12.bin,10
-lb13.bin,10
-=======
 lb12.bin,72
 lb13.bin,-1
->>>>>>> 098784740e36e11fab6ec04e08dddd6265d7f99e
 lb2.bin,100
 lb3.bin,100
 lb4.bin,-1
 lb5.bin,0
 lb6.bin,-11
-<<<<<<< HEAD
-lb7.bin,97
-=======
 lb7.bin,72
->>>>>>> 098784740e36e11fab6ec04e08dddd6265d7f99e
 lb8.bin,-11
 lb9.bin,13
 lbu1.bin,100
 lbu10.bin,0
 lbu11.bin,-11
-<<<<<<< HEAD
-lbu12.bin,10
-=======
 lbu12.bin,72
->>>>>>> 098784740e36e11fab6ec04e08dddd6265d7f99e
 lbu2.bin,100
 lbu3.bin,100
 lbu4.bin,0
 lbu5.bin,0
 lbu6.bin,-11
-<<<<<<< HEAD
-lbu7.bin,97
-=======
 lbu7.bin,72
->>>>>>> 098784740e36e11fab6ec04e08dddd6265d7f99e
 lbu8.bin,-11
 lbu9.bin,13
 lh1.bin,100
 lh10.bin,0
 lh11.bin,-11
-<<<<<<< HEAD
-lh12.bin,10
-lh13.bin,10
-=======
 lh12.bin,72
 lh13.bin,-1
->>>>>>> 098784740e36e11fab6ec04e08dddd6265d7f99e
 lh2.bin,-11
 lh3.bin,100
 lh4.bin,-1
 lh5.bin,3
 lh6.bin,-11
-<<<<<<< HEAD
-lh7.bin,97
-=======
 lh7.bin,72
->>>>>>> 098784740e36e11fab6ec04e08dddd6265d7f99e
 lh8.bin,-11
 lh9.bin,13
 lhu1.bin,100
 lhu10.bin,0
 lhu11.bin,-11
-<<<<<<< HEAD
-lhu12.bin,10
-=======
 lhu12.bin,72
->>>>>>> 098784740e36e11fab6ec04e08dddd6265d7f99e
 lhu2.bin,-11
 lhu3.bin,100
 lhu4.bin,0
 lhu5.bin,3
 lhu6.bin,-11
-<<<<<<< HEAD
-lhu7.bin,107
-=======
 lhu7.bin,72
->>>>>>> 098784740e36e11fab6ec04e08dddd6265d7f99e
 lhu8.bin,-11
 lhu9.bin,13
 lui1.bin,100
@@ -208,11 +159,7 @@ lw17.bin,-11
 lw2.bin,-11
 lw3.bin,0
 lw4.bin,-11
-<<<<<<< HEAD
-lw5.bin,107
-=======
 lw5.bin,72
->>>>>>> 098784740e36e11fab6ec04e08dddd6265d7f99e
 lw6.bin,-11
 lw7.bin,13
 lw8.bin,0
@@ -223,37 +170,29 @@ lwl3.bin,102
 lwl4.bin,111
 lwl5.bin,102
 lwl6.bin,-11
-<<<<<<< HEAD
-lwl7.bin,107
-=======
 lwl7.bin,72
->>>>>>> 098784740e36e11fab6ec04e08dddd6265d7f99e
 lwl8.bin,14
 lwr1.bin,-11
 lwr2.bin,-11
 lwr3.bin,-11
 lwr4.bin,-11
-<<<<<<< HEAD
-lwr5.bin,100
-=======
 lwr5.bin,72
->>>>>>> 098784740e36e11fab6ec04e08dddd6265d7f99e
 lwr6.bin,-11
-mfhi1.bin,0
-mfhi2.bin,0
-mfhi3.bin,0
-mflo1.bin,0
-mflo2.bin,0
-mflo3.bin,0
-mthi1.bin,0
-mthi2.bin,0
-mtlo1.bin,0
-mtlo2.bin,0
-mult1.bin,0
-mult2.bin,0
-mult3.bin,0
+mfhi1.bin,15
+mfhi2.bin,-22
+mfhi3.bin,7
+mflo1.bin,6
+mflo2.bin,-6
+mflo3.bin,12
+mthi1.bin,14
+mthi2.bin,-20
+mtlo1.bin,5
+mtlo2.bin,-5
+mult1.bin,12
+mult2.bin,35
+mult3.bin,-128
 mult4.bin,0
-multu1.bin,0
+multu1.bin,12
 multu2.bin,0
 nopskp.bin,69
 numread1.bin,0
@@ -269,24 +208,24 @@ ori1.bin,-1
 ori2.bin,0
 ori3.bin,0
 reg0.bin,0
-sb1.bin,0
+sb1.bin,13
 sb10.bin,0
 sb11.bin,-11
-sb2.bin,0
+sb2.bin,69
 sb3.bin,-11
-sb4.bin,-117
-sb5.bin,-117
+sb4.bin,0
+sb5.bin,-11
 sb6.bin,-11
 sb7.bin,-11
 sb8.bin,-11
-sb9.bin,-117
-sh1.bin,-11
-sh10.bin,-11
-sh11.bin,-11
+sb9.bin,0
+sh1.bin,13
+sh10.bin,0
+sh11.bin,0
 sh12.bin,-11
-sh2.bin,-11
+sh2.bin,69
 sh3.bin,-11
-sh4.bin,-11
+sh4.bin,0
 sh5.bin,-11
 sh6.bin,-11
 sh7.bin,-11

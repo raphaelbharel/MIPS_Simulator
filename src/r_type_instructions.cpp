@@ -49,7 +49,7 @@ int r_type_instructions::execute()
         SLT(C, src1, src2, dest);
         return 1;
     case 0x3:
-        SRA(C, src1, src2, dest);
+        SRA(C, src2, dest, shift);
         return 1;
     case 0x7:
         SRAV(C, src1, src2, dest);
@@ -61,16 +61,16 @@ int r_type_instructions::execute()
         SUB(C, src1, src2, dest);
         return 1;
     case 0x10:
-        MFHI(C, src1);
+        MFHI(C, dest);
         return 1;
     case 0x12:
         MFLO(C, dest);
         return 1;
     case 0x11:
-        MTHI(C, dest);
+        MTHI(C, src1);
         return 1;
     case 0x13:
-        MTLO(C, dest);
+        MTLO(C, src1);
         return 1;
     case 0x4:
         SLLV(C, src1, src2, dest);
@@ -232,6 +232,7 @@ void r_type_instructions::SRA(CPU *&C, INSTR_TYPE &src2, INSTR_TYPE &dest, INSTR
     if (DEBUG)
     {
         cerr << "SRA" << endl;
+        cerr << "SHIFT:" << shift << endl;
     }
     C->reg[dest] = static_cast<int32_t>(C->reg[src2]) >> shift;
     C->npc = C->npc + 1;
@@ -262,8 +263,8 @@ void r_type_instructions::SUB(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &src2, INSTR
         cerr << "SUB" << endl;
     }
     // if +ve - -ve => -ve or -ve - +ve => +ve gives arithmetic overflow
-    if (((C->reg[src1] > 0) && (C->reg[src2] < 0) && (C->reg[src1] - C->reg[src2] <= 0)) ||
-        ((C->reg[src1] < 0) && (C->reg[src2] > 0) && (C->reg[src1] - C->reg[src2] >= 0)))
+    if (((C->reg[src1] >= 0) && (C->reg[src2] < 0) && (C->reg[src1] - C->reg[src2] <= 0)) ||
+        ((C->reg[src1] <= 0) && (C->reg[src2] > 0) && (C->reg[src1] - C->reg[src2] >= 0)))
     {
         throw(static_cast<int>(ARITHMETIC_EXIT_CODE));
     }
@@ -349,6 +350,9 @@ void r_type_instructions::DIVU(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &src2)
     if (DEBUG)
     {
         cerr << "DIVU" << endl;
+    }
+    if (!src2) { // Division by zero
+        throw(ARITHMETIC_EXIT_CODE);
     }
     C->regLO = static_cast<uint32_t>(C->reg[src1]) / static_cast<uint32_t>(C->reg[src2]);
     C->regHI = static_cast<uint32_t>(C->reg[src1]) % static_cast<uint32_t>(C->reg[src2]);

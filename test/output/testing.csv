@@ -1,633 +1,296 @@
-<<<<<<< HEAD
-add1.bin,add,Pass,QFSW,,12,12
-add2.bin,add,Pass,QFSW,negative rt,3,3
-add3.bin,add,Pass,QFSW,negative rs,8,8
-add4.bin,add,Pass,QFSW,overflow,-10,-10
-add5.bin,add,Pass,QFSW,overflow,-10,-10
-add6.bin,add,Pass,QFSW,underflow,-10,-10
-add7.bin,add,Pass,QFSW,underflow,-10,-10
-addi1.bin,addi,Pass,QFSW,,27,27
-addi2.bin,addi,Pass,QFSW,negative immediate,2,2
-addi3.bin,addi,Pass,QFSW,overflow,-10,-10
-addi4.bin,addi,Pass,ChrisDeverall,underflow,-10,-10
-addi5.bin,addi,Pass,QFSW,sign-extension,0,0
-addiu1.bin,addiu,Pass,QFSW,,2,2
-addiu2.bin,addiu,Pass,QFSW,overflow,0,0
-addiu3.bin,addiu,Pass,ChrisDeverall,underflow,-100,-100
-addiu4.bin,addiu,Pass,QFSW,sign-extension,0,0
-addu1.bin,addu,Pass,ChrisDeverall,standard,10,10
-addu2.bin,addu,Pass,ChrisDeverall,overflow,2,2
-addu3.bin,addu,Pass,ChrisDeverall,underflow,1,1
-and1.bin,and,Pass,QFSW,,0,0
-and2.bin,and,Pass,QFSW,,1,1
-andi1.bin,andi,Pass,ChrisDeverall,,18,18
-andi2.bin,andi,Pass,ChrisDeverall,,0,0
-andi3.bin,andi,Pass,QFSW,zero-extension,0,0
-beq1.bin,beq,Pass,QFSW,rs==rt,2,2
-beq2.bin,beq,Pass,QFSW,rs!=rt,4,4
-beq3.bin,beq,Pass,QFSW,bad-pc,-11,-11
-beq4.bin,beq,Pass,QFSW,bad-pc,-11,-11
-beq5.bin,beq,Pass,QFSW,backwards-branch,0,0
-bgez1.bin,bgez,Pass,QFSW,rs==0,2,2
-bgez2.bin,bgez,Pass,QFSW,rs<0,4,4
-bgez3.bin,bgez,Pass,QFSW,bad-pc,-11,-11
-bgez4.bin,bgez,Pass,QFSW,bad-pc,-11,-11
-bgez5.bin,bgez,Pass,QFSW,backwards-branch,0,0
-bgez6.bin,bgez,Pass,QFSW,rs>0,2,2
-bgezal1.bin,bgezal,Pass,QFSW,rs>0,17,17
-bgezal2.bin,bgezal,Pass,QFSW,rs<0,4,4
-bgezal3.bin,bgezal,Fail,QFSW,link-set,13,1
-bgezal4.bin,bgezal,Pass,QFSW,rs=0,17,17
-bgtz1.bin,bgtz,Pass,QFSW,rs>0,2,2
-bgtz2.bin,bgtz,Pass,QFSW,rs=0,4,4
-bgtz3.bin,bgtz,Pass,QFSW,bad-pc,-11,-11
-bgtz4.bin,bgtz,Pass,QFSW,bad-pc,-11,-11
-bgtz5.bin,bgtz,Pass,QFSW,backwards-branch,0,0
-bgtz6.bin,bgtz,Pass,QFSW,rs<0,4,4
-blez1.bin,blez,Pass,QFSW,rs>0,4,4
-blez2.bin,blez,Pass,QFSW,rs=0,2,2
-blez3.bin,blez,Pass,QFSW,bad-pc,-11,-11
-blez4.bin,blez,Pass,QFSW,bad-pc,-11,-11
-blez5.bin,blez,Pass,QFSW,backwards-branch,0,0
-blez6.bin,blez,Pass,QFSW,rs<0,2,2
-bltz1.bin,bltz,Pass,QFSW,rs>0,4,4
-bltz2.bin,bltz,Pass,QFSW,rs=0,4,4
-bltz3.bin,bltz,Pass,QFSW,bad-pc,-11,-11
-bltz4.bin,bltz,Pass,QFSW,bad-pc,-11,-11
-bltz5.bin,bltz,Pass,QFSW,backwards-branch,0,0
-bltz6.bin,bltz,Pass,QFSW,rs<0,2,2
-bltzal1.bin,bltzal,Pass,QFSW,rs>0,7,7
-bltzal2.bin,bltzal,Pass,QFSW,rs<0,14,14
-bltzal3.bin,bgezal,Fail,QFSW,link-set,13,1
-bltzal4.bin,bltzal,Pass,QFSW,rs=0,4,4
-bne1.bin,bne,Pass,QFSW,rs==rt,4,4
-bne2.bin,bne,Pass,QFSW,rs!=rt,2,2
-bne3.bin,bne,Pass,QFSW,bad-pc,-11,-11
-bne4.bin,bne,Pass,QFSW,bad-pc,-11,-11
-bne5.bin,bne,Pass,QFSW,backwards-branch,0,0
-div1.bin,div,Fail,ChrisDeverall,standard_quot,12,0
-div2.bin,div,Pass,ChrisDeverall,standard_remain,0,0
-div3.bin,div,Fail,ChrisDeverall,standard_negative,-4,0
-div4.bin,div,Fail,ChrisDeverall,div_zero,0,-120
-div5.bin,div,Pass,ChrisDeverall,overflow,0,0
-divu1.bin,divu,Fail,ChrisDeverall,standard,2,0
-divu2.bin,divu,Fail,ChrisDeverall,negative,-1,0
-divu3.bin,divu,Fail,ChrisDeverall,div_zero,0,-120
-hello.bin,sw,Pass,QFSW,testing PUTC,0,0
-j1.bin,j,Fail,QFSW,,3,2
-j2.bin,j,Fail,QFSW,bad-pc,-11,1
-j3.bin,j,Fail,QFSW,delay-slot,12,2
-j4.bin,j,Fail,QFSW,,3,1
-jal1.bin,jal,Fail,QFSW,,5,2
-jal2.bin,jal,Fail,QFSW,bad-pc,-11,1
-jal3.bin,jal,Fail,QFSW,delay-slot,12,2
-jal4.bin,jal,Fail,QFSW,chain,20,0
-jalr1.bin,jalr,Fail,QFSW,,20,-12
-jalr2.bin,jalr,Fail,QFSW,,20,-12
-jalr3.bin,jalr,Fail,QFSW,delay-slot,21,-12
-jalr4.bin,jalr,Fail,QFSW,,0,-12
-jalr5.bin,jalr,Fail,QFSW,,5,-12
-jalr6.bin,jalr,Fail,QFSW,,8,-12
-jr1.bin,jr,Pass,QFSW,,0,0
-jr2.bin,jr,Pass,QFSW,bad-pc,-11,-11
-jr3.bin,jr,Fail,QFSW,bad-pc,-11,0
-jr4.bin,jr,Pass,QFSW,delay-slot,2,2
-jr5.bin,jr,Pass,QFSW,,3,3
-jr6.bin,jr,Pass,QFSW,misaligned-pc,-11,-11
-lb1.bin,lb,Pass,QFSW,,100,100
-lb10.bin,lb,Pass,QFSW,instr-nops,0,0
-lb11.bin,lb,Pass,QFSW,addr-null,-11,-11
-lb12.bin,lb,Fail,ChrisDeverall,getc-offset,72,10
-lb13.bin,lb,Fail,ChrisDeverall,null+eof,-1,10
-lb2.bin,lb,Pass,QFSW,,100,100
-lb3.bin,lb,Pass,QFSW,,100,100
-lb4.bin,lb,Pass,QFSW,sign-extension,-1,-1
-lb5.bin,lb,Fail,QFSW,,1,0
-lb6.bin,lb,Pass,QFSW,outofrange,-11,-11
-lb7.bin,lb,Fail,QFSW,getc,72,97
-lb8.bin,lb,Pass,QFSW,putc,-11,-11
-lb9.bin,lb,Pass,QFSW,instr,13,13
-lbu1.bin,lbu,Pass,QFSW,,100,100
-lbu10.bin,lbu,Pass,QFSW,instr-nops,0,0
-lbu11.bin,lbu,Pass,QFSW,addr-null,-11,-11
-lbu12.bin,lbu,Fail,ChrisDeverall,getc-offset,72,10
-lbu2.bin,lbu,Pass,QFSW,,100,100
-lbu3.bin,lbu,Pass,QFSW,,100,100
-lbu4.bin,lbu,Pass,QFSW,zero-extension,0,0
-lbu5.bin,lbu,Fail,QFSW,,1,0
-lbu6.bin,lbu,Pass,QFSW,outofrange,-11,-11
-lbu7.bin,lbu,Fail,QFSW,getc,72,97
-lbu8.bin,lbu,Pass,QFSW,putc,-11,-11
-lbu9.bin,lbu,Pass,QFSW,instr,13,13
-lh1.bin,lh,Pass,QFSW,,100,100
-lh10.bin,lh,Pass,QFSW,instr-nops,0,0
-lh11.bin,lh,Pass,QFSW,addr-null,-11,-11
-lh12.bin,lh,Fail,ChrisDeverall,getc-offset,72,10
-lh13.bin,lh,Fail,ChrisDeverall,null+eof,-1,10
-lh2.bin,lh,Pass,QFSW,misaligned,-11,-11
-lh3.bin,lh,Pass,QFSW,,100,100
-lh4.bin,lh,Pass,QFSW,sign-extension,-1,-1
-lh5.bin,lh,Pass,QFSW,,3,3
-lh6.bin,lh,Pass,QFSW,outofrange,-11,-11
-lh7.bin,lh,Fail,QFSW,getc,72,97
-lh8.bin,lh,Pass,QFSW,putc,-11,-11
-lh9.bin,lh,Pass,QFSW,instr,13,13
-lhu1.bin,lhu,Pass,QFSW,,100,100
-lhu10.bin,lhu,Pass,QFSW,instr-nops,0,0
-lhu11.bin,lhu,Pass,QFSW,addr-null,-11,-11
-lhu12.bin,lhu,Fail,ChrisDeverall,getc-offset,72,10
-lhu2.bin,lhu,Pass,QFSW,misaligned,-11,-11
-lhu3.bin,lhu,Pass,QFSW,,100,100
-lhu4.bin,lhu,Pass,QFSW,zero-extension,0,0
-lhu5.bin,lhu,Pass,QFSW,,3,3
-lhu6.bin,lhu,Pass,QFSW,outofrange,-11,-11
-lhu7.bin,lhu,Fail,QFSW,getc,72,107
-lhu8.bin,lhu,Pass,QFSW,putc,-11,-11
-lhu9.bin,lhu,Pass,QFSW,instr,13,13
-lui1.bin,lui,Pass,QFSW,,100,100
-lui2.bin,lui,Pass,QFSW,,0,0
-lui3.bin,lui,Pass,QFSW,,1,1
-lw1.bin,lw,Pass,QFSW,,100,100
-lw10.bin,lw,Pass,QFSW,data-bottom-boundary,0,0
-lw11.bin,lw,Pass,QFSW,data-below-boundary,-11,-11
-lw12.bin,lw,Pass,QFSW,data-top-boundary,0,0
-lw13.bin,lw,Pass,QFSW,data-above-boundary,-11,-11
-lw14.bin,lw,Pass,QFSW,instr-bottom-boundary,0,0
-lw15.bin,lw,Pass,QFSW,instr-below-boundary,-11,-11
-lw16.bin,lw,Pass,QFSW,instr-top-boundary,0,0
-lw17.bin,lw,Pass,QFSW,instr-above-boundary,-11,-11
-lw2.bin,lw,Pass,QFSW,misaligned word,-11,-11
-lw3.bin,lw,Pass,QFSW,uninitialised word,0,0
-lw4.bin,lw,Pass,ChrisDeverall,outofrange,-11,-11
-lw5.bin,lw,Fail,ChrisDeverall,getc,72,107
-lw6.bin,lw,Pass,ChrisDeverall,putc,-11,-11
-lw7.bin,lw,Pass,ChrisDeverall,instr,13,13
-lw8.bin,lw,Pass,QFSW,instr-nops,0,0
-lw9.bin,lw,Pass,QFSW,addr-null,-11,-11
-lwl1.bin,lwl,Pass,ChrisDeverall,aligned,15,15
-lwl2.bin,lwl,Pass,ChrisDeverall,misaligned1,34,34
-lwl3.bin,lwl,Pass,ChrisDeverall,misalignedby1byte1,102,102
-lwl4.bin,lwl,Pass,ChrisDeverall,misalignedby2,111,111
-lwl5.bin,lwl,Pass,ChrisDeverall,misalignedby3,102,102
-lwl6.bin,lwl,Pass,QFSW,addr-null,-11,-11
-lwl7.bin,lwl,Fail,QFSW,getc,72,107
-lwl8.bin,lwl,Pass,QFSW,instr,14,14
-lwr1.bin,lwr,Fail,ChrisDeverall,aligned,102,-11
-lwr2.bin,lwr,Fail,ChrisDeverall,misaligned1,17,-11
-lwr3.bin,lwr,Fail,ChrisDeverall,misaligned2,34,-11
-lwr4.bin,lwr,Fail,ChrisDeverall,misaligned3,85,-11
-lwr5.bin,lwr,Fail,ChrisDeverall,getc,72,100
-lwr6.bin,lwr,Pass,QFSW,addr-null,-11,-11
-mfhi1.bin,mfhi,Fail,ChrisDeverall,pos,15,0
-mfhi2.bin,mthi,Fail,ChrisDeverall,neg,-22,0
-mfhi3.bin,mfhi,Fail,ChrisDeverall,override,7,0
-mflo1.bin,mflo,Fail,ChrisDeverall,pos,6,0
-mflo2.bin,mflo,Fail,ChrisDeverall,neg,-6,0
-mflo3.bin,mflo,Fail,ChrisDeverall,overridinghi,12,0
-mthi1.bin,mthi,Fail,ChrisDeverall,pos,14,0
-mthi2.bin,mthi,Fail,ChrisDeverall,neg,-20,0
-mtlo1.bin,mtlo,Fail,ChrisDeverall,pos,5,0
-mtlo2.bin,mtlo,Fail,ChrisDeverall,neg,-5,0
-mult1.bin,mult,Fail,ChrisDeverall,standard,12,0
-mult2.bin,mult,Fail,ChrisDeverall,negative,35,0
-mult3.bin,mult,Fail,ChrisDeverall,overflow,-128,0
-mult4.bin,mult,Pass,ChrisDeverall,overflow,0,0
-multu1.bin,multu,Fail,ChrisDeverall,standard,12,0
-multu2.bin,multu,Fail,ChrisDeverall,standard_large,127,0
-nopskp.bin,internal,Pass,QFSW,detects-false-nopskp,69,69
-numread1.bin,function,Fail,QFSW,in=7,7,0
-numread2.bin,function,Fail,QFSW,in=12,12,0
-numread3.bin,function,Fail,QFSW,in=126,126,0
-numwrite1.bin,function,Pass,QFSW,in=7,0,0
-numwrite2.bin,function,Pass,QFSW,in=49,0,0
-numwrite3.bin,function,Pass,QFSW,in=666,0,0
-numwrite4.bin,function,Pass,QFSW,in=6969,0,0
-or1.bin,or,Pass,QFSW,,1,1
-or2.bin,or,Pass,QFSW,,3,3
-ori1.bin,ori,Pass,ChrisDeverall,,-1,-1
-ori2.bin,ori,Pass,ChrisDeverall,,0,0
-ori3.bin,ori,Pass,QFSW,zero-extension,0,0
-reg0.bin,internal,Pass,QFSW,tests-reg0,0,0
-sb1.bin,sb,Fail,QFSW,standard,13,0
-sb10.bin,sb,Pass,QFSW,data-top-boundary,0,0
-sb11.bin,sb,Pass,QFSW,data-above-boundary,-11,-11
-sb2.bin,sb,Fail,QFSW,composite,69,0
-sb3.bin,sb,Pass,QFSW,above,-11,-11
-sb4.bin,sb,Fail,QFSW,putc,0,-117
-sb5.bin,sb,Fail,QFSW,getc,-11,-117
-sb6.bin,sb,Pass,QFSW,instr,-11,-11
-sb7.bin,sb,Pass,QFSW,instr-nops,-11,-11
-sb8.bin,sb,Pass,QFSW,addr-null,-11,-11
-sb9.bin,sb,Fail,ChrisDeverall,putc-offset,0,-117
-sh1.bin,sh,Fail,QFSW,standard,13,-11
-sh10.bin,sh,Fail,ChrisDeverall,putc-offset,0,-11
-sh11.bin,sh,Fail,QFSW,data-top-boundary,0,-11
-sh12.bin,sh,Pass,QFSW,data-above-boundary,-11,-11
-sh2.bin,sh,Fail,QFSW,composite,69,-11
-sh3.bin,sh,Pass,QFSW,above,-11,-11
-sh4.bin,sh,Fail,QFSW,putc,0,-11
-sh5.bin,sh,Pass,QFSW,getc,-11,-11
-sh6.bin,sh,Pass,QFSW,instr,-11,-11
-sh7.bin,sh,Pass,QFSW,instr-nops,-11,-11
-sh8.bin,sh,Pass,QFSW,addr-null,-11,-11
-sh9.bin,sh,Pass,QFSW,misaligned,-11,-11
-sll1.bin,sll,Pass,ChrisDeverall,standardpos,60,60
-sll2.bin,sll,Pass,ChrisDeverall,standardneg,-8,-8
-sllv1.bin,sllv,Pass,ChrisDeverall,standardpos,56,56
-sllv2.bin,sllv,Pass,ChrisDeverall,standardneg,-12,-12
-sllv3.bin,sllv,Pass,ChrisDeverall,largevar,6,6
-slt1.bin,slt,Pass,ChrisDeverall,standard,1,1
-slt2.bin,slt,Pass,ChrisDeverall,standardneg,0,0
-slt3.bin,slt,Pass,ChrisDeverall,diffsigns,0,0
-slt4.bin,slt,Pass,ChrisDeverall,equal,0,0
-slt5.bin,slt,Pass,QFSW,,1,1
-slti1.bin,slti,Pass,ChrisDeverall,standard,1,1
-slti2.bin,slti,Pass,ChrisDeverall,standardneg,0,0
-sltiu1.bin,sltiu,Pass,ChrisDeverall,standard,1,1
-sltiu2.bin,sltiu,Pass,ChrisDeverall,standardneg,1,1
-sltiu3.bin,sltiu,Pass,ChrisDeverall,standardneg,0,0
-sltiu4.bin,sltiu,Pass,QFSW,sign-extension,1,1
-sltu1.bin,sltu,Pass,ChrisDeverall,standard,1,1
-sltu2.bin,sltu,Pass,ChrisDeverall,standardneg,0,0
-sra1.bin,sra,Fail,ChrisDeverall,standardpos,4,0
-sra2.bin,sra,Fail,ChrisDeverall,standardneg,-2,0
-sra3.bin,sra,Fail,ChrisDeverall,attemptToChangeSign,-1,0
-srav1.bin,srav,Pass,ChrisDeverall,standardpos,2,2
-srav2.bin,srav,Pass,ChrisDeverall,standardneg,-4,-4
-srav3.bin,srav,Pass,ChrisDeverall,largevarpos,7,7
-srav4.bin,srav,Pass,ChrisDeverall,largevarneg,-3,-3
-srl1.bin,srl,Pass,ChrisDeverall,standardpos,8,8
-srl2.bin,srl,Pass,ChrisDeverall,standardneg,-2,-2
-srl3.bin,srl,Pass,ChrisDeverall,signchange,1,1
-srlv1.bin,srlv,Pass,ChrisDeverall,standardpos,2,2
-srlv2.bin,srlv,Pass,ChrisDeverall,standardneg,-2,-2
-srlv3.bin,srlv,Pass,ChrisDeverall,largevar,7,7
-sub1.bin,sub,Pass,QFSW,,51,51
-sub2.bin,sub,Fail,ChrisDeverall,overflow,-10,0
-sub3.bin,sub,Pass,QFSW,,0,0
-sub4.bin,sub,Pass,ChrisDeverall,underflow,-10,-10
-sub5.bin,sub,Pass,ChrisDeverall,overflow,-10,-10
-subu1.bin,subu,Pass,ChrisDeverall,standard,16,16
-subu2.bin,subu,Pass,ChrisDeverall,standardneg,3,3
-subu3.bin,subu,Pass,ChrisDeverall,negresult,-9,-9
-sw1.bin,sw,Pass,ChrisDeverall,standard,13,13
-sw10.bin,sw,Pass,QFSW,data-bottom-boundary,0,0
-sw11.bin,sw,Pass,QFSW,data-below-boundary,-11,-11
-sw12.bin,sw,Pass,QFSW,data-top-boundary,0,0
-sw13.bin,sw,Pass,QFSW,data-above-boundary,-11,-11
-sw14.bin,sw,Pass,QFSW,instr-bottom-boundary,-11,-11
-sw15.bin,sw,Pass,QFSW,instr-below-boundary,-11,-11
-sw16.bin,lw,Pass,QFSW,instr-top-boundary,-11,-11
-sw17.bin,sw,Pass,QFSW,instr-above-boundary,-11,-11
-sw2.bin,sw,Pass,ChrisDeverall,standardneg,-5,-5
-sw3.bin,sw,Pass,ChrisDeverall,misaligned,-11,-11
-sw4.bin,sw,Pass,ChrisDeverall,above,-11,-11
-sw5.bin,sw,Pass,ChrisDeverall,putc,0,0
-sw6.bin,sw,Pass,ChrisDeverall,instr,-11,-11
-sw7.bin,sw,Pass,QFSW,instr-nops,-11,-11
-sw8.bin,sw,Pass,QFSW,addr-null,-11,-11
-sw9.bin,sw,Pass,QFSW,getc,-11,-11
-xor1.bin,xor,Pass,QFSW,,1,1
-xor2.bin,xor,Pass,QFSW,,2,2
-xor3.bin,xor,Pass,ChrisDeverall,,0,0
-xori1.bin,xori,Pass,ChrisDeverall,,31,31
-xori2.bin,xori,Pass,ChrisDeverall,,-1,-1
-xori3.bin,xori,Pass,QFSW,zero-extension,0,0
-xori4.bin,xori,Pass,QFSW,zero-extension,0,0
-=======
-TESTID,TEST,OUTCOME,USER_ID,COMMENTS,MESSAGE,EXPECTED,RETURNED,
-add1.bin,add,Pass,QFSW,,,12,12,
-add2.bin,add,Pass,QFSW,negative rt,,3,3,
-add3.bin,add,Pass,QFSW,negative rs,,8,8,
-add4.bin,add,Pass,QFSW,overflow,,-10,-10,
-add5.bin,add,Pass,QFSW,overflow,,-10,-10,
-add6.bin,add,Pass,QFSW,underflow,,-10,-10,
-add7.bin,add,Pass,QFSW,underflow,,-10,-10,
-addi1.bin,addi,Pass,QFSW,,,27,27,
-addi2.bin,addi,Pass,QFSW,negative immediate,,2,2,
-addi3.bin,addi,Pass,QFSW,overflow,,-10,-10,
-addi4.bin,addi,Pass,ChrisDeverall,underflow,,-10,-10,
-addi5.bin,addi,Pass,QFSW,sign-extension,,0,0,
-addiu1.bin,addiu,Pass,QFSW,,,2,2,
-addiu2.bin,addiu,Pass,QFSW,overflow,,0,0,
-addiu3.bin,addiu,Pass,ChrisDeverall,underflow,,-100,-100,
-addiu4.bin,addiu,Pass,QFSW,sign-extension,,0,0,
-addu1.bin,addu,Pass,ChrisDeverall,standard,,10,10,
-addu2.bin,addu,Pass,ChrisDeverall,overflow,,2,2,
-addu3.bin,addu,Pass,ChrisDeverall,underflow,,1,1,
-and1.bin,and,Pass,QFSW,,,0,0,
-and2.bin,and,Pass,QFSW,,,1,1,
-andi1.bin,andi,Pass,ChrisDeverall,,,18,18,
-andi2.bin,andi,Pass,ChrisDeverall,,,0,0,
-andi3.bin,andi,Pass,QFSW,zero-extension,,0,0,
-beq1.bin,beq,Pass,QFSW,rs==rt,,2,2,
-beq2.bin,beq,Pass,QFSW,rs!=rt,,4,4,
-beq3.bin,beq,Pass,QFSW,bad-pc,,-11,-11,
-beq4.bin,beq,Pass,QFSW,bad-pc,,-11,-11,
-beq5.bin,beq,Pass,QFSW,backwards-branch,,0,0,
-bgez1.bin,bgez,Pass,QFSW,rs==0,,2,2,
-bgez2.bin,bgez,Pass,QFSW,rs<0,,4,4,
-bgez3.bin,bgez,Pass,QFSW,bad-pc,,-11,-11,
-bgez4.bin,bgez,Pass,QFSW,bad-pc,,-11,-11,
-bgez5.bin,bgez,Pass,QFSW,backwards-branch,,0,0,
-bgez6.bin,bgez,Pass,QFSW,rs>0,,2,2,
-bgezal1.bin,bgezal,Pass,QFSW,rs>0,,17,17,
-bgezal2.bin,bgezal,Pass,QFSW,rs<0,,4,4,
-bgezal3.bin,bgezal,Fail,QFSW,link-set,[INFO] Expected: '1', Returned: '13',13,1
-bgezal4.bin,bgezal,Pass,QFSW,rs=0,[INFO] Expected: '1', Returned: '13',17,17
-bgtz1.bin,bgtz,Pass,QFSW,rs>0,[INFO] Expected: '1', Returned: '13',2,2
-bgtz2.bin,bgtz,Pass,QFSW,rs=0,[INFO] Expected: '1', Returned: '13',4,4
-bgtz3.bin,bgtz,Pass,QFSW,bad-pc,[INFO] Expected: '1', Returned: '13',-11,-11
-bgtz4.bin,bgtz,Pass,QFSW,bad-pc,[INFO] Expected: '1', Returned: '13',-11,-11
-bgtz5.bin,bgtz,Pass,QFSW,backwards-branch,[INFO] Expected: '1', Returned: '13',0,0
-bgtz6.bin,bgtz,Pass,QFSW,rs<0,[INFO] Expected: '1', Returned: '13',4,4
-blez1.bin,blez,Pass,QFSW,rs>0,[INFO] Expected: '1', Returned: '13',4,4
-blez2.bin,blez,Pass,QFSW,rs=0,[INFO] Expected: '1', Returned: '13',2,2
-blez3.bin,blez,Pass,QFSW,bad-pc,[INFO] Expected: '1', Returned: '13',-11,-11
-blez4.bin,blez,Pass,QFSW,bad-pc,[INFO] Expected: '1', Returned: '13',-11,-11
-blez5.bin,blez,Pass,QFSW,backwards-branch,[INFO] Expected: '1', Returned: '13',0,0
-blez6.bin,blez,Pass,QFSW,rs<0,[INFO] Expected: '1', Returned: '13',2,2
-bltz1.bin,bltz,Pass,QFSW,rs>0,[INFO] Expected: '1', Returned: '13',4,4
-bltz2.bin,bltz,Pass,QFSW,rs=0,[INFO] Expected: '1', Returned: '13',4,4
-bltz3.bin,bltz,Pass,QFSW,bad-pc,[INFO] Expected: '1', Returned: '13',-11,-11
-bltz4.bin,bltz,Pass,QFSW,bad-pc,[INFO] Expected: '1', Returned: '13',-11,-11
-bltz5.bin,bltz,Pass,QFSW,backwards-branch,[INFO] Expected: '1', Returned: '13',0,0
-bltz6.bin,bltz,Pass,QFSW,rs<0,[INFO] Expected: '1', Returned: '13',2,2
-bltzal1.bin,bltzal,Pass,QFSW,rs>0,[INFO] Expected: '1', Returned: '13',7,7
-bltzal2.bin,bltzal,Pass,QFSW,rs<0,[INFO] Expected: '1', Returned: '13',14,14
-bltzal3.bin,bgezal,Fail,QFSW,link-set,[INFO] Expected: '1', Returned: '13',13,1
-bltzal4.bin,bltzal,Pass,QFSW,rs=0,[INFO] Expected: '1', Returned: '13',4,4
-bne1.bin,bne,Pass,QFSW,rs==rt,[INFO] Expected: '1', Returned: '13',4,4
-bne2.bin,bne,Pass,QFSW,rs!=rt,[INFO] Expected: '1', Returned: '13',2,2
-bne3.bin,bne,Pass,QFSW,bad-pc,[INFO] Expected: '1', Returned: '13',-11,-11
-bne4.bin,bne,Pass,QFSW,bad-pc,[INFO] Expected: '1', Returned: '13',-11,-11
-bne5.bin,bne,Pass,QFSW,backwards-branch,[INFO] Expected: '1', Returned: '13',0,0
-div1.bin,div,Fail,ChrisDeverall,standard_quot,[INFO] Expected: '0', Returned: '12',12,0
-div2.bin,div,Pass,ChrisDeverall,standard_remain,[INFO] Expected: '0', Returned: '12',0,0
-div3.bin,div,Fail,ChrisDeverall,standard_negative,[INFO] Expected: '0', Returned: '-4',-4,0
-div4.bin,div,Fail,ChrisDeverall,div_zero,[INFO] Expected: '-120', Returned: '0',0,-120
-div5.bin,div,Pass,ChrisDeverall,overflow,[INFO] Expected: '-120', Returned: '0',0,0
-divu1.bin,divu,Fail,ChrisDeverall,standard,[INFO] Expected: '0', Returned: '2',2,0
-divu2.bin,divu,Fail,ChrisDeverall,negative,[INFO] Expected: '0', Returned: '-1',-1,0
-divu3.bin,divu,Fail,ChrisDeverall,div_zero,[INFO] Expected: '-120', Returned: '0',0,-120
-factorial1.bin,stack,Fail,QFSW,1!,[INFO] Expected: '0', Returned: '1',1,0
-factorial2.bin,stack,Fail,QFSW,3!,[INFO] Expected: '0', Returned: '6',6,0
-factorial3.bin,stack,Fail,QFSW,4!,[INFO] Expected: '0', Returned: '24',24,0
-factorial4.bin,stack,Fail,QFSW,5!,[INFO] Expected: '0', Returned: '120',120,0
-factorial5.bin,stack,Pass,QFSW,stackdepth=0x5000,[INFO] Expected: '0', Returned: '120',0,0
-filedump1.bin,lw,Fail,QFSW,EOF,[INFO] Expected: '115', Returned: '-1',-1,115
-filedump2.bin,lh,Fail,QFSW,EOF,[INFO] Expected: '109', Returned: '-1',-1,109
-filedump3.bin,lb,Fail,QFSW,EOF,[INFO] Expected simoutput: '116,,,
-101,,,,,,,,
-115,,,,,,,,
-116,,,,,,,,
-115,,,,,,,,
-47,,,,,,,,
-115,,,,,,,,
-97,,,,,,,,
-109,,,,,,,,
-112,,,,,,,,
-108,,,,,,,,
-101,,,,,,,,
-51,,,,,,,,
-46,,,,,,,,
-116,,,,,,,,
-120,,,,,,,,
-116,,,,,,,,
-10', Returned putc: '200IQ play universe brain',-1,-1,,,,,
-filedump4.bin,lh,Fail,QFSW,EOF-offset,[INFO] Expected: '1', Returned: '0',0,1
-filedump5.bin,lb,Fail,QFSW,EOF-offset,[INFO] Expected: '1', Returned: '0',0,1
-filedump6.bin,lhu,Fail,QFSW,EOF-offset,[INFO] Expected: '-1', Returned: '1',1,-1
-filedump7.bin,lbu,Fail,QFSW,EOF-offset,[INFO] Expected: '0', Returned: '1',1,0
-hello.bin,sw,Fail,QFSW,testing PUTC,[INFO] Expected simoutput: '72,,,
-101,,,,,,,,
-108,,,,,,,,
-108,,,,,,,,
-111,,,,,,,,
-32,,,,,,,,
-87,,,,,,,,
-111,,,,,,,,
-114,,,,,,,,
-108,,,,,,,,
-100', Returned putc: 'Hello World',0,0,,,,,
-j1.bin,j,Fail,QFSW,,[INFO] Expected: '2', Returned: '3',3,2
-j2.bin,j,Fail,QFSW,bad-pc,[INFO] Expected: '1', Returned: '-11',-11,1
-j3.bin,j,Fail,QFSW,delay-slot,[INFO] Expected: '2', Returned: '12',12,2
-j4.bin,j,Fail,QFSW,,[INFO] Expected: '1', Returned: '3',3,1
-jal1.bin,jal,Fail,QFSW,,[INFO] Expected: '2', Returned: '5',5,2
-jal2.bin,jal,Fail,QFSW,bad-pc,[INFO] Expected: '1', Returned: '-11',-11,1
-jal3.bin,jal,Fail,QFSW,delay-slot,[INFO] Expected: '2', Returned: '12',12,2
-jal4.bin,jal,Fail,QFSW,chain,[INFO] Expected: '0', Returned: '20',20,0
-jalr1.bin,jalr,Fail,QFSW,,[INFO] Expected: '-12', Returned: '20',20,-12
-jalr2.bin,jalr,Fail,QFSW,,[INFO] Expected: '-12', Returned: '20',20,-12
-jalr3.bin,jalr,Fail,QFSW,delay-slot,[INFO] Expected: '-12', Returned: '21',21,-12
-jalr4.bin,jalr,Fail,QFSW,,[INFO] Expected: '-12', Returned: '0',0,-12
-jalr5.bin,jalr,Fail,QFSW,,[INFO] Expected: '-12', Returned: '5',5,-12
-jalr6.bin,jalr,Fail,QFSW,,[INFO] Expected: '-12', Returned: '8',8,-12
-jr1.bin,jr,Pass,QFSW,,[INFO] Expected: '-12', Returned: '8',0,0
-jr2.bin,jr,Pass,QFSW,bad-pc,[INFO] Expected: '-12', Returned: '8',-11,-11
-jr3.bin,jr,Fail,QFSW,bad-pc,[INFO] Expected: '0', Returned: '-11',-11,0
-jr4.bin,jr,Pass,QFSW,delay-slot,[INFO] Expected: '0', Returned: '-11',2,2
-jr5.bin,jr,Pass,QFSW,,[INFO] Expected: '0', Returned: '-11',3,3
-jr6.bin,jr,Pass,QFSW,misaligned-pc,[INFO] Expected: '0', Returned: '-11',-11,-11
-lb1.bin,lb,Pass,QFSW,,[INFO] Expected: '0', Returned: '-11',100,100
-lb10.bin,lb,Pass,QFSW,instr-nops,[INFO] Expected: '0', Returned: '-11',0,0
-lb11.bin,lb,Pass,QFSW,addr-null,[INFO] Expected: '0', Returned: '-11',-11,-11
-lb12.bin,lb,Pass,ChrisDeverall,getc-offset,[INFO] Expected: '0', Returned: '-11',72,72
-lb13.bin,lb,Pass,ChrisDeverall,null+eof,[INFO] Expected: '0', Returned: '-11',-1,-1
-lb2.bin,lb,Pass,QFSW,,[INFO] Expected: '0', Returned: '-11',100,100
-lb3.bin,lb,Pass,QFSW,,[INFO] Expected: '0', Returned: '-11',100,100
-lb4.bin,lb,Pass,QFSW,sign-extension,[INFO] Expected: '0', Returned: '-11',-1,-1
-lb5.bin,lb,Fail,QFSW,,[INFO] Expected: '0', Returned: '1',1,0
-lb6.bin,lb,Pass,QFSW,outofrange,[INFO] Expected: '0', Returned: '1',-11,-11
-lb7.bin,lb,Pass,QFSW,getc,[INFO] Expected: '0', Returned: '1',72,72
-lb8.bin,lb,Pass,QFSW,putc,[INFO] Expected: '0', Returned: '1',-11,-11
-lb9.bin,lb,Pass,QFSW,instr,[INFO] Expected: '0', Returned: '1',13,13
-lbu1.bin,lbu,Pass,QFSW,,[INFO] Expected: '0', Returned: '1',100,100
-lbu10.bin,lbu,Pass,QFSW,instr-nops,[INFO] Expected: '0', Returned: '1',0,0
-lbu11.bin,lbu,Pass,QFSW,addr-null,[INFO] Expected: '0', Returned: '1',-11,-11
-lbu12.bin,lbu,Pass,ChrisDeverall,getc-offset,[INFO] Expected: '0', Returned: '1',72,72
-lbu2.bin,lbu,Pass,QFSW,,[INFO] Expected: '0', Returned: '1',100,100
-lbu3.bin,lbu,Pass,QFSW,,[INFO] Expected: '0', Returned: '1',100,100
-lbu4.bin,lbu,Pass,QFSW,zero-extension,[INFO] Expected: '0', Returned: '1',0,0
-lbu5.bin,lbu,Fail,QFSW,,[INFO] Expected: '0', Returned: '1',1,0
-lbu6.bin,lbu,Pass,QFSW,outofrange,[INFO] Expected: '0', Returned: '1',-11,-11
-lbu7.bin,lbu,Pass,QFSW,getc,[INFO] Expected: '0', Returned: '1',72,72
-lbu8.bin,lbu,Pass,QFSW,putc,[INFO] Expected: '0', Returned: '1',-11,-11
-lbu9.bin,lbu,Pass,QFSW,instr,[INFO] Expected: '0', Returned: '1',13,13
-lh1.bin,lh,Pass,QFSW,,[INFO] Expected: '0', Returned: '1',100,100
-lh10.bin,lh,Pass,QFSW,instr-nops,[INFO] Expected: '0', Returned: '1',0,0
-lh11.bin,lh,Pass,QFSW,addr-null,[INFO] Expected: '0', Returned: '1',-11,-11
-lh12.bin,lh,Pass,ChrisDeverall,getc-offset,[INFO] Expected: '0', Returned: '1',72,72
-lh13.bin,lh,Pass,ChrisDeverall,null+eof,[INFO] Expected: '0', Returned: '1',-1,-1
-lh2.bin,lh,Pass,QFSW,misaligned,[INFO] Expected: '0', Returned: '1',-11,-11
-lh3.bin,lh,Pass,QFSW,,[INFO] Expected: '0', Returned: '1',100,100
-lh4.bin,lh,Pass,QFSW,sign-extension,[INFO] Expected: '0', Returned: '1',-1,-1
-lh5.bin,lh,Pass,QFSW,,[INFO] Expected: '0', Returned: '1',3,3
-lh6.bin,lh,Pass,QFSW,outofrange,[INFO] Expected: '0', Returned: '1',-11,-11
-lh7.bin,lh,Pass,QFSW,getc,[INFO] Expected: '0', Returned: '1',72,72
-lh8.bin,lh,Pass,QFSW,putc,[INFO] Expected: '0', Returned: '1',-11,-11
-lh9.bin,lh,Pass,QFSW,instr,[INFO] Expected: '0', Returned: '1',13,13
-lhu1.bin,lhu,Pass,QFSW,,[INFO] Expected: '0', Returned: '1',100,100
-lhu10.bin,lhu,Pass,QFSW,instr-nops,[INFO] Expected: '0', Returned: '1',0,0
-lhu11.bin,lhu,Pass,QFSW,addr-null,[INFO] Expected: '0', Returned: '1',-11,-11
-lhu12.bin,lhu,Pass,ChrisDeverall,getc-offset,[INFO] Expected: '0', Returned: '1',72,72
-lhu2.bin,lhu,Pass,QFSW,misaligned,[INFO] Expected: '0', Returned: '1',-11,-11
-lhu3.bin,lhu,Pass,QFSW,,[INFO] Expected: '0', Returned: '1',100,100
-lhu4.bin,lhu,Pass,QFSW,zero-extension,[INFO] Expected: '0', Returned: '1',0,0
-lhu5.bin,lhu,Pass,QFSW,,[INFO] Expected: '0', Returned: '1',3,3
-lhu6.bin,lhu,Pass,QFSW,outofrange,[INFO] Expected: '0', Returned: '1',-11,-11
-lhu7.bin,lhu,Pass,QFSW,getc,[INFO] Expected: '0', Returned: '1',72,72
-lhu8.bin,lhu,Pass,QFSW,putc,[INFO] Expected: '0', Returned: '1',-11,-11
-lhu9.bin,lhu,Pass,QFSW,instr,[INFO] Expected: '0', Returned: '1',13,13
-lui1.bin,lui,Pass,QFSW,,[INFO] Expected: '0', Returned: '1',100,100
-lui2.bin,lui,Pass,QFSW,,[INFO] Expected: '0', Returned: '1',0,0
-lui3.bin,lui,Pass,QFSW,,[INFO] Expected: '0', Returned: '1',1,1
-lw1.bin,lw,Pass,QFSW,,[INFO] Expected: '0', Returned: '1',100,100
-lw10.bin,lw,Pass,QFSW,data-bottom-boundary,[INFO] Expected: '0', Returned: '1',0,0
-lw11.bin,lw,Pass,QFSW,data-below-boundary,[INFO] Expected: '0', Returned: '1',-11,-11
-lw12.bin,lw,Pass,QFSW,data-top-boundary,[INFO] Expected: '0', Returned: '1',0,0
-lw13.bin,lw,Pass,QFSW,data-above-boundary,[INFO] Expected: '0', Returned: '1',-11,-11
-lw14.bin,lw,Pass,QFSW,instr-bottom-boundary,[INFO] Expected: '0', Returned: '1',0,0
-lw15.bin,lw,Pass,QFSW,instr-below-boundary,[INFO] Expected: '0', Returned: '1',-11,-11
-lw16.bin,lw,Pass,QFSW,instr-top-boundary,[INFO] Expected: '0', Returned: '1',0,0
-lw17.bin,lw,Pass,QFSW,instr-above-boundary,[INFO] Expected: '0', Returned: '1',-11,-11
-lw2.bin,lw,Pass,QFSW,misaligned word,[INFO] Expected: '0', Returned: '1',-11,-11
-lw3.bin,lw,Pass,QFSW,uninitialised word,[INFO] Expected: '0', Returned: '1',0,0
-lw4.bin,lw,Pass,ChrisDeverall,outofrange,[INFO] Expected: '0', Returned: '1',-11,-11
-lw5.bin,lw,Pass,ChrisDeverall,getc,[INFO] Expected: '0', Returned: '1',72,72
-lw6.bin,lw,Pass,ChrisDeverall,putc,[INFO] Expected: '0', Returned: '1',-11,-11
-lw7.bin,lw,Pass,ChrisDeverall,instr,[INFO] Expected: '0', Returned: '1',13,13
-lw8.bin,lw,Pass,QFSW,instr-nops,[INFO] Expected: '0', Returned: '1',0,0
-lw9.bin,lw,Pass,QFSW,addr-null,[INFO] Expected: '0', Returned: '1',-11,-11
-lwl1.bin,lwl,Pass,ChrisDeverall,aligned,[INFO] Expected: '0', Returned: '1',15,15
-lwl2.bin,lwl,Pass,ChrisDeverall,misaligned1,[INFO] Expected: '0', Returned: '1',34,34
-lwl3.bin,lwl,Pass,ChrisDeverall,misalignedby1byte1,[INFO] Expected: '0', Returned: '1',102,102
-lwl4.bin,lwl,Pass,ChrisDeverall,misalignedby2,[INFO] Expected: '0', Returned: '1',111,111
-lwl5.bin,lwl,Pass,ChrisDeverall,misalignedby3,[INFO] Expected: '0', Returned: '1',102,102
-lwl6.bin,lwl,Pass,QFSW,addr-null,[INFO] Expected: '0', Returned: '1',-11,-11
-lwl7.bin,lwl,Pass,QFSW,getc,[INFO] Expected: '0', Returned: '1',72,72
-lwl8.bin,lwl,Pass,QFSW,instr,[INFO] Expected: '0', Returned: '1',14,14
-lwr1.bin,lwr,Fail,ChrisDeverall,aligned,[INFO] Expected: '-11', Returned: '102',102,-11
-lwr2.bin,lwr,Fail,ChrisDeverall,misaligned1,[INFO] Expected: '-11', Returned: '17',17,-11
-lwr3.bin,lwr,Fail,ChrisDeverall,misaligned2,[INFO] Expected: '-11', Returned: '34',34,-11
-lwr4.bin,lwr,Fail,ChrisDeverall,misaligned3,[INFO] Expected: '-11', Returned: '85',85,-11
-lwr5.bin,lwr,Pass,ChrisDeverall,getc,[INFO] Expected: '-11', Returned: '85',72,72
-lwr6.bin,lwr,Pass,QFSW,addr-null,[INFO] Expected: '-11', Returned: '85',-11,-11
-mfhi1.bin,mfhi,Fail,ChrisDeverall,pos,[INFO] Expected: '0', Returned: '15',15,0
-mfhi2.bin,mthi,Fail,ChrisDeverall,neg,[INFO] Expected: '0', Returned: '-22',-22,0
-mfhi3.bin,mfhi,Fail,ChrisDeverall,override,[INFO] Expected: '0', Returned: '7',7,0
-mflo1.bin,mflo,Fail,ChrisDeverall,pos,[INFO] Expected: '0', Returned: '6',6,0
-mflo2.bin,mflo,Fail,ChrisDeverall,neg,[INFO] Expected: '0', Returned: '-6',-6,0
-mflo3.bin,mflo,Fail,ChrisDeverall,overridinghi,[INFO] Expected: '0', Returned: '12',12,0
-mthi1.bin,mthi,Fail,ChrisDeverall,pos,[INFO] Expected: '0', Returned: '14',14,0
-mthi2.bin,mthi,Fail,ChrisDeverall,neg,[INFO] Expected: '0', Returned: '-20',-20,0
-mtlo1.bin,mtlo,Fail,ChrisDeverall,pos,[INFO] Expected: '0', Returned: '5',5,0
-mtlo2.bin,mtlo,Fail,ChrisDeverall,neg,[INFO] Expected: '0', Returned: '-5',-5,0
-mult1.bin,mult,Fail,ChrisDeverall,standard,[INFO] Expected: '0', Returned: '12',12,0
-mult2.bin,mult,Fail,ChrisDeverall,negative,[INFO] Expected: '0', Returned: '35',35,0
-mult3.bin,mult,Fail,ChrisDeverall,overflow,[INFO] Expected: '0', Returned: '-128',-128,0
-mult4.bin,mult,Pass,ChrisDeverall,overflow,[INFO] Expected: '0', Returned: '-128',0,0
-multu1.bin,multu,Fail,ChrisDeverall,standard,[INFO] Expected: '0', Returned: '12',12,0
-multu2.bin,multu,Fail,ChrisDeverall,standard_large,[INFO] Expected: '0', Returned: '127',127,0
-nopskp.bin,internal,Pass,QFSW,detects-false-nopskp,[INFO] Expected: '0', Returned: '127',69,69
-numread1.bin,function,Fail,QFSW,in=7,[INFO] Expected: '0', Returned: '7',7,0
-numread2.bin,function,Fail,QFSW,in=12,[INFO] Expected: '0', Returned: '12',12,0
-numread3.bin,function,Fail,QFSW,in=126,[INFO] Expected: '0', Returned: '126',126,0
-numwrite1.bin,function,Fail,QFSW,in=7,[INFO] Expected simoutput: '', Returned putc: '7',0,0
-numwrite2.bin,function,Fail,QFSW,in=49,[INFO] Expected simoutput: '', Returned putc: '49',0,0
-numwrite3.bin,function,Fail,QFSW,in=666,[INFO] Expected simoutput: '', Returned putc: '666',0,0
-numwrite4.bin,function,Fail,QFSW,in=6969,[INFO] Expected simoutput: '', Returned putc: '6969',0,0
-or1.bin,or,Pass,QFSW,,[INFO] Expected simoutput: '', Returned putc: '6969',1,1
-or2.bin,or,Pass,QFSW,,[INFO] Expected simoutput: '', Returned putc: '6969',3,3
-ori1.bin,ori,Pass,ChrisDeverall,,[INFO] Expected simoutput: '', Returned putc: '6969',-1,-1
-ori2.bin,ori,Pass,ChrisDeverall,,[INFO] Expected simoutput: '', Returned putc: '6969',0,0
-ori3.bin,ori,Pass,QFSW,zero-extension,[INFO] Expected simoutput: '', Returned putc: '6969',0,0
-reg0.bin,internal,Pass,QFSW,tests-reg0,[INFO] Expected simoutput: '', Returned putc: '6969',0,0
-sb1.bin,sb,Fail,QFSW,standard,[INFO] Expected: '0', Returned: '13',13,0
-sb10.bin,sb,Pass,QFSW,data-top-boundary,[INFO] Expected: '0', Returned: '13',0,0
-sb11.bin,sb,Pass,QFSW,data-above-boundary,[INFO] Expected: '0', Returned: '13',-11,-11
-sb2.bin,sb,Fail,QFSW,composite,[INFO] Expected: '0', Returned: '69',69,0
-sb3.bin,sb,Pass,QFSW,above,[INFO] Expected: '0', Returned: '69',-11,-11
-sb4.bin,sb,Fail,QFSW,putc,[INFO] Expected: '-117', Returned: '0',0,-117
-sb5.bin,sb,Fail,QFSW,getc,[INFO] Expected: '-117', Returned: '-11',-11,-117
-sb6.bin,sb,Pass,QFSW,instr,[INFO] Expected: '-117', Returned: '-11',-11,-11
-sb7.bin,sb,Pass,QFSW,instr-nops,[INFO] Expected: '-117', Returned: '-11',-11,-11
-sb8.bin,sb,Pass,QFSW,addr-null,[INFO] Expected: '-117', Returned: '-11',-11,-11
-sb9.bin,sb,Fail,ChrisDeverall,putc-offset,[INFO] Expected: '-117', Returned: '0',0,-117
-sh1.bin,sh,Fail,QFSW,standard,[INFO] Expected: '-11', Returned: '13',13,-11
-sh10.bin,sh,Fail,ChrisDeverall,putc-offset,[INFO] Expected: '-11', Returned: '0',0,-11
-sh11.bin,sh,Fail,QFSW,data-top-boundary,[INFO] Expected: '-11', Returned: '0',0,-11
-sh12.bin,sh,Pass,QFSW,data-above-boundary,[INFO] Expected: '-11', Returned: '0',-11,-11
-sh2.bin,sh,Fail,QFSW,composite,[INFO] Expected: '-11', Returned: '69',69,-11
-sh3.bin,sh,Pass,QFSW,above,[INFO] Expected: '-11', Returned: '69',-11,-11
-sh4.bin,sh,Fail,QFSW,putc,[INFO] Expected: '-11', Returned: '0',0,-11
-sh5.bin,sh,Pass,QFSW,getc,[INFO] Expected: '-11', Returned: '0',-11,-11
-sh6.bin,sh,Pass,QFSW,instr,[INFO] Expected: '-11', Returned: '0',-11,-11
-sh7.bin,sh,Pass,QFSW,instr-nops,[INFO] Expected: '-11', Returned: '0',-11,-11
-sh8.bin,sh,Pass,QFSW,addr-null,[INFO] Expected: '-11', Returned: '0',-11,-11
-sh9.bin,sh,Pass,QFSW,misaligned,[INFO] Expected: '-11', Returned: '0',-11,-11
-sll1.bin,sll,Pass,ChrisDeverall,standardpos,[INFO] Expected: '-11', Returned: '0',60,60
-sll2.bin,sll,Pass,ChrisDeverall,standardneg,[INFO] Expected: '-11', Returned: '0',-8,-8
-sllv1.bin,sllv,Pass,ChrisDeverall,standardpos,[INFO] Expected: '-11', Returned: '0',56,56
-sllv2.bin,sllv,Pass,ChrisDeverall,standardneg,[INFO] Expected: '-11', Returned: '0',-12,-12
-sllv3.bin,sllv,Pass,ChrisDeverall,largevar,[INFO] Expected: '-11', Returned: '0',6,6
-slt1.bin,slt,Pass,ChrisDeverall,standard,[INFO] Expected: '-11', Returned: '0',1,1
-slt2.bin,slt,Pass,ChrisDeverall,standardneg,[INFO] Expected: '-11', Returned: '0',0,0
-slt3.bin,slt,Pass,ChrisDeverall,diffsigns,[INFO] Expected: '-11', Returned: '0',0,0
-slt4.bin,slt,Pass,ChrisDeverall,equal,[INFO] Expected: '-11', Returned: '0',0,0
-slt5.bin,slt,Pass,QFSW,,[INFO] Expected: '-11', Returned: '0',1,1
-slti1.bin,slti,Pass,ChrisDeverall,standard,[INFO] Expected: '-11', Returned: '0',1,1
-slti2.bin,slti,Pass,ChrisDeverall,standardneg,[INFO] Expected: '-11', Returned: '0',0,0
-sltiu1.bin,sltiu,Pass,ChrisDeverall,standard,[INFO] Expected: '-11', Returned: '0',1,1
-sltiu2.bin,sltiu,Pass,ChrisDeverall,standardneg,[INFO] Expected: '-11', Returned: '0',1,1
-sltiu3.bin,sltiu,Pass,ChrisDeverall,standardneg,[INFO] Expected: '-11', Returned: '0',0,0
-sltiu4.bin,sltiu,Pass,QFSW,sign-extension,[INFO] Expected: '-11', Returned: '0',1,1
-sltu1.bin,sltu,Pass,ChrisDeverall,standard,[INFO] Expected: '-11', Returned: '0',1,1
-sltu2.bin,sltu,Pass,ChrisDeverall,standardneg,[INFO] Expected: '-11', Returned: '0',0,0
-sra1.bin,sra,Fail,ChrisDeverall,standardpos,[INFO] Expected: '0', Returned: '4',4,0
-sra2.bin,sra,Fail,ChrisDeverall,standardneg,[INFO] Expected: '0', Returned: '-2',-2,0
-sra3.bin,sra,Fail,ChrisDeverall,attemptToChangeSign,[INFO] Expected: '0', Returned: '-1',-1,0
-srav1.bin,srav,Pass,ChrisDeverall,standardpos,[INFO] Expected: '0', Returned: '-1',2,2
-srav2.bin,srav,Pass,ChrisDeverall,standardneg,[INFO] Expected: '0', Returned: '-1',-4,-4
-srav3.bin,srav,Pass,ChrisDeverall,largevarpos,[INFO] Expected: '0', Returned: '-1',7,7
-srav4.bin,srav,Pass,ChrisDeverall,largevarneg,[INFO] Expected: '0', Returned: '-1',-3,-3
-srl1.bin,srl,Pass,ChrisDeverall,standardpos,[INFO] Expected: '0', Returned: '-1',8,8
-srl2.bin,srl,Pass,ChrisDeverall,standardneg,[INFO] Expected: '0', Returned: '-1',-2,-2
-srl3.bin,srl,Pass,ChrisDeverall,signchange,[INFO] Expected: '0', Returned: '-1',1,1
-srlv1.bin,srlv,Pass,ChrisDeverall,standardpos,[INFO] Expected: '0', Returned: '-1',2,2
-srlv2.bin,srlv,Pass,ChrisDeverall,standardneg,[INFO] Expected: '0', Returned: '-1',-2,-2
-srlv3.bin,srlv,Pass,ChrisDeverall,largevar,[INFO] Expected: '0', Returned: '-1',7,7
-sub1.bin,sub,Pass,QFSW,,[INFO] Expected: '0', Returned: '-1',51,51
-sub2.bin,sub,Fail,ChrisDeverall,overflow,[INFO] Expected: '0', Returned: '-10',-10,0
-sub3.bin,sub,Pass,QFSW,,[INFO] Expected: '0', Returned: '-10',0,0
-sub4.bin,sub,Pass,ChrisDeverall,underflow,[INFO] Expected: '0', Returned: '-10',-10,-10
-sub5.bin,sub,Pass,ChrisDeverall,overflow,[INFO] Expected: '0', Returned: '-10',-10,-10
-subu1.bin,subu,Pass,ChrisDeverall,standard,[INFO] Expected: '0', Returned: '-10',16,16
-subu2.bin,subu,Pass,ChrisDeverall,standardneg,[INFO] Expected: '0', Returned: '-10',3,3
-subu3.bin,subu,Pass,ChrisDeverall,negresult,[INFO] Expected: '0', Returned: '-10',-9,-9
-sw1.bin,sw,Pass,ChrisDeverall,standard,[INFO] Expected: '0', Returned: '-10',13,13
-sw10.bin,sw,Pass,QFSW,data-bottom-boundary,[INFO] Expected: '0', Returned: '-10',0,0
-sw11.bin,sw,Pass,QFSW,data-below-boundary,[INFO] Expected: '0', Returned: '-10',-11,-11
-sw12.bin,sw,Pass,QFSW,data-top-boundary,[INFO] Expected: '0', Returned: '-10',0,0
-sw13.bin,sw,Pass,QFSW,data-above-boundary,[INFO] Expected: '0', Returned: '-10',-11,-11
-sw14.bin,sw,Pass,QFSW,instr-bottom-boundary,[INFO] Expected: '0', Returned: '-10',-11,-11
-sw15.bin,sw,Pass,QFSW,instr-below-boundary,[INFO] Expected: '0', Returned: '-10',-11,-11
-sw16.bin,lw,Pass,QFSW,instr-top-boundary,[INFO] Expected: '0', Returned: '-10',-11,-11
-sw17.bin,sw,Pass,QFSW,instr-above-boundary,[INFO] Expected: '0', Returned: '-10',-11,-11
-sw2.bin,sw,Pass,ChrisDeverall,standardneg,[INFO] Expected: '0', Returned: '-10',-5,-5
-sw3.bin,sw,Pass,ChrisDeverall,misaligned,[INFO] Expected: '0', Returned: '-10',-11,-11
-sw4.bin,sw,Pass,ChrisDeverall,above,[INFO] Expected: '0', Returned: '-10',-11,-11
-sw5.bin,sw,Fail,ChrisDeverall,putc,[INFO] Expected simoutput: '73', Returned putc: 'I',0,0
-sw6.bin,sw,Pass,ChrisDeverall,instr,[INFO] Expected simoutput: '73', Returned putc: 'I',-11,-11
-sw7.bin,sw,Pass,QFSW,instr-nops,[INFO] Expected simoutput: '73', Returned putc: 'I',-11,-11
-sw8.bin,sw,Pass,QFSW,addr-null,[INFO] Expected simoutput: '73', Returned putc: 'I',-11,-11
-sw9.bin,sw,Pass,QFSW,getc,[INFO] Expected simoutput: '73', Returned putc: 'I',-11,-11
-xor1.bin,xor,Pass,QFSW,,[INFO] Expected simoutput: '73', Returned putc: 'I',1,1
-xor2.bin,xor,Pass,QFSW,,[INFO] Expected simoutput: '73', Returned putc: 'I',2,2
-xor3.bin,xor,Pass,ChrisDeverall,,[INFO] Expected simoutput: '73', Returned putc: 'I',0,0
-xori1.bin,xori,Pass,ChrisDeverall,,[INFO] Expected simoutput: '73', Returned putc: 'I',31,31
-xori2.bin,xori,Pass,ChrisDeverall,,[INFO] Expected simoutput: '73', Returned putc: 'I',-1,-1
-xori3.bin,xori,Pass,QFSW,zero-extension,[INFO] Expected simoutput: '73', Returned putc: 'I',0,0
-xori4.bin,xori,Pass,QFSW,zero-extension,[INFO] Expected simoutput: '73', Returned putc: 'I',0,0
->>>>>>> 098784740e36e11fab6ec04e08dddd6265d7f99e
+TESTID,TEST,OUTCOME,USER_ID,COMMENTS,MESSAGE,EXPECTED,RETURNED
+add1.bin,add,Pass,QFSW,,,12,12
+add2.bin,add,Pass,QFSW,negative rt,,3,3
+add3.bin,add,Pass,QFSW,negative rs,,8,8
+add4.bin,add,Pass,QFSW,overflow,,-10,-10
+add5.bin,add,Pass,QFSW,overflow,,-10,-10
+add6.bin,add,Pass,QFSW,underflow,,-10,-10
+add7.bin,add,Pass,QFSW,underflow,,-10,-10
+addi1.bin,addi,Pass,QFSW,,,27,27
+addi2.bin,addi,Pass,QFSW,negative immediate,,2,2
+addi3.bin,addi,Pass,QFSW,overflow,,-10,-10
+addi4.bin,addi,Pass,ChrisDeverall,underflow,,-10,-10
+addi5.bin,addi,Pass,QFSW,sign-extension,,0,0
+addiu1.bin,addiu,Pass,QFSW,,,2,2
+addiu2.bin,addiu,Pass,QFSW,overflow,,0,0
+addiu3.bin,addiu,Pass,ChrisDeverall,underflow,,-100,-100
+addiu4.bin,addiu,Pass,QFSW,sign-extension,,0,0
+addu1.bin,addu,Pass,ChrisDeverall,standard,,10,10
+addu2.bin,addu,Pass,ChrisDeverall,overflow,,2,2
+addu3.bin,addu,Pass,ChrisDeverall,underflow,,1,1
+and1.bin,and,Pass,QFSW,,,0,0
+and2.bin,and,Pass,QFSW,,,1,1
+andi1.bin,andi,Pass,ChrisDeverall,,,18,18
+andi2.bin,andi,Pass,ChrisDeverall,,,0,0
+andi3.bin,andi,Pass,QFSW,zero-extension,,0,0
+beq1.bin,beq,Pass,QFSW,rs==rt,,2,2
+beq2.bin,beq,Pass,QFSW,rs!=rt,,4,4
+beq3.bin,beq,Pass,QFSW,bad-pc,,-11,-11
+beq4.bin,beq,Pass,QFSW,bad-pc,,-11,-11
+beq5.bin,beq,Pass,QFSW,backwards-branch,,0,0
+bgez1.bin,bgez,Pass,QFSW,rs==0,,2,2
+bgez2.bin,bgez,Pass,QFSW,rs<0,,4,4
+bgez3.bin,bgez,Pass,QFSW,bad-pc,,-11,-11
+bgez4.bin,bgez,Pass,QFSW,bad-pc,,-11,-11
+bgez5.bin,bgez,Pass,QFSW,backwards-branch,,0,0
+bgez6.bin,bgez,Pass,QFSW,rs>0,,2,2
+bgezal1.bin,bgezal,Pass,QFSW,rs>0,,17,17
+bgezal2.bin,bgezal,Pass,QFSW,rs<0,,4,4
+bgezal3.bin,bgezal,Fail,QFSW,link-set,[INFO] Expected: '1' Returned: '13',13,1
+bgezal4.bin,bgezal,Pass,QFSW,rs=0,[INFO] Expected: '1' Returned: '13',17,17
+bgtz1.bin,bgtz,Pass,QFSW,rs>0,[INFO] Expected: '1' Returned: '13',2,2
+bgtz2.bin,bgtz,Pass,QFSW,rs=0,[INFO] Expected: '1' Returned: '13',4,4
+bgtz3.bin,bgtz,Pass,QFSW,bad-pc,[INFO] Expected: '1' Returned: '13',-11,-11
+bgtz4.bin,bgtz,Pass,QFSW,bad-pc,[INFO] Expected: '1' Returned: '13',-11,-11
+bgtz5.bin,bgtz,Pass,QFSW,backwards-branch,[INFO] Expected: '1' Returned: '13',0,0
+bgtz6.bin,bgtz,Pass,QFSW,rs<0,[INFO] Expected: '1' Returned: '13',4,4
+blez1.bin,blez,Pass,QFSW,rs>0,[INFO] Expected: '1' Returned: '13',4,4
+blez2.bin,blez,Pass,QFSW,rs=0,[INFO] Expected: '1' Returned: '13',2,2
+blez3.bin,blez,Pass,QFSW,bad-pc,[INFO] Expected: '1' Returned: '13',-11,-11
+blez4.bin,blez,Pass,QFSW,bad-pc,[INFO] Expected: '1' Returned: '13',-11,-11
+blez5.bin,blez,Pass,QFSW,backwards-branch,[INFO] Expected: '1' Returned: '13',0,0
+blez6.bin,blez,Pass,QFSW,rs<0,[INFO] Expected: '1' Returned: '13',2,2
+bltz1.bin,bltz,Pass,QFSW,rs>0,[INFO] Expected: '1' Returned: '13',4,4
+bltz2.bin,bltz,Pass,QFSW,rs=0,[INFO] Expected: '1' Returned: '13',4,4
+bltz3.bin,bltz,Pass,QFSW,bad-pc,[INFO] Expected: '1' Returned: '13',-11,-11
+bltz4.bin,bltz,Pass,QFSW,bad-pc,[INFO] Expected: '1' Returned: '13',-11,-11
+bltz5.bin,bltz,Pass,QFSW,backwards-branch,[INFO] Expected: '1' Returned: '13',0,0
+bltz6.bin,bltz,Pass,QFSW,rs<0,[INFO] Expected: '1' Returned: '13',2,2
+bltzal1.bin,bltzal,Pass,QFSW,rs>0,[INFO] Expected: '1' Returned: '13',7,7
+bltzal2.bin,bltzal,Pass,QFSW,rs<0,[INFO] Expected: '1' Returned: '13',14,14
+bltzal3.bin,bgezal,Fail,QFSW,link-set,[INFO] Expected: '1' Returned: '13',13,1
+bltzal4.bin,bltzal,Pass,QFSW,rs=0,[INFO] Expected: '1' Returned: '13',4,4
+bne1.bin,bne,Pass,QFSW,rs==rt,[INFO] Expected: '1' Returned: '13',4,4
+bne2.bin,bne,Pass,QFSW,rs!=rt,[INFO] Expected: '1' Returned: '13',2,2
+bne3.bin,bne,Pass,QFSW,bad-pc,[INFO] Expected: '1' Returned: '13',-11,-11
+bne4.bin,bne,Pass,QFSW,bad-pc,[INFO] Expected: '1' Returned: '13',-11,-11
+bne5.bin,bne,Pass,QFSW,backwards-branch,[INFO] Expected: '1' Returned: '13',0,0
+div1.bin,div,Pass,ChrisDeverall,standard_quot,[INFO] Expected: '1' Returned: '13',12,12
+div2.bin,div,Pass,ChrisDeverall,standard_remain,[INFO] Expected: '1' Returned: '13',0,0
+div3.bin,div,Pass,ChrisDeverall,standard_negative,[INFO] Expected: '1' Returned: '13',-4,-4
+div4.bin,div,Fail,ChrisDeverall,div_zero,[INFO] Expected: '-10' Returned: '0',0,-10
+div5.bin,div,Pass,ChrisDeverall,overflow,[INFO] Expected: '-10' Returned: '0',0,0
+divu1.bin,divu,Pass,ChrisDeverall,standard,[INFO] Expected: '-10' Returned: '0',2,2
+divu2.bin,divu,Pass,ChrisDeverall,negative,[INFO] Expected: '-10' Returned: '0',-1,-1
+divu3.bin,divu,Fail,ChrisDeverall,div_zero,[INFO] Expected: '-120' Returned: '0',0,-120
+hello.bin,sw,Fail,QFSW,testing PUTC,[INFO] Expected simoutput: '721011081081113287111114108100' Returned putc: 'Hello World',0,0
+j1.bin,j,Fail,QFSW,,[INFO] Expected: '2' Returned: '3',3,2
+j2.bin,j,Fail,QFSW,bad-pc,[INFO] Expected: '1' Returned: '-11',-11,1
+j3.bin,j,Fail,QFSW,delay-slot,[INFO] Expected: '2' Returned: '12',12,2
+j4.bin,j,Fail,QFSW,,[INFO] Expected: '1' Returned: '3',3,1
+jal1.bin,jal,Fail,QFSW,,[INFO] Expected: '2' Returned: '5',5,2
+jal2.bin,jal,Fail,QFSW,bad-pc,[INFO] Expected: '1' Returned: '-11',-11,1
+jal3.bin,jal,Fail,QFSW,delay-slot,[INFO] Expected: '2' Returned: '12',12,2
+jal4.bin,jal,Fail,QFSW,chain,[INFO] Expected: '0' Returned: '20',20,0
+jalr1.bin,jalr,Fail,QFSW,,[INFO] Expected: '-12' Returned: '20',20,-12
+jalr2.bin,jalr,Fail,QFSW,,[INFO] Expected: '-12' Returned: '20',20,-12
+jalr3.bin,jalr,Fail,QFSW,delay-slot,[INFO] Expected: '-12' Returned: '21',21,-12
+jalr4.bin,jalr,Fail,QFSW,,[INFO] Expected: '-12' Returned: '0',0,-12
+jalr5.bin,jalr,Fail,QFSW,,[INFO] Expected: '-12' Returned: '5',5,-12
+jalr6.bin,jalr,Fail,QFSW,,[INFO] Expected: '-12' Returned: '8',8,-12
+jr1.bin,jr,Pass,QFSW,,[INFO] Expected: '-12' Returned: '8',0,0
+jr2.bin,jr,Pass,QFSW,bad-pc,[INFO] Expected: '-12' Returned: '8',-11,-11
+jr3.bin,jr,Fail,QFSW,bad-pc,[INFO] Expected: '0' Returned: '-11',-11,0
+jr4.bin,jr,Pass,QFSW,delay-slot,[INFO] Expected: '0' Returned: '-11',2,2
+jr5.bin,jr,Pass,QFSW,,[INFO] Expected: '0' Returned: '-11',3,3
+jr6.bin,jr,Pass,QFSW,misaligned-pc,[INFO] Expected: '0' Returned: '-11',-11,-11
+lb1.bin,lb,Pass,QFSW,,[INFO] Expected: '0' Returned: '-11',100,100
+lb10.bin,lb,Pass,QFSW,instr-nops,[INFO] Expected: '0' Returned: '-11',0,0
+lb11.bin,lb,Pass,QFSW,addr-null,[INFO] Expected: '0' Returned: '-11',-11,-11
+lb12.bin,lb,Pass,ChrisDeverall,getc-offset,[INFO] Expected: '0' Returned: '-11',72,72
+lb13.bin,lb,Pass,ChrisDeverall,null+eof,[INFO] Expected: '0' Returned: '-11',-1,-1
+lb2.bin,lb,Pass,QFSW,,[INFO] Expected: '0' Returned: '-11',100,100
+lb3.bin,lb,Pass,QFSW,,[INFO] Expected: '0' Returned: '-11',100,100
+lb4.bin,lb,Pass,QFSW,sign-extension,[INFO] Expected: '0' Returned: '-11',-1,-1
+lb5.bin,lb,Fail,QFSW,,[INFO] Expected: '0' Returned: '1',1,0
+lb6.bin,lb,Pass,QFSW,outofrange,[INFO] Expected: '0' Returned: '1',-11,-11
+lb7.bin,lb,Pass,QFSW,getc,[INFO] Expected: '0' Returned: '1',72,72
+lb8.bin,lb,Pass,QFSW,putc,[INFO] Expected: '0' Returned: '1',-11,-11
+lb9.bin,lb,Pass,QFSW,instr,[INFO] Expected: '0' Returned: '1',13,13
+lbu1.bin,lbu,Pass,QFSW,,[INFO] Expected: '0' Returned: '1',100,100
+lbu10.bin,lbu,Pass,QFSW,instr-nops,[INFO] Expected: '0' Returned: '1',0,0
+lbu11.bin,lbu,Pass,QFSW,addr-null,[INFO] Expected: '0' Returned: '1',-11,-11
+lbu12.bin,lbu,Pass,ChrisDeverall,getc-offset,[INFO] Expected: '0' Returned: '1',72,72
+lbu2.bin,lbu,Pass,QFSW,,[INFO] Expected: '0' Returned: '1',100,100
+lbu3.bin,lbu,Pass,QFSW,,[INFO] Expected: '0' Returned: '1',100,100
+lbu4.bin,lbu,Pass,QFSW,zero-extension,[INFO] Expected: '0' Returned: '1',0,0
+lbu5.bin,lbu,Fail,QFSW,,[INFO] Expected: '0' Returned: '1',1,0
+lbu6.bin,lbu,Pass,QFSW,outofrange,[INFO] Expected: '0' Returned: '1',-11,-11
+lbu7.bin,lbu,Pass,QFSW,getc,[INFO] Expected: '0' Returned: '1',72,72
+lbu8.bin,lbu,Pass,QFSW,putc,[INFO] Expected: '0' Returned: '1',-11,-11
+lbu9.bin,lbu,Pass,QFSW,instr,[INFO] Expected: '0' Returned: '1',13,13
+lh1.bin,lh,Pass,QFSW,,[INFO] Expected: '0' Returned: '1',100,100
+lh10.bin,lh,Pass,QFSW,instr-nops,[INFO] Expected: '0' Returned: '1',0,0
+lh11.bin,lh,Pass,QFSW,addr-null,[INFO] Expected: '0' Returned: '1',-11,-11
+lh12.bin,lh,Pass,ChrisDeverall,getc-offset,[INFO] Expected: '0' Returned: '1',72,72
+lh13.bin,lh,Pass,ChrisDeverall,null+eof,[INFO] Expected: '0' Returned: '1',-1,-1
+lh2.bin,lh,Pass,QFSW,misaligned,[INFO] Expected: '0' Returned: '1',-11,-11
+lh3.bin,lh,Pass,QFSW,,[INFO] Expected: '0' Returned: '1',100,100
+lh4.bin,lh,Pass,QFSW,sign-extension,[INFO] Expected: '0' Returned: '1',-1,-1
+lh5.bin,lh,Pass,QFSW,,[INFO] Expected: '0' Returned: '1',3,3
+lh6.bin,lh,Pass,QFSW,outofrange,[INFO] Expected: '0' Returned: '1',-11,-11
+lh7.bin,lh,Pass,QFSW,getc,[INFO] Expected: '0' Returned: '1',72,72
+lh8.bin,lh,Pass,QFSW,putc,[INFO] Expected: '0' Returned: '1',-11,-11
+lh9.bin,lh,Pass,QFSW,instr,[INFO] Expected: '0' Returned: '1',13,13
+lhu1.bin,lhu,Pass,QFSW,,[INFO] Expected: '0' Returned: '1',100,100
+lhu10.bin,lhu,Pass,QFSW,instr-nops,[INFO] Expected: '0' Returned: '1',0,0
+lhu11.bin,lhu,Pass,QFSW,addr-null,[INFO] Expected: '0' Returned: '1',-11,-11
+lhu12.bin,lhu,Pass,ChrisDeverall,getc-offset,[INFO] Expected: '0' Returned: '1',72,72
+lhu2.bin,lhu,Pass,QFSW,misaligned,[INFO] Expected: '0' Returned: '1',-11,-11
+lhu3.bin,lhu,Pass,QFSW,,[INFO] Expected: '0' Returned: '1',100,100
+lhu4.bin,lhu,Pass,QFSW,zero-extension,[INFO] Expected: '0' Returned: '1',0,0
+lhu5.bin,lhu,Pass,QFSW,,[INFO] Expected: '0' Returned: '1',3,3
+lhu6.bin,lhu,Pass,QFSW,outofrange,[INFO] Expected: '0' Returned: '1',-11,-11
+lhu7.bin,lhu,Pass,QFSW,getc,[INFO] Expected: '0' Returned: '1',72,72
+lhu8.bin,lhu,Pass,QFSW,putc,[INFO] Expected: '0' Returned: '1',-11,-11
+lhu9.bin,lhu,Pass,QFSW,instr,[INFO] Expected: '0' Returned: '1',13,13
+lui1.bin,lui,Pass,QFSW,,[INFO] Expected: '0' Returned: '1',100,100
+lui2.bin,lui,Pass,QFSW,,[INFO] Expected: '0' Returned: '1',0,0
+lui3.bin,lui,Pass,QFSW,,[INFO] Expected: '0' Returned: '1',1,1
+lw1.bin,lw,Pass,QFSW,,[INFO] Expected: '0' Returned: '1',100,100
+lw10.bin,lw,Pass,QFSW,data-bottom-boundary,[INFO] Expected: '0' Returned: '1',0,0
+lw11.bin,lw,Pass,QFSW,data-below-boundary,[INFO] Expected: '0' Returned: '1',-11,-11
+lw12.bin,lw,Pass,QFSW,data-top-boundary,[INFO] Expected: '0' Returned: '1',0,0
+lw13.bin,lw,Pass,QFSW,data-above-boundary,[INFO] Expected: '0' Returned: '1',-11,-11
+lw14.bin,lw,Pass,QFSW,instr-bottom-boundary,[INFO] Expected: '0' Returned: '1',0,0
+lw15.bin,lw,Pass,QFSW,instr-below-boundary,[INFO] Expected: '0' Returned: '1',-11,-11
+lw16.bin,lw,Pass,QFSW,instr-top-boundary,[INFO] Expected: '0' Returned: '1',0,0
+lw17.bin,lw,Pass,QFSW,instr-above-boundary,[INFO] Expected: '0' Returned: '1',-11,-11
+lw2.bin,lw,Pass,QFSW,misaligned word,[INFO] Expected: '0' Returned: '1',-11,-11
+lw3.bin,lw,Pass,QFSW,uninitialised word,[INFO] Expected: '0' Returned: '1',0,0
+lw4.bin,lw,Pass,ChrisDeverall,outofrange,[INFO] Expected: '0' Returned: '1',-11,-11
+lw5.bin,lw,Pass,ChrisDeverall,getc,[INFO] Expected: '0' Returned: '1',72,72
+lw6.bin,lw,Pass,ChrisDeverall,putc,[INFO] Expected: '0' Returned: '1',-11,-11
+lw7.bin,lw,Pass,ChrisDeverall,instr,[INFO] Expected: '0' Returned: '1',13,13
+lw8.bin,lw,Pass,QFSW,instr-nops,[INFO] Expected: '0' Returned: '1',0,0
+lw9.bin,lw,Pass,QFSW,addr-null,[INFO] Expected: '0' Returned: '1',-11,-11
+lwl1.bin,lwl,Pass,ChrisDeverall,aligned,[INFO] Expected: '0' Returned: '1',15,15
+lwl2.bin,lwl,Pass,ChrisDeverall,misaligned1,[INFO] Expected: '0' Returned: '1',34,34
+lwl3.bin,lwl,Pass,ChrisDeverall,misalignedby1byte1,[INFO] Expected: '0' Returned: '1',102,102
+lwl4.bin,lwl,Pass,ChrisDeverall,misalignedby2,[INFO] Expected: '0' Returned: '1',111,111
+lwl5.bin,lwl,Pass,ChrisDeverall,misalignedby3,[INFO] Expected: '0' Returned: '1',102,102
+lwl6.bin,lwl,Pass,QFSW,addr-null,[INFO] Expected: '0' Returned: '1',-11,-11
+lwl7.bin,lwl,Pass,QFSW,getc,[INFO] Expected: '0' Returned: '1',72,72
+lwl8.bin,lwl,Pass,QFSW,instr,[INFO] Expected: '0' Returned: '1',14,14
+lwr1.bin,lwr,Fail,ChrisDeverall,aligned,[INFO] Expected: '-11' Returned: '102',102,-11
+lwr2.bin,lwr,Fail,ChrisDeverall,misaligned1,[INFO] Expected: '-11' Returned: '17',17,-11
+lwr3.bin,lwr,Fail,ChrisDeverall,misaligned2,[INFO] Expected: '-11' Returned: '34',34,-11
+lwr4.bin,lwr,Fail,ChrisDeverall,misaligned3,[INFO] Expected: '-11' Returned: '85',85,-11
+lwr5.bin,lwr,Pass,ChrisDeverall,getc,[INFO] Expected: '-11' Returned: '85',72,72
+lwr6.bin,lwr,Pass,QFSW,addr-null,[INFO] Expected: '-11' Returned: '85',-11,-11
+mfhi1.bin,mfhi,Pass,ChrisDeverall,pos,[INFO] Expected: '-11' Returned: '85',15,15
+mfhi2.bin,mthi,Pass,ChrisDeverall,neg,[INFO] Expected: '-11' Returned: '85',-22,-22
+mfhi3.bin,mfhi,Pass,ChrisDeverall,override,[INFO] Expected: '-11' Returned: '85',7,7
+mflo1.bin,mflo,Pass,ChrisDeverall,pos,[INFO] Expected: '-11' Returned: '85',6,6
+mflo2.bin,mflo,Pass,ChrisDeverall,neg,[INFO] Expected: '-11' Returned: '85',-6,-6
+mflo3.bin,mflo,Pass,ChrisDeverall,overridinghi,[INFO] Expected: '-11' Returned: '85',12,12
+mthi1.bin,mthi,Pass,ChrisDeverall,pos,[INFO] Expected: '-11' Returned: '85',14,14
+mthi2.bin,mthi,Pass,ChrisDeverall,neg,[INFO] Expected: '-11' Returned: '85',-20,-20
+mtlo1.bin,mtlo,Pass,ChrisDeverall,pos,[INFO] Expected: '-11' Returned: '85',5,5
+mtlo2.bin,mtlo,Pass,ChrisDeverall,neg,[INFO] Expected: '-11' Returned: '85',-5,-5
+mult1.bin,mult,Pass,ChrisDeverall,standard,[INFO] Expected: '-11' Returned: '85',12,12
+mult2.bin,mult,Pass,ChrisDeverall,negative,[INFO] Expected: '-11' Returned: '85',35,35
+mult3.bin,mult,Pass,ChrisDeverall,overflow,[INFO] Expected: '-11' Returned: '85',-128,-128
+mult4.bin,mult,Pass,ChrisDeverall,overflow,[INFO] Expected: '-11' Returned: '85',0,0
+multu1.bin,multu,Pass,ChrisDeverall,standard,[INFO] Expected: '-11' Returned: '85',12,12
+multu2.bin,multu,Fail,ChrisDeverall,standard_large,[INFO] Expected: '0' Returned: '127',127,0
+nopskp.bin,internal,Pass,QFSW,detects-false-nopskp,[INFO] Expected: '0' Returned: '127',69,69
+numread1.bin,function,Fail,QFSW,in=7,[INFO] Expected: '0' Returned: '7',7,0
+numread2.bin,function,Fail,QFSW,in=12,[INFO] Expected: '0' Returned: '12',12,0
+numread3.bin,function,Fail,QFSW,in=126,[INFO] Expected: '0' Returned: '126',126,0
+numwrite1.bin,function,Fail,QFSW,in=7,[INFO] Expected simoutput: '' Returned putc: '7',0,0
+numwrite2.bin,function,Fail,QFSW,in=49,[INFO] Expected simoutput: '' Returned putc: '49',0,0
+numwrite3.bin,function,Fail,QFSW,in=666,[INFO] Expected simoutput: '' Returned putc: '666',0,0
+numwrite4.bin,function,Fail,QFSW,in=6969,[INFO] Expected simoutput: '' Returned putc: '6969',0,0
+or1.bin,or,Pass,QFSW,,[INFO] Expected simoutput: '' Returned putc: '6969',1,1
+or2.bin,or,Pass,QFSW,,[INFO] Expected simoutput: '' Returned putc: '6969',3,3
+ori1.bin,ori,Pass,ChrisDeverall,,[INFO] Expected simoutput: '' Returned putc: '6969',-1,-1
+ori2.bin,ori,Pass,ChrisDeverall,,[INFO] Expected simoutput: '' Returned putc: '6969',0,0
+ori3.bin,ori,Pass,QFSW,zero-extension,[INFO] Expected simoutput: '' Returned putc: '6969',0,0
+reg0.bin,internal,Pass,QFSW,tests-reg0,[INFO] Expected simoutput: '' Returned putc: '6969',0,0
+sb1.bin,sb,Pass,QFSW,standard,[INFO] Expected simoutput: '' Returned putc: '6969',13,13
+sb10.bin,sb,Pass,QFSW,data-top-boundary,[INFO] Expected simoutput: '' Returned putc: '6969',0,0
+sb11.bin,sb,Pass,QFSW,data-above-boundary,[INFO] Expected simoutput: '' Returned putc: '6969',-11,-11
+sb2.bin,sb,Pass,QFSW,composite,[INFO] Expected simoutput: '' Returned putc: '6969',69,69
+sb3.bin,sb,Pass,QFSW,above,[INFO] Expected simoutput: '' Returned putc: '6969',-11,-11
+sb4.bin,sb,Fail,QFSW,putc,[INFO] Expected simoutput: '73' Returned putc: 'I',0,0
+sb5.bin,sb,Pass,QFSW,getc,[INFO] Expected simoutput: '73' Returned putc: 'I',-11,-11
+sb6.bin,sb,Pass,QFSW,instr,[INFO] Expected simoutput: '73' Returned putc: 'I',-11,-11
+sb7.bin,sb,Pass,QFSW,instr-nops,[INFO] Expected simoutput: '73' Returned putc: 'I',-11,-11
+sb8.bin,sb,Pass,QFSW,addr-null,[INFO] Expected simoutput: '73' Returned putc: 'I',-11,-11
+sb9.bin,sb,Fail,ChrisDeverall,putc-offset,[INFO] Expected simoutput: '7275' Returned putc: 'H',0,0
+sh1.bin,sh,Pass,QFSW,standard,[INFO] Expected simoutput: '7275' Returned putc: 'H',13,13
+sh10.bin,sh,Fail,ChrisDeverall,putc-offset,[INFO] Expected simoutput: '7275' Returned putc: 'H',0,0
+sh11.bin,sh,Pass,QFSW,data-top-boundary,[INFO] Expected simoutput: '7275' Returned putc: 'H',0,0
+sh12.bin,sh,Pass,QFSW,data-above-boundary,[INFO] Expected simoutput: '7275' Returned putc: 'H',-11,-11
+sh2.bin,sh,Pass,QFSW,composite,[INFO] Expected simoutput: '7275' Returned putc: 'H',69,69
+sh3.bin,sh,Pass,QFSW,above,[INFO] Expected simoutput: '7275' Returned putc: 'H',-11,-11
+sh4.bin,sh,Fail,QFSW,putc,[INFO] Expected simoutput: '73' Returned putc: 'I',0,0
+sh5.bin,sh,Pass,QFSW,getc,[INFO] Expected simoutput: '73' Returned putc: 'I',-11,-11
+sh6.bin,sh,Pass,QFSW,instr,[INFO] Expected simoutput: '73' Returned putc: 'I',-11,-11
+sh7.bin,sh,Pass,QFSW,instr-nops,[INFO] Expected simoutput: '73' Returned putc: 'I',-11,-11
+sh8.bin,sh,Pass,QFSW,addr-null,[INFO] Expected simoutput: '73' Returned putc: 'I',-11,-11
+sh9.bin,sh,Pass,QFSW,misaligned,[INFO] Expected simoutput: '73' Returned putc: 'I',-11,-11
+sll1.bin,sll,Pass,ChrisDeverall,standardpos,[INFO] Expected simoutput: '73' Returned putc: 'I',60,60
+sll2.bin,sll,Pass,ChrisDeverall,standardneg,[INFO] Expected simoutput: '73' Returned putc: 'I',-8,-8
+sllv1.bin,sllv,Pass,ChrisDeverall,standardpos,[INFO] Expected simoutput: '73' Returned putc: 'I',56,56
+sllv2.bin,sllv,Pass,ChrisDeverall,standardneg,[INFO] Expected simoutput: '73' Returned putc: 'I',-12,-12
+sllv3.bin,sllv,Pass,ChrisDeverall,largevar,[INFO] Expected simoutput: '73' Returned putc: 'I',6,6
+slt1.bin,slt,Pass,ChrisDeverall,standard,[INFO] Expected simoutput: '73' Returned putc: 'I',1,1
+slt2.bin,slt,Pass,ChrisDeverall,standardneg,[INFO] Expected simoutput: '73' Returned putc: 'I',0,0
+slt3.bin,slt,Pass,ChrisDeverall,diffsigns,[INFO] Expected simoutput: '73' Returned putc: 'I',0,0
+slt4.bin,slt,Pass,ChrisDeverall,equal,[INFO] Expected simoutput: '73' Returned putc: 'I',0,0
+slt5.bin,slt,Pass,QFSW,,[INFO] Expected simoutput: '73' Returned putc: 'I',1,1
+slti1.bin,slti,Pass,ChrisDeverall,standard,[INFO] Expected simoutput: '73' Returned putc: 'I',1,1
+slti2.bin,slti,Pass,ChrisDeverall,standardneg,[INFO] Expected simoutput: '73' Returned putc: 'I',0,0
+sltiu1.bin,sltiu,Pass,ChrisDeverall,standard,[INFO] Expected simoutput: '73' Returned putc: 'I',1,1
+sltiu2.bin,sltiu,Pass,ChrisDeverall,standardneg,[INFO] Expected simoutput: '73' Returned putc: 'I',1,1
+sltiu3.bin,sltiu,Pass,ChrisDeverall,standardneg,[INFO] Expected simoutput: '73' Returned putc: 'I',0,0
+sltiu4.bin,sltiu,Pass,QFSW,sign-extension,[INFO] Expected simoutput: '73' Returned putc: 'I',1,1
+sltu1.bin,sltu,Pass,ChrisDeverall,standard,[INFO] Expected simoutput: '73' Returned putc: 'I',1,1
+sltu2.bin,sltu,Pass,ChrisDeverall,standardneg,[INFO] Expected simoutput: '73' Returned putc: 'I',0,0
+sra1.bin,sra,Fail,ChrisDeverall,standardpos,[INFO] Expected: '0' Returned: '4',4,0
+sra2.bin,sra,Fail,ChrisDeverall,standardneg,[INFO] Expected: '0' Returned: '-2',-2,0
+sra3.bin,sra,Fail,ChrisDeverall,attemptToChangeSign,[INFO] Expected: '0' Returned: '-1',-1,0
+srav1.bin,srav,Pass,ChrisDeverall,standardpos,[INFO] Expected: '0' Returned: '-1',2,2
+srav2.bin,srav,Pass,ChrisDeverall,standardneg,[INFO] Expected: '0' Returned: '-1',-4,-4
+srav3.bin,srav,Pass,ChrisDeverall,largevarpos,[INFO] Expected: '0' Returned: '-1',7,7
+srav4.bin,srav,Pass,ChrisDeverall,largevarneg,[INFO] Expected: '0' Returned: '-1',-3,-3
+srl1.bin,srl,Pass,ChrisDeverall,standardpos,[INFO] Expected: '0' Returned: '-1',8,8
+srl2.bin,srl,Pass,ChrisDeverall,standardneg,[INFO] Expected: '0' Returned: '-1',-2,-2
+srl3.bin,srl,Pass,ChrisDeverall,signchange,[INFO] Expected: '0' Returned: '-1',1,1
+srlv1.bin,srlv,Pass,ChrisDeverall,standardpos,[INFO] Expected: '0' Returned: '-1',2,2
+srlv2.bin,srlv,Pass,ChrisDeverall,standardneg,[INFO] Expected: '0' Returned: '-1',-2,-2
+srlv3.bin,srlv,Pass,ChrisDeverall,largevar,[INFO] Expected: '0' Returned: '-1',7,7
+sub1.bin,sub,Pass,QFSW,,[INFO] Expected: '0' Returned: '-1',51,51
+sub2.bin,sub,Fail,ChrisDeverall,overflow,[INFO] Expected: '0' Returned: '-10',-10,0
+sub3.bin,sub,Pass,QFSW,,[INFO] Expected: '0' Returned: '-10',0,0
+sub4.bin,sub,Pass,ChrisDeverall,underflow,[INFO] Expected: '0' Returned: '-10',-10,-10
+sub5.bin,sub,Pass,ChrisDeverall,overflow,[INFO] Expected: '0' Returned: '-10',-10,-10
+subu1.bin,subu,Pass,ChrisDeverall,standard,[INFO] Expected: '0' Returned: '-10',16,16
+subu2.bin,subu,Pass,ChrisDeverall,standardneg,[INFO] Expected: '0' Returned: '-10',3,3
+subu3.bin,subu,Pass,ChrisDeverall,negresult,[INFO] Expected: '0' Returned: '-10',-9,-9
+sw1.bin,sw,Pass,ChrisDeverall,standard,[INFO] Expected: '0' Returned: '-10',13,13
+sw10.bin,sw,Pass,QFSW,data-bottom-boundary,[INFO] Expected: '0' Returned: '-10',0,0
+sw11.bin,sw,Pass,QFSW,data-below-boundary,[INFO] Expected: '0' Returned: '-10',-11,-11
+sw12.bin,sw,Pass,QFSW,data-top-boundary,[INFO] Expected: '0' Returned: '-10',0,0
+sw13.bin,sw,Pass,QFSW,data-above-boundary,[INFO] Expected: '0' Returned: '-10',-11,-11
+sw14.bin,sw,Pass,QFSW,instr-bottom-boundary,[INFO] Expected: '0' Returned: '-10',-11,-11
+sw15.bin,sw,Pass,QFSW,instr-below-boundary,[INFO] Expected: '0' Returned: '-10',-11,-11
+sw16.bin,lw,Pass,QFSW,instr-top-boundary,[INFO] Expected: '0' Returned: '-10',-11,-11
+sw17.bin,sw,Pass,QFSW,instr-above-boundary,[INFO] Expected: '0' Returned: '-10',-11,-11
+sw2.bin,sw,Pass,ChrisDeverall,standardneg,[INFO] Expected: '0' Returned: '-10',-5,-5
+sw3.bin,sw,Pass,ChrisDeverall,misaligned,[INFO] Expected: '0' Returned: '-10',-11,-11
+sw4.bin,sw,Pass,ChrisDeverall,above,[INFO] Expected: '0' Returned: '-10',-11,-11
+sw5.bin,sw,Fail,ChrisDeverall,putc,[INFO] Expected simoutput: '73' Returned putc: 'I',0,0
+sw6.bin,sw,Pass,ChrisDeverall,instr,[INFO] Expected simoutput: '73' Returned putc: 'I',-11,-11
+sw7.bin,sw,Pass,QFSW,instr-nops,[INFO] Expected simoutput: '73' Returned putc: 'I',-11,-11
+sw8.bin,sw,Pass,QFSW,addr-null,[INFO] Expected simoutput: '73' Returned putc: 'I',-11,-11
+sw9.bin,sw,Pass,QFSW,getc,[INFO] Expected simoutput: '73' Returned putc: 'I',-11,-11
+xor1.bin,xor,Pass,QFSW,,[INFO] Expected simoutput: '73' Returned putc: 'I',1,1
+xor2.bin,xor,Pass,QFSW,,[INFO] Expected simoutput: '73' Returned putc: 'I',2,2
+xor3.bin,xor,Pass,ChrisDeverall,,[INFO] Expected simoutput: '73' Returned putc: 'I',0,0
+xori1.bin,xori,Pass,ChrisDeverall,,[INFO] Expected simoutput: '73' Returned putc: 'I',31,31
+xori2.bin,xori,Pass,ChrisDeverall,,[INFO] Expected simoutput: '73' Returned putc: 'I',-1,-1
+xori3.bin,xori,Pass,QFSW,zero-extension,[INFO] Expected simoutput: '73' Returned putc: 'I',0,0
+xori4.bin,xori,Pass,QFSW,zero-extension,[INFO] Expected simoutput: '73' Returned putc: 'I',0,0

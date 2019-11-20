@@ -536,17 +536,20 @@ void i_type_instructions::SB(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_
         cerr << "SB" << endl;
     }
     INSTR_TYPE raw_mem_addr = sx_idata + C->reg[src1];
-    INSTR_TYPE mem_addr = raw_mem_addr / 4;
+    ADDR_TYPE mem_addr = raw_mem_addr / 4;
+    ADDR_TYPE mem_offset = raw_mem_addr % 4;
+    
     if (DEBUG)
     {
         cerr << hex << ">> SW Raw memory address: " << raw_mem_addr << "\n";
         cerr << hex << ">> SW Effective memory address: " << mem_addr << "\n";
+        cerr << hex << ">> SB memory offset: " << mem_offset << "\n";
     }
     if (!within_memory_bounds(mem_addr, 'w'))
     {
         throw(static_cast<int>(MEMORY_EXIT_CODE));
     }
-    C->instruction_mem[mem_addr - ADDR_DATA_OFFSET] = C->reg[dest] & 0xFF;
+    C->write_to_memory(mem_addr, mem_offset, 'b', C->reg[dest] & 0xFF);
     C->npc = C->npc + 1;
 }
 
@@ -557,17 +560,19 @@ void i_type_instructions::SH(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_
         cerr << "SH" << endl;
     }
     INSTR_TYPE raw_mem_addr = sx_idata + C->reg[src1];
-    INSTR_TYPE mem_addr = raw_mem_addr / 4;
+    ADDR_TYPE mem_addr = raw_mem_addr / 4;
+    ADDR_TYPE mem_offset = raw_mem_addr % 4;
     if (DEBUG)
     {
-        cerr << hex << ">> SW Raw memory address: " << raw_mem_addr << "\n";
-        cerr << hex << ">> SW Effective memory address: " << mem_addr << "\n";
+        cerr << hex << ">> SH Raw memory address: " << raw_mem_addr << "\n";
+        cerr << hex << ">> SH Effective memory address: " << mem_addr << "\n";
+        cerr << hex << ">> SH memory offset: " << mem_offset << "\n";
     }
     if ((raw_mem_addr % 2 != 0) || !within_memory_bounds(mem_addr, 'w'))
     {
         throw(static_cast<int>(MEMORY_EXIT_CODE));
     }
-    C->write_to_memory(C->reg[dest] & 0xFFFF, mem_addr);
+    C->write_to_memory(mem_addr, mem_offset, 'h', C->reg[dest] & 0xFFFF);
     C->npc = C->npc + 1;
 }
 
@@ -579,23 +584,21 @@ void i_type_instructions::SW(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_
     }
     INSTR_TYPE raw_mem_addr = sx_idata + C->reg[src1];
     INSTR_TYPE mem_addr = raw_mem_addr / 4;
+    ADDR_TYPE mem_offset = raw_mem_addr % 4;
     if (DEBUG)
     {
         cerr << hex << ">> SW Raw memory address: " << raw_mem_addr << "\n";
         cerr << hex << ">> SW Effective memory address: " << mem_addr << "\n";
+        cerr << hex << ">> SW memory offset: " << mem_offset << "\n";
     }
 
     if ((raw_mem_addr % 4 != 0) || !within_memory_bounds(mem_addr, 'w')) // If either of the two LSB of address are non-zero then throw exception
     {
         throw(static_cast<int>(MEMORY_EXIT_CODE));
     }
-    else if (mem_addr == ADDR_PUTC)
-    {
-        cout << (C->reg[dest] & 0xFF) << "\n"; // Write to std::cout
-    }
     else // Normal SW
     {
-        C->write_to_memory(mem_addr, C->reg[dest]); // mem is a pointer to the memory block
+        C->write_to_memory(mem_addr, 0, 'w', C->reg[dest]); // mem is a pointer to the memory block
     }
     C->npc = C->npc + 1;
 }
