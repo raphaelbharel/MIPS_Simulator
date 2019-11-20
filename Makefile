@@ -118,12 +118,6 @@ bin/mips_testbench2:
 	cp -a test/mips_testbench2 bin/
 	chmod u+x bin/mips_testbench2
 
-bin/not_my_testbench: 
-	mkdir -p bin 
-	cp -a test/not_my_testbench bin/
-	chmod u+x bin/not_my_testbench 
-
-#Run NOT MY TESTBENCH
 run_test: bin/mips_simulator bin/mips_testbench2
 	./bin/mips_testbench2 bin/mips_simulator test/input/lwr5.bin
 
