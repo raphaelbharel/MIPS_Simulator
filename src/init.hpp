@@ -114,6 +114,10 @@ public:
             std::cerr << "| "
                         << "$" << index << "\t" << reg[index] << std::endl;
         }
+        std::cerr << "|\n| "
+                        << "$LO" << "\t" << regLO << std::endl;
+        std::cerr << "| "
+        << "$HI" << "\t" << regHI << std::endl;
         std::cerr << "+---------------+" << std::endl
                     << "\n";
     }
@@ -132,17 +136,48 @@ public:
             throw(MEMORY_EXIT_CODE);
         }
     }
-    void write_to_memory(const ADDR_TYPE &loc, const MEM_TYPE &val) {
+    void write_to_memory(const ADDR_TYPE &loc, const ADDR_TYPE &offset, const char &type, const MEM_TYPE &val) {
         if (loc >= ADDR_DATA_OFFSET && loc <= (ADDR_DATA_OFFSET + ADDR_DATA_LENGTH)) {
-            mem[loc - ADDR_DATA_OFFSET] = val;
+            if(type == 'b')
+            {
+                switch(offset) { // Byte
+                    case 3:
+                        mem[loc - ADDR_DATA_OFFSET] = (mem[loc - ADDR_DATA_OFFSET] & 0xFFFFFF00) | val;
+                        return;
+                    case 2:
+                        mem[loc - ADDR_DATA_OFFSET] = (mem[loc - ADDR_DATA_OFFSET] & 0xFFFF00FF) | (val<<8);
+                        return;
+                    case 1:
+                        mem[loc - ADDR_DATA_OFFSET] = (mem[loc - ADDR_DATA_OFFSET] & 0xFF00FFFF) | (val<<16);
+                        return;
+                    case 0:
+                        mem[loc - ADDR_DATA_OFFSET] = (mem[loc - ADDR_DATA_OFFSET] & 0xFFFFFF) | (val<<24);
+                        return;
+                    default:;
+                }
+            }
+            else if (type == 'h'){ // Half
+                switch(offset) {
+                    case 2:
+                        mem[loc - ADDR_DATA_OFFSET] = (mem[loc - ADDR_DATA_OFFSET] & 0xFFFF0000) | val;
+                        return;
+                    case 0:
+                        mem[loc - ADDR_DATA_OFFSET] = (mem[loc - ADDR_DATA_OFFSET] & 0xFFFF) | (val<<16);
+                        return;
+                    default:;
+                }
+            } 
+            else if (type == 'w'){ // Word
+                mem[loc - ADDR_DATA_OFFSET] = val;
+                return;
+            }
         }
         else if (loc == ADDR_PUTC) {
             PUTC = val;
             std::cout << val;
+            return;
         }
-        else{
-            throw(MEMORY_EXIT_CODE);
-        }
+        throw(MEMORY_EXIT_CODE);
     }
 
 private:

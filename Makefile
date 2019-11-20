@@ -84,14 +84,14 @@ test-bgezal3: bin/mips_simulator test/input/bgezal3.bin
 test-bgezal1: bin/mips_simulator test/input/bgezal1.bin
 		./bin/mips_simulator test/input/bgezal1.bin $(DEBUG_SETTING)
 
-test-blez4: bin/mips_simulator test/input/blez4.bin
-		./bin/mips_simulator test/input/blez4.bin $(DEBUG_SETTING)
+test-sb2: bin/mips_simulator test/input/sb2.bin
+		./bin/mips_simulator test/input/sb2.bin $(DEBUG_SETTING)
 
 test-bltz4: bin/mips_simulator test/input/bltz4.bin
 		./bin/mips_simulator test/input/bltz4.bin $(DEBUG_SETTING)
 
-test-lwl8: bin/mips_simulator test/input/lwl8.bin
-		./bin/mips_simulator test/input/lwl8.bin $(DEBUG_SETTING)
+test-sra1: bin/mips_simulator test/input/sra1.bin
+		./bin/mips_simulator test/input/sra1.bin $(DEBUG_SETTING)
 
 test-jal4: bin/mips_simulator test/input/jal4.bin
 		./bin/mips_simulator test/input/jal4.bin $(DEBUG_SETTING)
