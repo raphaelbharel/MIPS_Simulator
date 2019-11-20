@@ -67,11 +67,7 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 		int executions = 0;
 		ADDR_TYPE next_instruction;
 
-<<<<<<< HEAD
 		for (; C.pc >= ADDR_INSTR_OFFSET && C.pc < ADDR_INSTR_OFFSET + ADDR_INSTR_LENGTH && C.pc != ADDR_NULL;)
-=======
-		for (; C.pc >= ADDR_INSTR_OFFSET && C.pc < ADDR_INSTR_OFFSET + ADDR_INSTR_LENGTH; )
->>>>>>> bc15300be25ff679e22d302f8266827c46f24b3c
 		{
 
 			C.reg[0] = 0;			  // $0 is always 0 on every clock cycle

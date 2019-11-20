@@ -441,13 +441,6 @@ void i_type_instructions::LWR(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32
         cerr << hex << ">> LWR Effective memory address: " << mem_addr << "\n";
     }
 
-<<<<<<< HEAD
-    cerr << hex << "ADDR_DATA_OFFSET: "<< ADDR_DATA_OFFSET << "\n";
-    cerr << hex << "ADDR_DATA_LENGTH: "<< ADDR_DATA_LENGTH << "\n";
-    cerr << hex << "ADDR_DATA_OFFSET + LENGTH: "<< ADDR_DATA_OFFSET+ADDR_DATA_LENGTH << "\n";
-
-=======
->>>>>>> bc15300be25ff679e22d302f8266827c46f24b3c
     //Throw error if not in Readable memory zone
     if (((mem_addr < ADDR_DATA_OFFSET) || (mem_addr > ADDR_DATA_OFFSET + ADDR_DATA_LENGTH - 1))
             &&((mem_addr < ADDR_INSTR_OFFSET) || (mem_addr>ADDR_INSTR_LENGTH+ADDR_INSTR_OFFSET-1))
