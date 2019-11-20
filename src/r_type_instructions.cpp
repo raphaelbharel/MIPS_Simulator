@@ -64,7 +64,7 @@ int r_type_instructions::execute()
         MFHI(C, src1);
         return 1;
     case 0x12:
-        MFLO(C, src1);
+        MFLO(C, dest);
         return 1;
     case 0x11:
         MTHI(C, dest);
@@ -335,6 +335,9 @@ void r_type_instructions::DIV(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &src2)
     if (DEBUG)
     {
         cerr << "DIV" << endl;
+    }
+    if (!src2) { // Division by zero
+        throw(ARITHMETIC_EXIT_CODE);
     }
     C->regLO = C->reg[src1] / C->reg[src2];
     C->regHI = C->reg[src1] % C->reg[src2];

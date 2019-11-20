@@ -114,6 +114,10 @@ public:
             std::cerr << "| "
                         << "$" << index << "\t" << reg[index] << std::endl;
         }
+        std::cerr << "|\n| "
+                        << "$LO" << "\t" << regLO << std::endl;
+        std::cerr << "| "
+        << "$HI" << "\t" << regHI << std::endl;
         std::cerr << "+---------------+" << std::endl
                     << "\n";
     }
