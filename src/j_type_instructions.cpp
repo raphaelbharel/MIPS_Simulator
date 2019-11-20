@@ -26,12 +26,12 @@ int j_type_instructions::execute()
 void j_type_instructions::J(CPU *&C, INSTR_TYPE &jdata)
 {
     if (DEBUG) {cerr << "J" << endl;}
-    C->npc = (C->npc & 0xF0000000) | jdata);
+    C->npc = ((C->npc & 0xF0000000) | jdata);
 }
 
 void j_type_instructions::JAL(CPU *&C, INSTR_TYPE &jdata)
 {
     if (DEBUG) {cerr << "JAL" << endl;}
     C->reg[31] = C->npc; // Store return address in dest reg
-    C->npc = (C->npc & 0xF0000000) | C->reg[jdata];
+    C->npc = ((C->npc & 0xF0000000) | jdata);
 }
