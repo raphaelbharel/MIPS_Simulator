@@ -446,10 +446,18 @@ void i_type_instructions::LWR(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32
         cerr << hex << ">> LWR Effective memory address: " << mem_addr << "\n";
     }
 
-    if (mem_addr < ADDR_DATA || mem_addr > (ADDR_DATA + ADDR_DATA_OFFSET)) // If either of the two LSB of address are non-zero then throw exception
+    cerr << hex << "ADDR_DATA_OFFSET: "<< ADDR_DATA_OFFSET << "\n";
+    cerr << hex << "ADDR_DATA: "<< ADDR_DATA << "\n";
+    cerr << hex << "ADDR_DATA + OFFSET: "<< ADDR_DATA_OFFSET+ADDR_DATA  << "\n";
+
+    //Throw error if not in Readable memory zone
+    if (((mem_addr < ADDR_DATA_OFFSET) || (mem_addr > ADDR_DATA + ADDR_DATA_OFFSET - 1))
+            &&((mem_addr < ADDR_INSTR_OFFSET) || (mem_addr>ADDR_INSTR_LENGTH+ADDR_INSTR_OFFSET-1))
+            &&(mem_addr != ADDR_GETC)) // If either of the two LSB of address are non-zero then throw exception
     {
         throw(static_cast<int>(MEMORY_EXIT_CODE));
     }
+    
     MEM_TYPE word_at_address = C->mem[addr_to_index(ADDR_DATA_OFFSET, mem_addr)]; // mem is a pointer to the memory block
     MEM_TYPE LSBytes;
     int byte_offset = raw_mem_addr % 4;
