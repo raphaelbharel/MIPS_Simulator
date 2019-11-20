@@ -7,6 +7,8 @@ echo -e "+-------------------+\n| RUNNING ALL TESTS |\n+-------------------+"
 
 printf "TEST,RETCODE\n" >> test/output/log.csv
 printf "TESTID,TEST,OUTCOME,USER_ID,COMMENTS,MESSAGE,EXPECTED,RETURNED\n">> test/output/testing.csv
+NUMTESTS=0
+COUNT=0
 
 for file in test/input/*.bin
 do
@@ -40,32 +42,33 @@ do
 	output_s=$(echo $getc | $simulator_path $binary_path)
   RETCODE=$?
 
-	echo ${output_s}
-	echo ${RETCODE}
-
 	if [ $RETCODE -ge 128 ]; then
 		RETCODE=$((RETCODE-256))
 	fi
 
+	echo "[INFO] Testing: ${name}"
 	if [ "$RETCODE" = "$sim_code" ]; then
       if [ "$output_s" = "$putc_code" ]; then
           outcome="Pass"
 					echo "Pass"
+					COUNT=$((COUNT+1))
       else
 				outcome="Fail"
 				echo "Fail"
-				message+="Output was '$output_s', expected '$putc_code'" >&2
+				message="[INFO] Expected simoutput: '$output_s' Returned putc: '$putc_code'" >&2
+				echo ${message}
       fi
   else
 			outcome="Fail"
 			echo "Fail"
-			message+=" , Received output was $RETCODE wanted $sim_code"
+			message="[INFO] Expected: '$RETCODE' Returned: '$sim_code'" >&2
+			echo ${message}
   fi
 
+	printf  "${name},${RETCODE}\n" >> test/output/log.csv
 	printf "${test_id},${operation},${outcome},${user_id},${comments},${message},${sim_code},${RETCODE}\n">> test/output/testing.csv
-	NUMTESTS=0
-	COUNT=0
-
+	
+	NUMTESTS=$((NUMTESTS+1))
 done
 
 echo "$COUNT/$NUMTESTS test cases passed."
