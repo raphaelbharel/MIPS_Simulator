@@ -249,39 +249,39 @@ sltiu3.bin,sltiu,Pass,ChrisDeverall,standardneg,[INFO] Expected simoutput: '73' 
 sltiu4.bin,sltiu,Pass,QFSW,sign-extension,[INFO] Expected simoutput: '73' Returned putc: 'I',1,1
 sltu1.bin,sltu,Pass,ChrisDeverall,standard,[INFO] Expected simoutput: '73' Returned putc: 'I',1,1
 sltu2.bin,sltu,Pass,ChrisDeverall,standardneg,[INFO] Expected simoutput: '73' Returned putc: 'I',0,0
-sra1.bin,sra,Fail,ChrisDeverall,standardpos,[INFO] Expected: '0' Returned: '4',4,0
-sra2.bin,sra,Fail,ChrisDeverall,standardneg,[INFO] Expected: '0' Returned: '-2',-2,0
-sra3.bin,sra,Fail,ChrisDeverall,attemptToChangeSign,[INFO] Expected: '0' Returned: '-1',-1,0
-srav1.bin,srav,Pass,ChrisDeverall,standardpos,[INFO] Expected: '0' Returned: '-1',2,2
-srav2.bin,srav,Pass,ChrisDeverall,standardneg,[INFO] Expected: '0' Returned: '-1',-4,-4
-srav3.bin,srav,Pass,ChrisDeverall,largevarpos,[INFO] Expected: '0' Returned: '-1',7,7
-srav4.bin,srav,Pass,ChrisDeverall,largevarneg,[INFO] Expected: '0' Returned: '-1',-3,-3
-srl1.bin,srl,Pass,ChrisDeverall,standardpos,[INFO] Expected: '0' Returned: '-1',8,8
-srl2.bin,srl,Pass,ChrisDeverall,standardneg,[INFO] Expected: '0' Returned: '-1',-2,-2
-srl3.bin,srl,Pass,ChrisDeverall,signchange,[INFO] Expected: '0' Returned: '-1',1,1
-srlv1.bin,srlv,Pass,ChrisDeverall,standardpos,[INFO] Expected: '0' Returned: '-1',2,2
-srlv2.bin,srlv,Pass,ChrisDeverall,standardneg,[INFO] Expected: '0' Returned: '-1',-2,-2
-srlv3.bin,srlv,Pass,ChrisDeverall,largevar,[INFO] Expected: '0' Returned: '-1',7,7
-sub1.bin,sub,Pass,QFSW,,[INFO] Expected: '0' Returned: '-1',51,51
-sub2.bin,sub,Fail,ChrisDeverall,overflow,[INFO] Expected: '0' Returned: '-10',-10,0
-sub3.bin,sub,Pass,QFSW,,[INFO] Expected: '0' Returned: '-10',0,0
-sub4.bin,sub,Pass,ChrisDeverall,underflow,[INFO] Expected: '0' Returned: '-10',-10,-10
-sub5.bin,sub,Pass,ChrisDeverall,overflow,[INFO] Expected: '0' Returned: '-10',-10,-10
-subu1.bin,subu,Pass,ChrisDeverall,standard,[INFO] Expected: '0' Returned: '-10',16,16
-subu2.bin,subu,Pass,ChrisDeverall,standardneg,[INFO] Expected: '0' Returned: '-10',3,3
-subu3.bin,subu,Pass,ChrisDeverall,negresult,[INFO] Expected: '0' Returned: '-10',-9,-9
-sw1.bin,sw,Pass,ChrisDeverall,standard,[INFO] Expected: '0' Returned: '-10',13,13
-sw10.bin,sw,Pass,QFSW,data-bottom-boundary,[INFO] Expected: '0' Returned: '-10',0,0
-sw11.bin,sw,Pass,QFSW,data-below-boundary,[INFO] Expected: '0' Returned: '-10',-11,-11
-sw12.bin,sw,Pass,QFSW,data-top-boundary,[INFO] Expected: '0' Returned: '-10',0,0
-sw13.bin,sw,Pass,QFSW,data-above-boundary,[INFO] Expected: '0' Returned: '-10',-11,-11
-sw14.bin,sw,Pass,QFSW,instr-bottom-boundary,[INFO] Expected: '0' Returned: '-10',-11,-11
-sw15.bin,sw,Pass,QFSW,instr-below-boundary,[INFO] Expected: '0' Returned: '-10',-11,-11
-sw16.bin,lw,Pass,QFSW,instr-top-boundary,[INFO] Expected: '0' Returned: '-10',-11,-11
-sw17.bin,sw,Pass,QFSW,instr-above-boundary,[INFO] Expected: '0' Returned: '-10',-11,-11
-sw2.bin,sw,Pass,ChrisDeverall,standardneg,[INFO] Expected: '0' Returned: '-10',-5,-5
-sw3.bin,sw,Pass,ChrisDeverall,misaligned,[INFO] Expected: '0' Returned: '-10',-11,-11
-sw4.bin,sw,Pass,ChrisDeverall,above,[INFO] Expected: '0' Returned: '-10',-11,-11
+sra1.bin,sra,Pass,ChrisDeverall,standardpos,[INFO] Expected simoutput: '73' Returned putc: 'I',4,4
+sra2.bin,sra,Pass,ChrisDeverall,standardneg,[INFO] Expected simoutput: '73' Returned putc: 'I',-2,-2
+sra3.bin,sra,Pass,ChrisDeverall,attemptToChangeSign,[INFO] Expected simoutput: '73' Returned putc: 'I',-1,-1
+srav1.bin,srav,Pass,ChrisDeverall,standardpos,[INFO] Expected simoutput: '73' Returned putc: 'I',2,2
+srav2.bin,srav,Pass,ChrisDeverall,standardneg,[INFO] Expected simoutput: '73' Returned putc: 'I',-4,-4
+srav3.bin,srav,Pass,ChrisDeverall,largevarpos,[INFO] Expected simoutput: '73' Returned putc: 'I',7,7
+srav4.bin,srav,Pass,ChrisDeverall,largevarneg,[INFO] Expected simoutput: '73' Returned putc: 'I',-3,-3
+srl1.bin,srl,Pass,ChrisDeverall,standardpos,[INFO] Expected simoutput: '73' Returned putc: 'I',8,8
+srl2.bin,srl,Pass,ChrisDeverall,standardneg,[INFO] Expected simoutput: '73' Returned putc: 'I',-2,-2
+srl3.bin,srl,Pass,ChrisDeverall,signchange,[INFO] Expected simoutput: '73' Returned putc: 'I',1,1
+srlv1.bin,srlv,Pass,ChrisDeverall,standardpos,[INFO] Expected simoutput: '73' Returned putc: 'I',2,2
+srlv2.bin,srlv,Pass,ChrisDeverall,standardneg,[INFO] Expected simoutput: '73' Returned putc: 'I',-2,-2
+srlv3.bin,srlv,Pass,ChrisDeverall,largevar,[INFO] Expected simoutput: '73' Returned putc: 'I',7,7
+sub1.bin,sub,Pass,QFSW,,[INFO] Expected simoutput: '73' Returned putc: 'I',51,51
+sub2.bin,sub,Pass,ChrisDeverall,overflow,[INFO] Expected simoutput: '73' Returned putc: 'I',-10,-10
+sub3.bin,sub,Pass,QFSW,,[INFO] Expected simoutput: '73' Returned putc: 'I',0,0
+sub4.bin,sub,Pass,ChrisDeverall,underflow,[INFO] Expected simoutput: '73' Returned putc: 'I',-10,-10
+sub5.bin,sub,Pass,ChrisDeverall,overflow,[INFO] Expected simoutput: '73' Returned putc: 'I',-10,-10
+subu1.bin,subu,Pass,ChrisDeverall,standard,[INFO] Expected simoutput: '73' Returned putc: 'I',16,16
+subu2.bin,subu,Pass,ChrisDeverall,standardneg,[INFO] Expected simoutput: '73' Returned putc: 'I',3,3
+subu3.bin,subu,Pass,ChrisDeverall,negresult,[INFO] Expected simoutput: '73' Returned putc: 'I',-9,-9
+sw1.bin,sw,Pass,ChrisDeverall,standard,[INFO] Expected simoutput: '73' Returned putc: 'I',13,13
+sw10.bin,sw,Pass,QFSW,data-bottom-boundary,[INFO] Expected simoutput: '73' Returned putc: 'I',0,0
+sw11.bin,sw,Pass,QFSW,data-below-boundary,[INFO] Expected simoutput: '73' Returned putc: 'I',-11,-11
+sw12.bin,sw,Pass,QFSW,data-top-boundary,[INFO] Expected simoutput: '73' Returned putc: 'I',0,0
+sw13.bin,sw,Pass,QFSW,data-above-boundary,[INFO] Expected simoutput: '73' Returned putc: 'I',-11,-11
+sw14.bin,sw,Pass,QFSW,instr-bottom-boundary,[INFO] Expected simoutput: '73' Returned putc: 'I',-11,-11
+sw15.bin,sw,Pass,QFSW,instr-below-boundary,[INFO] Expected simoutput: '73' Returned putc: 'I',-11,-11
+sw16.bin,lw,Pass,QFSW,instr-top-boundary,[INFO] Expected simoutput: '73' Returned putc: 'I',-11,-11
+sw17.bin,sw,Pass,QFSW,instr-above-boundary,[INFO] Expected simoutput: '73' Returned putc: 'I',-11,-11
+sw2.bin,sw,Pass,ChrisDeverall,standardneg,[INFO] Expected simoutput: '73' Returned putc: 'I',-5,-5
+sw3.bin,sw,Pass,ChrisDeverall,misaligned,[INFO] Expected simoutput: '73' Returned putc: 'I',-11,-11
+sw4.bin,sw,Pass,ChrisDeverall,above,[INFO] Expected simoutput: '73' Returned putc: 'I',-11,-11
 sw5.bin,sw,Fail,ChrisDeverall,putc,[INFO] Expected simoutput: '73' Returned putc: 'I',0,0
 sw6.bin,sw,Pass,ChrisDeverall,instr,[INFO] Expected simoutput: '73' Returned putc: 'I',-11,-11
 sw7.bin,sw,Pass,QFSW,instr-nops,[INFO] Expected simoutput: '73' Returned putc: 'I',-11,-11

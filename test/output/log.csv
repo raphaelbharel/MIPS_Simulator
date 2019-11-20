@@ -249,9 +249,9 @@ sltiu3.bin,0
 sltiu4.bin,1
 sltu1.bin,1
 sltu2.bin,0
-sra1.bin,0
-sra2.bin,0
-sra3.bin,0
+sra1.bin,4
+sra2.bin,-2
+sra3.bin,-1
 srav1.bin,2
 srav2.bin,-4
 srav3.bin,7
@@ -263,7 +263,7 @@ srlv1.bin,2
 srlv2.bin,-2
 srlv3.bin,7
 sub1.bin,51
-sub2.bin,0
+sub2.bin,-10
 sub3.bin,0
 sub4.bin,-10
 sub5.bin,-10
