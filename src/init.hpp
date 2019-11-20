@@ -12,13 +12,16 @@
 #include <iterator>
 #include <bitset>
 
+//MEMORY MAP
 #define ADDR_NULL 0x00000000
+#define ADDR_INSTR_OFFSET 0x4000000 //0x10000000 / 4 - The starting point of Executable memory.
 #define ADDR_INSTR_LENGTH 0x400000  //0x1000000 / 4
-#define ADDR_INSTR_OFFSET 0x4000000 //0x10000000 / 4
-#define ADDR_DATA_OFFSET 0x8000000         //0x20000000 / 4
-#define ADDR_DATA 0x1000000  //0x4000000 / 4
+#define ADDR_DATA_OFFSET 0x8000000  //0x20000000 / 4 - The starting point of Read-write data area.
+#define ADDR_DATA_LENGTH 0x1000000  //0x4000000 / 4
 #define ADDR_GETC 0xC000000         //0x30000000 / 4
 #define ADDR_PUTC 0xC000001         //0x30000004 / 4
+
+//SIZES
 #define BUFFER_SIZE 32
 #define REGISTER_SIZE 32
 #define CODE_SIZE 6
@@ -30,12 +33,15 @@
 #define I_ADATA_SIZE 16
 #define J_ADDRESS_SIZE 26
 #define MEM_SIZE 0xC000002 //0x30000008 / 4
+
+//EXIT CODES
 #define ARITHMETIC_EXIT_CODE -10
 #define MEMORY_EXIT_CODE -11
 #define INSTRUCTION_EXIT_CODE -12
 #define INTERNAL_EXIT_CODE -20
 #define IO_EXIT_CODE -21
 
+//TYPES
 typedef uint32_t INSTR_TYPE;
 typedef uint32_t ADDR_TYPE;
 typedef char BUFFER_TYPE;

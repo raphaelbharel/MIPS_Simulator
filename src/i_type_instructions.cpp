@@ -193,7 +193,7 @@ void i_type_instructions::LBU(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32
         cerr << hex << ">> LBU Effective memory address: " << mem_addr << "\n";
     }
 
-    if (mem_addr < ADDR_DATA || mem_addr > (ADDR_DATA + ADDR_DATA_OFFSET)) // If either of the two LSB of address are non-zero then throw exception
+    if (mem_addr < ADDR_DATA_OFFSET || mem_addr > (ADDR_DATA_OFFSET + ADDR_DATA_LENGTH - 1)) // If either of the two LSB of address are non-zero then throw exception
     {
         throw(static_cast<int>(MEMORY_EXIT_CODE));
     }
@@ -233,7 +233,7 @@ void i_type_instructions::LB(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_
         cerr << hex << ">> LB Effective memory address: " << mem_addr << "\n";
     }
 
-    if (mem_addr < ADDR_DATA || mem_addr > (ADDR_DATA + ADDR_DATA_OFFSET)) // If either of the two LSB of address are non-zero then throw exception
+    if (mem_addr < ADDR_DATA_OFFSET || mem_addr > (ADDR_DATA_OFFSET + ADDR_DATA_LENGTH - 1)) // If either of the two LSB of address are non-zero then throw exception
     {
         throw(static_cast<int>(MEMORY_EXIT_CODE));
     }
@@ -312,7 +312,7 @@ void i_type_instructions::LH(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_
         cerr << hex << ">> LH Effective memory address: " << mem_addr << "\n";
     }
 
-    if (mem_addr < ADDR_DATA || mem_addr > (ADDR_DATA + ADDR_DATA_OFFSET) || (mem_addr % 2 != 0)) // LSB non zero i.e. not multiple of 2
+    if (mem_addr < ADDR_DATA_OFFSET || mem_addr > (ADDR_DATA_OFFSET + ADDR_DATA_LENGTH - 1) || (mem_addr % 2 != 0)) // LSB non zero i.e. not multiple of 2
     {
         throw(static_cast<int>(MEMORY_EXIT_CODE));
     }
@@ -369,7 +369,7 @@ void i_type_instructions::LW(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_
         cerr << hex << ">> LW Effective memory address: " << mem_addr << "\n";
     }
 
-    if (mem_addr < ADDR_DATA || mem_addr > (ADDR_DATA + ADDR_DATA_OFFSET) || (raw_mem_addr % 4 != 0))
+    if (mem_addr < ADDR_DATA_OFFSET || mem_addr > (ADDR_DATA_OFFSET + ADDR_DATA_LENGTH - 1) || (raw_mem_addr % 4 != 0))
     // If either of the two LSB of address are non-zero then throw exception
     {
         throw(static_cast<int>(MEMORY_EXIT_CODE));
@@ -445,10 +445,6 @@ void i_type_instructions::LWR(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32
         cerr << hex << ">> LWR Raw memory address: " << raw_mem_addr << "\n";
         cerr << hex << ">> LWR Effective memory address: " << mem_addr << "\n";
     }
-
-    cerr << hex << "ADDR_DATA_OFFSET: "<< ADDR_DATA_OFFSET << "\n";
-    cerr << hex << "ADDR_DATA: "<< ADDR_DATA << "\n";
-    cerr << hex << "ADDR_DATA + OFFSET: "<< ADDR_DATA_OFFSET+ADDR_DATA  << "\n";
 
     //Throw error if not in Readable memory zone
     if (((mem_addr < ADDR_DATA_OFFSET) || (mem_addr > ADDR_DATA + ADDR_DATA_OFFSET - 1))
