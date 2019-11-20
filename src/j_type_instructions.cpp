@@ -8,7 +8,7 @@ int j_type_instructions::execute()
 
     if (DEBUG) {cerr << ">> Executing J type instruction ";}
     code = (C->instr & 0xFC000000) >> 26; //Opcode
-    jdata = (C->instr & 0x3FFFFFF); //Low 26 bits of target address (div 4)
+    jdata = (C->instr & 0x03FFFFFF); //Target
 
     switch (code)
     {
@@ -25,13 +25,24 @@ int j_type_instructions::execute()
 
 void j_type_instructions::J(CPU *&C, INSTR_TYPE &jdata)
 {
-    if (DEBUG) {cerr << "J" << endl;}
-    C->npc = ((C->npc & 0xF0000000) | jdata);
+    if (DEBUG) {
+        cerr << "J" << endl;
+        cerr << "Jdata"<< hex << jdata<<endl;
+        cerr << "Jdata*4"<< hex << jdata*4<<endl;
+        cerr << "Next PC"<< hex << C->npc<<endl;
+        cerr << "Next PC/4"<< hex << ((C->npc)*4)<<endl;
+        }
+    
+    MEM_TYPE upper_bits = (C->npc) & 0x3C0000000;
+    MEM_TYPE lower_bits = jdata*4;
+   C->npc = upper_bits | lower_bits;
 }
 
 void j_type_instructions::JAL(CPU *&C, INSTR_TYPE &jdata)
 {
     if (DEBUG) {cerr << "JAL" << endl;}
-    C->reg[31] = (C->npc*4 + 4); // Store return address in dest reg (x4 as 32 bits)
-    C->npc = ((C->npc & 0xF0000000) | jdata);
+    C->reg[31] = (C->npc)*4 + 4; // Store return address in dest reg (x4 as 32 bits)
+    MEM_TYPE upper_bits = (C->npc) & 0x3C000000;
+    MEM_TYPE lower_bits = jdata;
+    C->npc = (upper_bits | lower_bits)*4;
 }
