@@ -174,7 +174,9 @@ void i_type_instructions::BNE(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32
     }
     if (C->reg[src1] != C->reg[dest])
     {
-        C->npc = C->npc + sx_idata; // Supposedly 16bit shifted left (x4) but since our memory space is divided by 4, don't need to shift
+        ADDR_TYPE mem_addr = C->npc + sx_idata;
+        if(!within_memory_bounds(mem_addr)) {throw(MEMORY_EXIT_CODE);}
+        C->npc = mem_addr;
     }
     else
     {
@@ -608,7 +610,9 @@ void i_type_instructions::BGTZ(CPU *&C, INSTR_TYPE &src1, int32_t &sx_idata)
     }
     if (C->reg[src1] > 0)
     {
-        C->npc = C->npc + sx_idata; // Supposedly 16bit shifted left (x4) but since our memory space is divided by 4, don't need to shift
+        ADDR_TYPE mem_addr = C->npc + sx_idata;
+        if(!within_memory_bounds(mem_addr)) {throw(MEMORY_EXIT_CODE);}
+        C->npc = mem_addr;
     }
     else
     {
@@ -624,7 +628,9 @@ void i_type_instructions::BGEZ(CPU *&C, INSTR_TYPE &src1, int32_t &sx_idata)
     }
     if (C->reg[src1] >= 0)
     {
-        C->npc = C->npc + sx_idata; // Supposedly 16bit shifted left (x4) but since our memory space is divided by 4, don't need to shift
+        ADDR_TYPE mem_addr = C->npc + sx_idata;
+        if(!within_memory_bounds(mem_addr)) {throw(MEMORY_EXIT_CODE);}
+        C->npc = mem_addr;
     }
     else
     {
@@ -639,8 +645,10 @@ void i_type_instructions::BGEZAL(CPU *&C, INSTR_TYPE &src1, int32_t &sx_idata)
     }
     if (C->reg[src1] >= 0)
     {
-        C->reg[31] = C->npc;        // Storing return address of npc into $31
-        C->npc = C->npc + sx_idata; // Supposedly 16bit shifted left (x4) but since our memory space is divided by 4, don't need to shift
+        ADDR_TYPE mem_addr = C->npc + sx_idata;
+        if(!within_memory_bounds(mem_addr)) {throw(MEMORY_EXIT_CODE);}
+        C->reg[31] = (C->npc+1)*4;       // Storing return address of npc into $31
+        C->npc = mem_addr;
     }
     else
     {
@@ -656,8 +664,10 @@ void i_type_instructions::BLEZ(CPU *&C, INSTR_TYPE &src1, int32_t &sx_idata)
     }
     if (C->reg[src1] <= 0)
     {
-        C->npc = C->npc + sx_idata; // Supposedly 16bit shifted left (x4) but since our memory space is divided by 4, don't need to shift
-    }
+        ADDR_TYPE mem_addr = C->npc + sx_idata;
+        if(!within_memory_bounds(mem_addr)) {throw(MEMORY_EXIT_CODE);}
+        C->npc = mem_addr;   
+    } 
     else
     {
         C->npc = C->npc + 1;
@@ -672,7 +682,9 @@ void i_type_instructions::BLTZ(CPU *&C, INSTR_TYPE &src1, int32_t &sx_idata)
     }
     if (C->reg[src1] < 0)
     {
-        C->npc = C->npc + sx_idata; // Supposedly 16bit shifted left (x4) but since our memory space is divided by 4, don't need to shift
+        ADDR_TYPE mem_addr = C->npc + sx_idata;
+        if(!within_memory_bounds(mem_addr)) {throw(MEMORY_EXIT_CODE);}
+        C->npc = mem_addr;
     }
     else
     {
@@ -688,8 +700,10 @@ void i_type_instructions::BLTZAL(CPU *&C, INSTR_TYPE &src1, int32_t &sx_idata)
     }
     if (C->reg[src1] < 0)
     {
-        C->reg[31] = C->npc;        // Storing return address of npc into $31
-        C->npc = C->npc + sx_idata; // Supposedly 16bit shifted left (x4) but since our memory space is divided by 4, don't need to shift
+        ADDR_TYPE mem_addr = C->npc + sx_idata;
+        if(!within_memory_bounds(mem_addr)) {throw(MEMORY_EXIT_CODE);}
+        C->reg[31] = (C->npc+1)*4;        // Storing return address of npc into $31
+        C->npc = mem_addr; // Supposedly 16bit shifted left (x4) but since our memory space is divided by 4, don't need to shift
     }
     else
     {

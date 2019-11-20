@@ -74,8 +74,28 @@ test-lwr5: bin/mips_simulator test/input/lwr5.bin
 test-AND: bin/mips_simulator test/input/and2.bin
 		./bin/mips_simulator test/input/and2.bin $(DEBUG_SETTING)
 
-test-beq4: bin/mips_simulator test/input/beq4.bin
-		./bin/mips_simulator test/input/beq4.bin $(DEBUG_SETTING)
+test-lw2: bin/mips_simulator test/input/lw2.bin
+		./bin/mips_simulator test/input/lw2.bin $(DEBUG_SETTING)
+
+test-bgezal4: bin/mips_simulator test/input/bgezal4.bin
+		./bin/mips_simulator test/input/bgezal4.bin $(DEBUG_SETTING)
+test-bgezal3: bin/mips_simulator test/input/bgezal3.bin
+		./bin/mips_simulator test/input/bgezal3.bin $(DEBUG_SETTING)
+test-bgezal1: bin/mips_simulator test/input/bgezal1.bin
+		./bin/mips_simulator test/input/bgezal1.bin $(DEBUG_SETTING)
+
+test-blez4: bin/mips_simulator test/input/blez4.bin
+		./bin/mips_simulator test/input/blez4.bin $(DEBUG_SETTING)
+
+test-bltz4: bin/mips_simulator test/input/bltz4.bin
+		./bin/mips_simulator test/input/bltz4.bin $(DEBUG_SETTING)
+
+test-lw13: bin/mips_simulator test/input/lw13.bin
+		./bin/mips_simulator test/input/lw13.bin $(DEBUG_SETTING)
+
+
+
+
 
 
 #----------------------------------------------------
