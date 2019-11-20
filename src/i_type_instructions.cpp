@@ -158,7 +158,7 @@ void i_type_instructions::BEQ(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32
     if (C->reg[src1] == C->reg[dest])
     {
         ADDR_TYPE mem_addr = C->npc + sx_idata;
-        if(!within_memory_bounds(mem_addr)) {throw(MEMORY_EXIT_CODE);}
+        if(!within_memory_bounds(mem_addr, 'r')) {throw(MEMORY_EXIT_CODE);}
         C->npc = mem_addr;
     }
     else
@@ -175,7 +175,7 @@ void i_type_instructions::BNE(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32
     if (C->reg[src1] != C->reg[dest])
     {
         ADDR_TYPE mem_addr = C->npc + sx_idata;
-        if(!within_memory_bounds(mem_addr)) {throw(MEMORY_EXIT_CODE);}
+        if(!within_memory_bounds(mem_addr, 'r')) {throw(MEMORY_EXIT_CODE);}
         C->npc = mem_addr;
     }
     else
@@ -197,7 +197,7 @@ void i_type_instructions::LBU(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32
         cerr << hex << ">> LBU Effective memory address: " << mem_addr << "\n";
     }
 
-    if (!within_memory_bounds(mem_addr)) 
+    if (!within_memory_bounds(mem_addr, 'r')) 
     {
         throw(static_cast<int>(MEMORY_EXIT_CODE));
     }
@@ -237,7 +237,7 @@ void i_type_instructions::LB(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_
         cerr << hex << ">> LB Effective memory address: " << mem_addr << "\n";
     }
 
-    if (!within_memory_bounds(mem_addr)) 
+    if (!within_memory_bounds(mem_addr, 'r')) 
     {
         throw(static_cast<int>(MEMORY_EXIT_CODE));
     }
@@ -282,7 +282,7 @@ void i_type_instructions::LHU(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32
         cerr << hex << ">> LBU Effective memory address: " << mem_addr << "\n";
     }
 
-    if (mem_addr < ADDR_DATA_OFFSET || mem_addr > (ADDR_DATA_OFFSET + ADDR_DATA_LENGTH) || (mem_addr % 2 != 0)) // LSB non zero i.e. not multiple of 2
+    if ((mem_addr % 2 != 0) || !within_memory_bounds(mem_addr, 'r')) // LSB non zero i.e. not multiple of 2
     {
         throw(static_cast<int>(MEMORY_EXIT_CODE));
     }
@@ -316,7 +316,7 @@ void i_type_instructions::LH(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_
         cerr << hex << ">> LH Effective memory address: " << mem_addr << "\n";
     }
 
-    if ((mem_addr % 2 != 0) || !within_memory_bounds(mem_addr)) // LSB non zero i.e. not multiple of 2
+    if ((mem_addr % 2 != 0) || !within_memory_bounds(mem_addr, 'r')) // LSB non zero i.e. not multiple of 2
     {
         throw(static_cast<int>(MEMORY_EXIT_CODE));
     }
@@ -373,7 +373,7 @@ void i_type_instructions::LW(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_
         cerr << hex << ">> LW Effective memory address: " << mem_addr << "\n";
     }
 
-    if ((raw_mem_addr % 4 != 0) || !within_memory_bounds(mem_addr)) // Check natural alignment
+    if ((raw_mem_addr % 4 != 0) || !within_memory_bounds(mem_addr, 'r')) // Check natural alignment
     {
         throw(static_cast<int>(MEMORY_EXIT_CODE));
     }
@@ -396,7 +396,7 @@ void i_type_instructions::LWL(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32
         cerr << hex << ">> LWL Effective memory address: " << mem_addr << "\n";
     }
 
-    if (mem_addr < ADDR_DATA_OFFSET || mem_addr > (ADDR_DATA_OFFSET + ADDR_DATA_LENGTH)) // If either of the two LSB of address are non-zero then throw exception
+    if (!within_memory_bounds(mem_addr, 'r')) 
     {
         throw(static_cast<int>(MEMORY_EXIT_CODE));
     }
@@ -443,9 +443,7 @@ void i_type_instructions::LWR(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32
     }
 
     //Throw error if not in Readable memory zone
-    if (((mem_addr < ADDR_DATA_OFFSET) || (mem_addr > ADDR_DATA_OFFSET + ADDR_DATA_LENGTH - 1))
-            &&((mem_addr < ADDR_INSTR_OFFSET) || (mem_addr>ADDR_INSTR_LENGTH+ADDR_INSTR_OFFSET-1))
-            &&(mem_addr != ADDR_GETC)) // If either of the two LSB of address are non-zero then throw exception
+    if ((mem_addr != ADDR_GETC) || !within_memory_bounds(mem_addr, 'r')) // If either of the two LSB of address are non-zero then throw exception
     {
         throw(static_cast<int>(MEMORY_EXIT_CODE));
     }
@@ -544,7 +542,7 @@ void i_type_instructions::SB(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_
         cerr << hex << ">> SW Raw memory address: " << raw_mem_addr << "\n";
         cerr << hex << ">> SW Effective memory address: " << mem_addr << "\n";
     }
-    if (mem_addr < ADDR_DATA_OFFSET || mem_addr > (ADDR_DATA_OFFSET + ADDR_DATA_LENGTH))
+    if (!within_memory_bounds(mem_addr, 'w'))
     {
         throw(static_cast<int>(MEMORY_EXIT_CODE));
     }
@@ -565,7 +563,7 @@ void i_type_instructions::SH(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_
         cerr << hex << ">> SW Raw memory address: " << raw_mem_addr << "\n";
         cerr << hex << ">> SW Effective memory address: " << mem_addr << "\n";
     }
-    if (mem_addr < ADDR_DATA_OFFSET || mem_addr > (ADDR_DATA_OFFSET + ADDR_DATA_LENGTH) || (raw_mem_addr % 2 != 0))
+    if ((raw_mem_addr % 2 != 0) || !within_memory_bounds(mem_addr, 'w'))
     {
         throw(static_cast<int>(MEMORY_EXIT_CODE));
     }
@@ -587,7 +585,7 @@ void i_type_instructions::SW(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_
         cerr << hex << ">> SW Effective memory address: " << mem_addr << "\n";
     }
 
-    if (mem_addr < ADDR_DATA_OFFSET || mem_addr > (ADDR_DATA_OFFSET + ADDR_DATA_LENGTH) || (raw_mem_addr % 4 != 0)) // If either of the two LSB of address are non-zero then throw exception
+    if ((raw_mem_addr % 4 != 0) || !within_memory_bounds(mem_addr, 'w')) // If either of the two LSB of address are non-zero then throw exception
     {
         throw(static_cast<int>(MEMORY_EXIT_CODE));
     }
@@ -611,7 +609,7 @@ void i_type_instructions::BGTZ(CPU *&C, INSTR_TYPE &src1, int32_t &sx_idata)
     if (C->reg[src1] > 0)
     {
         ADDR_TYPE mem_addr = C->npc + sx_idata;
-        if(!within_memory_bounds(mem_addr)) {throw(MEMORY_EXIT_CODE);}
+        if(!within_memory_bounds(mem_addr, 'r')) {throw(MEMORY_EXIT_CODE);}
         C->npc = mem_addr;
     }
     else
@@ -629,7 +627,7 @@ void i_type_instructions::BGEZ(CPU *&C, INSTR_TYPE &src1, int32_t &sx_idata)
     if (C->reg[src1] >= 0)
     {
         ADDR_TYPE mem_addr = C->npc + sx_idata;
-        if(!within_memory_bounds(mem_addr)) {throw(MEMORY_EXIT_CODE);}
+        if(!within_memory_bounds(mem_addr, 'r')) {throw(MEMORY_EXIT_CODE);}
         C->npc = mem_addr;
     }
     else
@@ -646,7 +644,7 @@ void i_type_instructions::BGEZAL(CPU *&C, INSTR_TYPE &src1, int32_t &sx_idata)
     if (C->reg[src1] >= 0)
     {
         ADDR_TYPE mem_addr = C->npc + sx_idata;
-        if(!within_memory_bounds(mem_addr)) {throw(MEMORY_EXIT_CODE);}
+        if(!within_memory_bounds(mem_addr, 'r')) {throw(MEMORY_EXIT_CODE);}
         C->reg[31] = (C->npc+1)*4;       // Storing return address of npc into $31
         C->npc = mem_addr;
     }
@@ -665,7 +663,7 @@ void i_type_instructions::BLEZ(CPU *&C, INSTR_TYPE &src1, int32_t &sx_idata)
     if (C->reg[src1] <= 0)
     {
         ADDR_TYPE mem_addr = C->npc + sx_idata;
-        if(!within_memory_bounds(mem_addr)) {throw(MEMORY_EXIT_CODE);}
+        if(!within_memory_bounds(mem_addr, 'r')) {throw(MEMORY_EXIT_CODE);}
         C->npc = mem_addr;   
     } 
     else
@@ -683,7 +681,7 @@ void i_type_instructions::BLTZ(CPU *&C, INSTR_TYPE &src1, int32_t &sx_idata)
     if (C->reg[src1] < 0)
     {
         ADDR_TYPE mem_addr = C->npc + sx_idata;
-        if(!within_memory_bounds(mem_addr)) {throw(MEMORY_EXIT_CODE);}
+        if(!within_memory_bounds(mem_addr, 'r')) {throw(MEMORY_EXIT_CODE);}
         C->npc = mem_addr;
     }
     else
@@ -701,7 +699,7 @@ void i_type_instructions::BLTZAL(CPU *&C, INSTR_TYPE &src1, int32_t &sx_idata)
     if (C->reg[src1] < 0)
     {
         ADDR_TYPE mem_addr = C->npc + sx_idata;
-        if(!within_memory_bounds(mem_addr)) {throw(MEMORY_EXIT_CODE);}
+        if(!within_memory_bounds(mem_addr, 'r')) {throw(MEMORY_EXIT_CODE);}
         C->reg[31] = (C->npc+1)*4;        // Storing return address of npc into $31
         C->npc = mem_addr; // Supposedly 16bit shifted left (x4) but since our memory space is divided by 4, don't need to shift
     }
