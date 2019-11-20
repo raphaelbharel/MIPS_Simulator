@@ -51,7 +51,7 @@ do
       if [ "$output_s" = "$putc_code" ]; then
           outcome="Pass"
 					echo "Pass"
-					COUNT=$((COUNT-1))
+					COUNT=$((COUNT+1))
       else
 				outcome="Fail"
 				echo "Fail"
