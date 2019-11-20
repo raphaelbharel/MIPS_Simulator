@@ -107,8 +107,8 @@ runtests: bin/mips_testbench bin/mips_simulator
 	
 clean:
 	rm bin/mips_simulator
-	rm bin/mips_testbench2
 	rm bin/mips_testbench
+	rm bin/mips_testbench2
 	rm bin/not_my_testbench
 
 cleartests:

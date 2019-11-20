@@ -51,10 +51,10 @@ do
 	if ((${sim_code} == ${RETCODE}))
 	then
 		echo "Pass"
-		printf "${test_id},${operation},Pass,${user_id},${comments}\n">> test/output/testing.csv
+		printf "${test_id},${operation},Pass,${user_id},${comments},${sim_code},${RETCODE}\n">> test/output/testing.csv
 	else
 		echo "Fail"
-		printf "${test_id},${operation},Fail,${user_id},${comments}\n">> test/output/testing.csv
+		printf "${test_id},${operation},Fail,${user_id},${comments},${sim_code},${RETCODE}\n">> test/output/testing.csv
 	fi
 done
 
