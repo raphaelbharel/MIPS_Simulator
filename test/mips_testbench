@@ -6,6 +6,7 @@ echo -e "+-------------------+\n| RUNNING ALL TESTS |\n+-------------------+"
 	#once all tests run, print CSV file to stdout, with each row corresponding to one execution of Simulator under test.
 
 printf "TEST,RETCODE\n" >> test/output/log.csv
+printf "TESTID,TEST,OUTCOME,USER_ID,COMMENTS,MESSAGE,EXPECTED,RETURNED\n">> test/output/testing.csv
 
 for file in test/input/*.bin
 do
