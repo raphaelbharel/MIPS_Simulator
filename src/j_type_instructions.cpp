@@ -8,7 +8,7 @@ int j_type_instructions::execute()
 
     if (DEBUG) {cerr << ">> Executing J type instruction ";}
     code = (C->instr & 0xFC000000) >> 26; //Opcode
-    jdata = (C->instr & 0x3FFFFFF); //Low 28 bits of target address
+    jdata = (C->instr & 0x3FFFFFF); //Low 26 bits of target address (div 4)
 
     switch (code)
     {
@@ -32,6 +32,6 @@ void j_type_instructions::J(CPU *&C, INSTR_TYPE &jdata)
 void j_type_instructions::JAL(CPU *&C, INSTR_TYPE &jdata)
 {
     if (DEBUG) {cerr << "JAL" << endl;}
-    C->reg[31] = C->npc; // Store return address in dest reg
+    C->reg[31] = (C->npc*4 + 4); // Store return address in dest reg (x4 as 32 bits)
     C->npc = ((C->npc & 0xF0000000) | jdata);
 }
