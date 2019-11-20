@@ -157,7 +157,9 @@ void i_type_instructions::BEQ(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32
     }
     if (C->reg[src1] == C->reg[dest])
     {
-        C->npc = C->npc + sx_idata;
+        ADDR_TYPE mem_addr = C->npc + sx_idata;
+        if(!within_memory_bounds(mem_addr)) {throw(MEMORY_EXIT_CODE);}
+        C->npc = mem_addr;
     }
     else
     {
@@ -193,7 +195,7 @@ void i_type_instructions::LBU(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32
         cerr << hex << ">> LBU Effective memory address: " << mem_addr << "\n";
     }
 
-    if (mem_addr < ADDR_DATA_OFFSET || mem_addr > (ADDR_DATA_OFFSET + ADDR_DATA_LENGTH - 1)) // If either of the two LSB of address are non-zero then throw exception
+    if (!within_memory_bounds(mem_addr)) 
     {
         throw(static_cast<int>(MEMORY_EXIT_CODE));
     }
@@ -233,7 +235,7 @@ void i_type_instructions::LB(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_
         cerr << hex << ">> LB Effective memory address: " << mem_addr << "\n";
     }
 
-    if (mem_addr < ADDR_DATA_OFFSET || mem_addr > (ADDR_DATA_OFFSET + ADDR_DATA_LENGTH - 1)) // If either of the two LSB of address are non-zero then throw exception
+    if (!within_memory_bounds(mem_addr)) 
     {
         throw(static_cast<int>(MEMORY_EXIT_CODE));
     }
@@ -312,7 +314,7 @@ void i_type_instructions::LH(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_
         cerr << hex << ">> LH Effective memory address: " << mem_addr << "\n";
     }
 
-    if (mem_addr < ADDR_DATA_OFFSET || mem_addr > (ADDR_DATA_OFFSET + ADDR_DATA_LENGTH - 1) || (mem_addr % 2 != 0)) // LSB non zero i.e. not multiple of 2
+    if ((mem_addr % 2 != 0) || !within_memory_bounds(mem_addr)) // LSB non zero i.e. not multiple of 2
     {
         throw(static_cast<int>(MEMORY_EXIT_CODE));
     }
@@ -369,10 +371,7 @@ void i_type_instructions::LW(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_
         cerr << hex << ">> LW Effective memory address: " << mem_addr << "\n";
     }
 
-    if ((raw_mem_addr % 4 != 0) || 
-        !(mem_addr >= ADDR_INSTR_OFFSET && mem_addr <= (ADDR_INSTR_OFFSET + ADDR_INSTR_LENGTH)) || 
-        !(mem_addr >= ADDR_DATA_OFFSET && mem_addr <= (ADDR_DATA_OFFSET + ADDR_DATA_LENGTH)))
-        !(mem_addr == ADDR_GETC) // Check natural alignment
+    if ((raw_mem_addr % 4 != 0) || !within_memory_bounds(mem_addr)) // Check natural alignment
     {
         throw(static_cast<int>(MEMORY_EXIT_CODE));
     }

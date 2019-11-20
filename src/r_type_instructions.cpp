@@ -21,7 +21,7 @@ int r_type_instructions::execute()
     case 0x21:
         ADDU(C, src1, src2, dest);
         return 1;
-    case 0x44:
+    case 0x24:
         AND(C, src1, src2, dest);
         return 1;
     case 0x8:

@@ -52,6 +52,7 @@ typedef int32_t REG_TYPE;
 // Function declarations
 char read_char();
 char read_instruction(INSTR_TYPE &instruction);
+bool within_memory_bounds(const ADDR_TYPE &mem_addr);
 void __print_memory(const std::vector<MEM_TYPE> &v);
 void __print_memory_specific(const std::vector<MEM_TYPE> &v, const int &start_index, const int &end_index);
 
