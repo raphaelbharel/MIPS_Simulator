@@ -36,28 +36,28 @@ bgez5.bin,bgez,Pass,QFSW,backwards-branch,,0,0
 bgez6.bin,bgez,Pass,QFSW,rs>0,,2,2
 bgezal1.bin,bgezal,Pass,QFSW,rs>0,,17,17
 bgezal2.bin,bgezal,Pass,QFSW,rs<0,,4,4
-bgezal3.bin,bgezal,Fail,QFSW,link-set,[INFO] Expected: '13' Returned: '-11',13,-11
-bgezal4.bin,bgezal,Pass,QFSW,rs=0,[INFO] Expected: '13' Returned: '-11',17,17
-bgtz1.bin,bgtz,Pass,QFSW,rs>0,[INFO] Expected: '13' Returned: '-11',2,2
-bgtz2.bin,bgtz,Pass,QFSW,rs=0,[INFO] Expected: '13' Returned: '-11',4,4
-bgtz3.bin,bgtz,Pass,QFSW,bad-pc,[INFO] Expected: '13' Returned: '-11',-11,-11
-bgtz4.bin,bgtz,Pass,QFSW,bad-pc,[INFO] Expected: '13' Returned: '-11',-11,-11
-bgtz5.bin,bgtz,Pass,QFSW,backwards-branch,[INFO] Expected: '13' Returned: '-11',0,0
-bgtz6.bin,bgtz,Pass,QFSW,rs<0,[INFO] Expected: '13' Returned: '-11',4,4
-blez1.bin,blez,Pass,QFSW,rs>0,[INFO] Expected: '13' Returned: '-11',4,4
-blez2.bin,blez,Pass,QFSW,rs=0,[INFO] Expected: '13' Returned: '-11',2,2
-blez3.bin,blez,Pass,QFSW,bad-pc,[INFO] Expected: '13' Returned: '-11',-11,-11
-blez4.bin,blez,Pass,QFSW,bad-pc,[INFO] Expected: '13' Returned: '-11',-11,-11
-blez5.bin,blez,Pass,QFSW,backwards-branch,[INFO] Expected: '13' Returned: '-11',0,0
-blez6.bin,blez,Pass,QFSW,rs<0,[INFO] Expected: '13' Returned: '-11',2,2
-bltz1.bin,bltz,Pass,QFSW,rs>0,[INFO] Expected: '13' Returned: '-11',4,4
-bltz2.bin,bltz,Pass,QFSW,rs=0,[INFO] Expected: '13' Returned: '-11',4,4
-bltz3.bin,bltz,Pass,QFSW,bad-pc,[INFO] Expected: '13' Returned: '-11',-11,-11
-bltz4.bin,bltz,Pass,QFSW,bad-pc,[INFO] Expected: '13' Returned: '-11',-11,-11
-bltz5.bin,bltz,Pass,QFSW,backwards-branch,[INFO] Expected: '13' Returned: '-11',0,0
-bltz6.bin,bltz,Pass,QFSW,rs<0,[INFO] Expected: '13' Returned: '-11',2,2
-bltzal1.bin,bltzal,Pass,QFSW,rs>0,[INFO] Expected: '13' Returned: '-11',7,7
-bltzal2.bin,bltzal,Pass,QFSW,rs<0,[INFO] Expected: '13' Returned: '-11',14,14
+bgezal3.bin,bgezal,Pass,QFSW,link-set,,13,13
+bgezal4.bin,bgezal,Pass,QFSW,rs=0,,17,17
+bgtz1.bin,bgtz,Pass,QFSW,rs>0,,2,2
+bgtz2.bin,bgtz,Pass,QFSW,rs=0,,4,4
+bgtz3.bin,bgtz,Pass,QFSW,bad-pc,,-11,-11
+bgtz4.bin,bgtz,Pass,QFSW,bad-pc,,-11,-11
+bgtz5.bin,bgtz,Pass,QFSW,backwards-branch,,0,0
+bgtz6.bin,bgtz,Pass,QFSW,rs<0,,4,4
+blez1.bin,blez,Pass,QFSW,rs>0,,4,4
+blez2.bin,blez,Pass,QFSW,rs=0,,2,2
+blez3.bin,blez,Pass,QFSW,bad-pc,,-11,-11
+blez4.bin,blez,Pass,QFSW,bad-pc,,-11,-11
+blez5.bin,blez,Pass,QFSW,backwards-branch,,0,0
+blez6.bin,blez,Pass,QFSW,rs<0,,2,2
+bltz1.bin,bltz,Pass,QFSW,rs>0,,4,4
+bltz2.bin,bltz,Pass,QFSW,rs=0,,4,4
+bltz3.bin,bltz,Pass,QFSW,bad-pc,,-11,-11
+bltz4.bin,bltz,Pass,QFSW,bad-pc,,-11,-11
+bltz5.bin,bltz,Pass,QFSW,backwards-branch,,0,0
+bltz6.bin,bltz,Pass,QFSW,rs<0,,2,2
+bltzal1.bin,bltzal,Pass,QFSW,rs>0,,7,7
+bltzal2.bin,bltzal,Pass,QFSW,rs<0,,14,14
 bltzal3.bin,bgezal,Fail,QFSW,link-set,[INFO] Expected: '13' Returned: '-11',13,-11
 bltzal4.bin,bltzal,Pass,QFSW,rs=0,[INFO] Expected: '13' Returned: '-11',4,4
 bne1.bin,bne,Pass,QFSW,rs==rt,[INFO] Expected: '13' Returned: '-11',4,4
