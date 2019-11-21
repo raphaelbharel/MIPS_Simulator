@@ -386,7 +386,7 @@ void r_type_instructions::MULTU(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &src2)
 void r_type_instructions::JALR(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest)
 {
     if (DEBUG)
-    {
+    {  
         cerr << "JALR" << endl;
     }
     C->reg[dest] = (C->npc*4)+4; // Store return address in dest reg

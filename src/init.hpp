@@ -188,7 +188,7 @@ public:
         else if (loc == ADDR_PUTC)
         {
             PUTC = val;
-            std::cout << val;
+            std::cout << (char)val;
             return;
         }
         throw(MEMORY_EXIT_CODE);

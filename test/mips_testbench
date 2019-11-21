@@ -55,7 +55,7 @@ do
       else
 				outcome="Fail"
 				echo "Fail"
-				message="[INFO] Expected simoutput: '$output_s' Returned putc: '$putc_code'" >&2
+				message="[INFO] Expected simoutput: '$putc_code' Returned putc: '$output_s'" >&2
 				echo ${message}
       fi
   else
