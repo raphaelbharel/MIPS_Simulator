@@ -243,7 +243,6 @@ void i_type_instructions::LB(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_
     }
     MEM_TYPE word_at_address = C->read_from_memory(mem_addr); // mem is a pointer to the memory block
     int byte_offset = raw_mem_addr % 4;
-    cerr << "offset: " << byte_offset << endl;
     MEM_TYPE pre_sx;
     switch (byte_offset)
     {

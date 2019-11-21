@@ -120,8 +120,9 @@ public:
         std::cerr << "| "
                   << "$HI"
                   << "\t" << regHI << std::endl;
-        std::cerr << "+---------------+" << std::endl
-                  << "\n";
+        std::cerr << "+---------------+" << "\n";
+        std::cerr << "|\n| "<< "PUTC"<< "\t" << PUTC << std::endl;
+        std::cerr << "+---------------+" << std::endl<< "\n";
     }
     MEM_TYPE read_from_memory(const ADDR_TYPE &loc)
     {
@@ -148,7 +149,7 @@ public:
         if (loc >= ADDR_DATA_OFFSET && loc <= (ADDR_DATA_OFFSET + ADDR_DATA_LENGTH))
         {
             if (type == 'b')
-            {
+            {    
                 switch (offset)
                 { // Byte
                 case 3:
@@ -183,12 +184,50 @@ public:
             { // Word
                 mem[loc - ADDR_DATA_OFFSET] = val;
                 return;
-            }
+            } 
         }
         else if (loc == ADDR_PUTC)
         {
-            PUTC = val;
-            std::cout << (char)val;
+            if (type == 'b')
+            {    
+                switch (offset)
+                { // Byte
+                case 3:
+                    PUTC = (PUTC & 0xFFFFFF00) | val;
+                    break;
+                case 2:
+                    PUTC = (PUTC & 0xFFFF00FF) | (val << 8);
+                    break;
+                case 1:
+                    PUTC = (PUTC & 0xFF00FFFF) | (val << 16);
+                    break;
+                case 0:
+                    PUTC = (PUTC & 0xFFFFFF) | (val << 24);
+                    break;
+                default:
+                    break;
+                }
+            }
+            else if (type == 'h')
+            { // Half
+                switch (offset)
+                {
+                case 2:
+                    PUTC = (PUTC & 0xFFFF0000) | val;
+                    break;
+                case 0:
+                    PUTC = (PUTC & 0xFFFF) | (val << 16);
+                    break;
+                default:
+                    break;
+                }
+            }
+            else if (type == 'w')
+            { // Word
+                PUTC = val;
+            } 
+            putchar(PUTC&0xFF);
+            if (!std::cout.good()) {throw(IO_EXIT_CODE);}
             return;
         }
         throw(MEMORY_EXIT_CODE);
