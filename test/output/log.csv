@@ -58,7 +58,7 @@ bltz5.bin,0
 bltz6.bin,2
 bltzal1.bin,7
 bltzal2.bin,14
-bltzal3.bin,-11
+bltzal3.bin,13
 bltzal4.bin,4
 bne1.bin,4
 bne2.bin,2
@@ -114,7 +114,7 @@ lbu12.bin,72
 lbu2.bin,100
 lbu3.bin,100
 lbu4.bin,0
-lbu5.bin,0
+lbu5.bin,1
 lbu6.bin,-11
 lbu7.bin,72
 lbu8.bin,-11

@@ -206,13 +206,13 @@ void i_type_instructions::LBU(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32
     switch (byte_offset)
     {
     case 0:
-        C->reg[dest] = 0xFF000000 & word_at_address;
+        C->reg[dest] = (0xFF000000 & word_at_address) >> 24;
         break;
     case 1:
-        C->reg[dest] = 0xFF0000 & word_at_address;
+        C->reg[dest] = (0xFF0000 & word_at_address) >> 16;
         break;
     case 2:
-        C->reg[dest] = 0xFF00 & word_at_address;
+        C->reg[dest] = (0xFF00 & word_at_address) >> 8;
         break;
     case 3:
         C->reg[dest] = 0xFF & word_at_address;
