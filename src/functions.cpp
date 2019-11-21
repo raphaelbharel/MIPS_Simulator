@@ -37,9 +37,10 @@ bool within_memory_bounds(const ADDR_TYPE &mem_addr, const char &mode) {
         return (mem_addr >= ADDR_INSTR_OFFSET && mem_addr < (ADDR_INSTR_OFFSET + ADDR_INSTR_LENGTH)) ||
         (mem_addr >= ADDR_DATA_OFFSET && mem_addr < (ADDR_DATA_OFFSET + ADDR_DATA_LENGTH)) ||
         (mem_addr == ADDR_GETC);
-    } else if (mode == 'w') {
+    } 
+    else if (mode == 'w') {
         return (mem_addr >= ADDR_DATA_OFFSET && mem_addr < (ADDR_DATA_OFFSET + ADDR_DATA_LENGTH)) ||
-        (mem_addr == ADDR_GETC) || (mem_addr == ADDR_PUTC);
+        (mem_addr == ADDR_PUTC);
     }
     else if(mode == 'x'){
         return (mem_addr >= ADDR_INSTR_OFFSET && mem_addr < (ADDR_INSTR_OFFSET + ADDR_INSTR_LENGTH)) ||

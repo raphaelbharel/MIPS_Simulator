@@ -189,8 +189,8 @@ void i_type_instructions::LBU(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32
     {
         cerr << "LBU" << endl;
     }                                               // Load byte unsigned LBU $1 16bOFFSET($2)}
-    int32_t raw_mem_addr = sx_idata + C->reg[src1]; // 16b signed offset + base
-    int32_t mem_addr = raw_mem_addr / 4;
+    ADDR_TYPE raw_mem_addr = sx_idata + C->reg[src1]; // 16b signed offset + base
+    ADDR_TYPE mem_addr = raw_mem_addr / 4;
     if (DEBUG)
     {
         cerr << hex << ">> LBU Raw memory address: " << raw_mem_addr << "\n";
@@ -229,8 +229,8 @@ void i_type_instructions::LB(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_
     {
         cerr << "LB" << endl;
     }
-    int32_t raw_mem_addr = sx_idata + C->reg[src1]; // 16b signed offset + base
-    int32_t mem_addr = raw_mem_addr / 4;
+    ADDR_TYPE raw_mem_addr = sx_idata + C->reg[src1]; // 16b signed offset + base
+    ADDR_TYPE mem_addr = raw_mem_addr / 4;
     if (DEBUG)
     {
         cerr << hex << ">> LB Raw memory address: " << raw_mem_addr << "\n";
@@ -243,6 +243,7 @@ void i_type_instructions::LB(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_
     }
     MEM_TYPE word_at_address = C->read_from_memory(mem_addr); // mem is a pointer to the memory block
     int byte_offset = raw_mem_addr % 4;
+    cerr << "offset: " << byte_offset << endl;
     MEM_TYPE pre_sx;
     switch (byte_offset)
     {
@@ -274,8 +275,8 @@ void i_type_instructions::LHU(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32
     {
         cerr << "LHU" << endl;
     }
-    int32_t raw_mem_addr = sx_idata + C->reg[src1]; // 16b signed offset + base
-    int32_t mem_addr = raw_mem_addr / 4;
+    ADDR_TYPE raw_mem_addr = sx_idata + C->reg[src1]; // 16b signed offset + base
+    ADDR_TYPE mem_addr = raw_mem_addr / 4;
     if (DEBUG)
     {
         cerr << hex << ">> LBU Raw memory address: " << raw_mem_addr << "\n";
@@ -308,8 +309,8 @@ void i_type_instructions::LH(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_
     {
         cerr << "LH" << endl;
     }
-    int32_t raw_mem_addr = sx_idata + C->reg[src1]; // 16b signed offset + base
-    int32_t mem_addr = raw_mem_addr / 4;
+    ADDR_TYPE raw_mem_addr = sx_idata + C->reg[src1]; // 16b signed offset + base
+    ADDR_TYPE mem_addr = raw_mem_addr / 4;
     if (DEBUG)
     {
         cerr << hex << ">> LH Raw memory address: " << raw_mem_addr << "\n";
@@ -365,8 +366,8 @@ void i_type_instructions::LW(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_
     {
         cerr << "LW" << endl;
     }
-    int32_t raw_mem_addr = sx_idata + C->reg[src1];
-    int32_t mem_addr = raw_mem_addr / 4;
+    ADDR_TYPE raw_mem_addr = sx_idata + C->reg[src1];
+    ADDR_TYPE mem_addr = raw_mem_addr / 4;
     if (DEBUG)
     {
         cerr << hex << ">> LW Raw memory address: " << raw_mem_addr << "\n";
@@ -388,8 +389,8 @@ void i_type_instructions::LWL(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32
     {
         cerr << "LWL" << endl;
     }
-    int32_t raw_mem_addr = sx_idata + C->reg[src1]; // 16b signed offset + base
-    int32_t mem_addr = raw_mem_addr / 4;
+    ADDR_TYPE raw_mem_addr = sx_idata + C->reg[src1]; // 16b signed offset + base
+    ADDR_TYPE mem_addr = raw_mem_addr / 4;
     if (DEBUG)
     {
         cerr << hex << ">> LWL Raw memory address: " << raw_mem_addr << "\n";
@@ -434,8 +435,8 @@ void i_type_instructions::LWR(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32
     {
         cerr << "LWR" << endl;
     }
-    int32_t raw_mem_addr = sx_idata + C->reg[src1]; // 16b signed offset + base
-    int32_t mem_addr = raw_mem_addr / 4;
+    ADDR_TYPE raw_mem_addr = sx_idata + C->reg[src1]; // 16b signed offset + base
+    ADDR_TYPE mem_addr = raw_mem_addr / 4;
     if (DEBUG)
     {
         cerr << hex << ">> LWR Raw memory address: " << raw_mem_addr << "\n";
@@ -443,11 +444,10 @@ void i_type_instructions::LWR(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32
     }
 
     //Throw error if not in Readable memory zone
-    if ((mem_addr != ADDR_GETC) || !within_memory_bounds(mem_addr, 'r')) // If either of the two LSB of address are non-zero then throw exception
+    if (!within_memory_bounds(mem_addr, 'r')) // If either of the two LSB of address are non-zero then throw exception
     {
         throw(static_cast<int>(MEMORY_EXIT_CODE));
     }
-    
     MEM_TYPE word_at_address = C->read_from_memory(mem_addr); // mem is a pointer to the memory block
     MEM_TYPE LSBytes;
     int byte_offset = raw_mem_addr % 4;
@@ -455,7 +455,7 @@ void i_type_instructions::LWR(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32
     switch (byte_offset)
     // Extract bytes starting from byte_offset to end of aligned word then left shift
     {
-    case 0:
+    case 0: // Aligned
         LSBytes = (0xFF000000 & word_at_address) >> 24;
         C->reg[dest] = (C->reg[dest] & 0xFFFFFF00) | LSBytes; // Merge contents
         break;
@@ -536,7 +536,7 @@ void i_type_instructions::SB(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_
     {
         cerr << "SB" << endl;
     }
-    INSTR_TYPE raw_mem_addr = sx_idata + C->reg[src1];
+    ADDR_TYPE raw_mem_addr = sx_idata + C->reg[src1];
     ADDR_TYPE mem_addr = raw_mem_addr / 4;
     ADDR_TYPE mem_offset = raw_mem_addr % 4;
     
@@ -560,7 +560,7 @@ void i_type_instructions::SH(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_
     {
         cerr << "SH" << endl;
     }
-    INSTR_TYPE raw_mem_addr = sx_idata + C->reg[src1];
+    ADDR_TYPE raw_mem_addr = sx_idata + C->reg[src1];
     ADDR_TYPE mem_addr = raw_mem_addr / 4;
     ADDR_TYPE mem_offset = raw_mem_addr % 4;
     if (DEBUG)
@@ -583,8 +583,8 @@ void i_type_instructions::SW(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_
     {
         cerr << "SW" << endl;
     }
-    INSTR_TYPE raw_mem_addr = sx_idata + C->reg[src1];
-    INSTR_TYPE mem_addr = raw_mem_addr / 4;
+    ADDR_TYPE raw_mem_addr = sx_idata + C->reg[src1];
+    ADDR_TYPE mem_addr = raw_mem_addr / 4;
     ADDR_TYPE mem_offset = raw_mem_addr % 4;
     if (DEBUG)
     {
