@@ -550,7 +550,7 @@ void i_type_instructions::SB(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_
     {
         throw(static_cast<int>(MEMORY_EXIT_CODE));
     }
-    C->write_to_memory(mem_addr, mem_offset, 'b', C->reg[dest] & 0xFF);
+    C->write_to_memory(mem_addr, mem_offset, 'b', C->reg[dest]);
     C->npc = C->npc + 1;
 }
 
