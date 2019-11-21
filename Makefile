@@ -93,8 +93,8 @@ test-bltz4: bin/mips_simulator test/input/bltz4.bin
 test-lbu5: bin/mips_simulator test/input/lbu5.bin
 		./bin/mips_simulator test/input/lbu5.bin $(DEBUG_SETTING)
 
-test-bltzal3: bin/mips_simulator test/input/bltzal3.bin
-		./bin/mips_simulator test/input/bltzal3.bin $(DEBUG_SETTING)
+test-hello: bin/mips_simulator test/input/hello.bin
+		./bin/mips_simulator test/input/hello.bin $(DEBUG_SETTING)
 
 
 
