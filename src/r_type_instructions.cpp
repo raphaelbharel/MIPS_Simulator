@@ -337,7 +337,7 @@ void r_type_instructions::DIV(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &src2)
     {
         cerr << "DIV" << endl;
     }
-    if (!src2) { // Division by zero
+    if (!C->reg[src2]) { // Division by zero
         throw(ARITHMETIC_EXIT_CODE);
     }
     C->regLO = C->reg[src1] / C->reg[src2];
@@ -351,7 +351,7 @@ void r_type_instructions::DIVU(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &src2)
     {
         cerr << "DIVU" << endl;
     }
-    if (!src2) { // Division by zero
+    if (!C->reg[src2]) { // Division by zero
         throw(ARITHMETIC_EXIT_CODE);
     }
     C->regLO = static_cast<uint32_t>(C->reg[src1]) / static_cast<uint32_t>(C->reg[src2]);
@@ -376,7 +376,8 @@ void r_type_instructions::MULTU(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &src2)
     {
         cerr << "MULTU" << endl;
     }
-    uint64_t product = static_cast<uint64_t>(C->reg[src1]) * static_cast<uint64_t>(C->reg[src2]);
+
+    uint64_t product = static_cast<uint64_t>(static_cast<uint32_t>(C->reg[src1])) * static_cast<uint64_t>(static_cast<uint32_t>(C->reg[src2]));
     C->regLO = static_cast<MEM_TYPE>(product & 0xFFFFFFFF);
     C->regHI = static_cast<MEM_TYPE>(product >> 32);
     C->npc = C->npc + 1;
