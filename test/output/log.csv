@@ -36,7 +36,7 @@ bgez5.bin,0
 bgez6.bin,2
 bgezal1.bin,17
 bgezal2.bin,4
-bgezal3.bin,-11
+bgezal3.bin,13
 bgezal4.bin,17
 bgtz1.bin,2
 bgtz2.bin,4
@@ -193,7 +193,7 @@ mult2.bin,35
 mult3.bin,-128
 mult4.bin,0
 multu1.bin,12
-multu2.bin,0
+multu2.bin,127
 nopskp.bin,69
 numread1.bin,7
 numread2.bin,12

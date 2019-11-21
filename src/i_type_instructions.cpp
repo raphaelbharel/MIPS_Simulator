@@ -646,11 +646,15 @@ void i_type_instructions::BGEZAL(CPU *&C, INSTR_TYPE &src1, int32_t &sx_idata)
     {
         cerr << "BGEZAL" << endl;
     }
+    
+    C->reg[31] = (C->npc+1)*4;       // Storing return address of npc into $31
+    
     if (C->reg[src1] >= 0)
     {
         ADDR_TYPE mem_addr = C->npc + sx_idata;
-        if(!within_memory_bounds(mem_addr, 'r')) {throw(MEMORY_EXIT_CODE);}
-        C->reg[31] = (C->npc+1)*4;       // Storing return address of npc into $31
+        cerr << "Sign extended offset: " << hex << sx_idata << endl;
+        cerr << "Mem_addr" << hex << mem_addr << endl;
+        if(!within_memory_bounds(mem_addr, 'x')) {throw(MEMORY_EXIT_CODE);}
         C->npc = mem_addr;
     }
     else
