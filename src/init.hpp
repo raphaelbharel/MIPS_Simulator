@@ -137,7 +137,7 @@ public:
         }
     }
     void write_to_memory(const ADDR_TYPE &loc, const ADDR_TYPE &offset, const char &type, const MEM_TYPE &val) {
-        if (loc >= ADDR_DATA_OFFSET && loc <= (ADDR_DATA_OFFSET + ADDR_DATA_LENGTH)) {
+        if (loc >= ADDR_DATA_OFFSET && loc < (ADDR_DATA_OFFSET + ADDR_DATA_LENGTH)) {
             if(type == 'b')
             {
                 switch(offset) { // Byte
