@@ -61,7 +61,7 @@ do
   else
 			outcome="Fail"
 			echo "Fail"
-			message="[INFO] Expected: '$RETCODE' Returned: '$sim_code'" >&2
+			message="[INFO] Expected: '$sim_code' Returned: '$RETCODE'" >&2
 			echo ${message}
   fi
 
