@@ -33,9 +33,11 @@ void j_type_instructions::J(CPU *&C, INSTR_TYPE &jdata)
         cerr << "Next PC/4"<< hex << ((C->npc)*4)<<endl;
         }
     
-    MEM_TYPE upper_bits = (C->npc) & 0x3C0000000;
-    MEM_TYPE lower_bits = jdata*4;
-   C->npc = upper_bits | lower_bits;
+    MEM_TYPE upper_bits = (C->npc) & 0x3C000000;
+    MEM_TYPE lower_bits = jdata;
+    MEM_TYPE instr_address = upper_bits | lower_bits;
+
+    C->npc = instr_address;
 }
 
 void j_type_instructions::JAL(CPU *&C, INSTR_TYPE &jdata)
@@ -44,5 +46,7 @@ void j_type_instructions::JAL(CPU *&C, INSTR_TYPE &jdata)
     C->reg[31] = (C->npc)*4 + 4; // Store return address in dest reg (x4 as 32 bits)
     MEM_TYPE upper_bits = (C->npc) & 0x3C000000;
     MEM_TYPE lower_bits = jdata;
-    C->npc = (upper_bits | lower_bits)*4;
+    MEM_TYPE instr_address = upper_bits | lower_bits;
+
+    C->npc = instr_address;
 }

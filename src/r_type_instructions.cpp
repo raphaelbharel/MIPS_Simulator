@@ -84,7 +84,7 @@ int r_type_instructions::execute()
     case 0x1B:
         DIVU(C, src1, src2);
         return 1;
-    case 0x5:
+    case 0x9:
         JALR(C, src1, dest);
         return 1;
     case 0x18:
@@ -388,13 +388,13 @@ void r_type_instructions::JALR(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest)
     {
         cerr << "JALR" << endl;
     }
-    C->reg[dest] = C->npc; // Store return address in dest reg
+    C->reg[dest] = (C->npc*4)+4; // Store return address in dest reg
     if (C->reg[src1] % 4 != 0)
     {
         throw(static_cast<int>(MEMORY_EXIT_CODE));
     }
     else
     {
-        C->npc = C->npc + C->reg[src1]; // Add offset to npc
+        C->npc = C->reg[src1] >> 2; // Add offset to npc
     }
 }

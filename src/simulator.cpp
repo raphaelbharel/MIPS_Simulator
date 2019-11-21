@@ -102,6 +102,12 @@ int main(int argc /* argument count */, char *argv[] /* argument list */)
 				C.view_regs();
 			}
 		}
+		
+		if (!within_memory_bounds(C.pc, 'x')) // If the PC has gone outside the executable zone
+    {
+        throw(static_cast<int>(MEMORY_EXIT_CODE));
+    }
+
 
 		//Successful termination/completion = return low 8-bits of the value in register $2.
 		INSTR_TYPE SUCCESSFUL_EXIT_CODE = C.reg[2] & 0xFF;
