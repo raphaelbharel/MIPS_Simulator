@@ -248,15 +248,16 @@ void i_type_instructions::LB(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_
     switch (byte_offset)
     {
     case 0:
-        C->reg[dest] = 0xFF000000 & word_at_address; // doesn't need to sign extend
+        pre_sx = (0xFF000000 & word_at_address) >> 24; // doesn't need to sign extend
+        C->reg[dest] = sign_extend_int32(pre_sx, 8); 
         break;
     case 1:
-        pre_sx = 0xFF0000 & word_at_address;
-        C->reg[dest] = sign_extend_int32(pre_sx, 24);
+        pre_sx = (0xFF0000 & word_at_address) >> 16;
+        C->reg[dest] = sign_extend_int32(pre_sx, 8);
         break;
     case 2:
-        pre_sx = 0xFF00 & word_at_address;
-        C->reg[dest] = sign_extend_int32(pre_sx, 16);
+        pre_sx = (0xFF00 & word_at_address) >> 8;
+        C->reg[dest] = sign_extend_int32(pre_sx, 8);
         break;
     case 3:
         pre_sx = 0xFF & word_at_address;

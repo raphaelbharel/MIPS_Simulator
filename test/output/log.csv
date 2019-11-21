@@ -72,7 +72,7 @@ div4.bin,-10
 div5.bin,0
 divu1.bin,2
 divu2.bin,-1
-divu3.bin,-120
+divu3.bin,-10
 hello.bin,0
 j1.bin,3
 j2.bin,-11
@@ -102,7 +102,7 @@ lb13.bin,-1
 lb2.bin,100
 lb3.bin,100
 lb4.bin,-1
-lb5.bin,0
+lb5.bin,1
 lb6.bin,-11
 lb7.bin,72
 lb8.bin,-11

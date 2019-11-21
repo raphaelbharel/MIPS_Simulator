@@ -72,7 +72,7 @@ div4.bin,div,Fail,ChrisDeverall,div_zero,[INFO] Expected: '0' Returned: '-10',0,
 div5.bin,div,Pass,ChrisDeverall,overflow,[INFO] Expected: '0' Returned: '-10',0,0
 divu1.bin,divu,Pass,ChrisDeverall,standard,[INFO] Expected: '0' Returned: '-10',2,2
 divu2.bin,divu,Pass,ChrisDeverall,negative,[INFO] Expected: '0' Returned: '-10',-1,-1
-divu3.bin,divu,Fail,ChrisDeverall,div_zero,[INFO] Expected: '0' Returned: '-120',0,-120
+divu3.bin,divu,Fail,ChrisDeverall,div_zero,[INFO] Expected: '0' Returned: '-10',0,-10
 hello.bin,sw,Fail,QFSW,testing PUTC,[INFO] Expected simoutput: '721011081081113287111114108100' Returned putc: 'Hello World',0,0
 j1.bin,j,Pass,QFSW,,[INFO] Expected simoutput: '721011081081113287111114108100' Returned putc: 'Hello World',3,3
 j2.bin,j,Pass,QFSW,bad-pc,[INFO] Expected simoutput: '721011081081113287111114108100' Returned putc: 'Hello World',-11,-11
@@ -102,18 +102,18 @@ lb13.bin,lb,Pass,ChrisDeverall,null+eof,[INFO] Expected simoutput: '721011081081
 lb2.bin,lb,Pass,QFSW,,[INFO] Expected simoutput: '721011081081113287111114108100' Returned putc: 'Hello World',100,100
 lb3.bin,lb,Pass,QFSW,,[INFO] Expected simoutput: '721011081081113287111114108100' Returned putc: 'Hello World',100,100
 lb4.bin,lb,Pass,QFSW,sign-extension,[INFO] Expected simoutput: '721011081081113287111114108100' Returned putc: 'Hello World',-1,-1
-lb5.bin,lb,Fail,QFSW,,[INFO] Expected: '1' Returned: '0',1,0
-lb6.bin,lb,Pass,QFSW,outofrange,[INFO] Expected: '1' Returned: '0',-11,-11
-lb7.bin,lb,Pass,QFSW,getc,[INFO] Expected: '1' Returned: '0',72,72
-lb8.bin,lb,Pass,QFSW,putc,[INFO] Expected: '1' Returned: '0',-11,-11
-lb9.bin,lb,Pass,QFSW,instr,[INFO] Expected: '1' Returned: '0',13,13
-lbu1.bin,lbu,Pass,QFSW,,[INFO] Expected: '1' Returned: '0',100,100
-lbu10.bin,lbu,Pass,QFSW,instr-nops,[INFO] Expected: '1' Returned: '0',0,0
-lbu11.bin,lbu,Pass,QFSW,addr-null,[INFO] Expected: '1' Returned: '0',-11,-11
-lbu12.bin,lbu,Pass,ChrisDeverall,getc-offset,[INFO] Expected: '1' Returned: '0',72,72
-lbu2.bin,lbu,Pass,QFSW,,[INFO] Expected: '1' Returned: '0',100,100
-lbu3.bin,lbu,Pass,QFSW,,[INFO] Expected: '1' Returned: '0',100,100
-lbu4.bin,lbu,Pass,QFSW,zero-extension,[INFO] Expected: '1' Returned: '0',0,0
+lb5.bin,lb,Pass,QFSW,,[INFO] Expected simoutput: '721011081081113287111114108100' Returned putc: 'Hello World',1,1
+lb6.bin,lb,Pass,QFSW,outofrange,[INFO] Expected simoutput: '721011081081113287111114108100' Returned putc: 'Hello World',-11,-11
+lb7.bin,lb,Pass,QFSW,getc,[INFO] Expected simoutput: '721011081081113287111114108100' Returned putc: 'Hello World',72,72
+lb8.bin,lb,Pass,QFSW,putc,[INFO] Expected simoutput: '721011081081113287111114108100' Returned putc: 'Hello World',-11,-11
+lb9.bin,lb,Pass,QFSW,instr,[INFO] Expected simoutput: '721011081081113287111114108100' Returned putc: 'Hello World',13,13
+lbu1.bin,lbu,Pass,QFSW,,[INFO] Expected simoutput: '721011081081113287111114108100' Returned putc: 'Hello World',100,100
+lbu10.bin,lbu,Pass,QFSW,instr-nops,[INFO] Expected simoutput: '721011081081113287111114108100' Returned putc: 'Hello World',0,0
+lbu11.bin,lbu,Pass,QFSW,addr-null,[INFO] Expected simoutput: '721011081081113287111114108100' Returned putc: 'Hello World',-11,-11
+lbu12.bin,lbu,Pass,ChrisDeverall,getc-offset,[INFO] Expected simoutput: '721011081081113287111114108100' Returned putc: 'Hello World',72,72
+lbu2.bin,lbu,Pass,QFSW,,[INFO] Expected simoutput: '721011081081113287111114108100' Returned putc: 'Hello World',100,100
+lbu3.bin,lbu,Pass,QFSW,,[INFO] Expected simoutput: '721011081081113287111114108100' Returned putc: 'Hello World',100,100
+lbu4.bin,lbu,Pass,QFSW,zero-extension,[INFO] Expected simoutput: '721011081081113287111114108100' Returned putc: 'Hello World',0,0
 lbu5.bin,lbu,Fail,QFSW,,[INFO] Expected: '1' Returned: '0',1,0
 lbu6.bin,lbu,Pass,QFSW,outofrange,[INFO] Expected: '1' Returned: '0',-11,-11
 lbu7.bin,lbu,Pass,QFSW,getc,[INFO] Expected: '1' Returned: '0',72,72
