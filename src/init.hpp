@@ -53,8 +53,6 @@ typedef int32_t REG_TYPE;
 char read_char();
 char read_instruction(INSTR_TYPE &instruction);
 bool within_memory_bounds(const ADDR_TYPE &mem_addr, const char &mode);
-void __print_memory(const std::vector<MEM_TYPE> &v);
-void __print_memory_specific(const std::vector<MEM_TYPE> &v, const int &start_index, const int &end_index);
 
 // Template functions
 template <typename T>
@@ -71,19 +69,19 @@ int32_t sign_extend_int32(const T &data, const int &initial_length)
     return static_cast<int32_t>(rv);
 }
 
-// Class definitions
+//Class CPU - holds the state of our MIPS CPU at any given point.
 class CPU
 {
 public:
-    ADDR_TYPE pc;
-    ADDR_TYPE npc;
-    INSTR_TYPE instr;
-    std::vector<REG_TYPE> reg;
-    std::vector<MEM_TYPE> mem;
-    std::vector<MEM_TYPE> instruction_mem;
-    REG_TYPE regHI;
-    REG_TYPE regLO;
-    MEM_TYPE PUTC;
+    ADDR_TYPE pc;                          //program counter
+    ADDR_TYPE npc;                         //next program counter (after branch delay)
+    INSTR_TYPE instr;                      //instruction
+    std::vector<REG_TYPE> reg;             //Vector of our 32 General Purpose Registers
+    std::vector<MEM_TYPE> mem;             //RW memory
+    std::vector<MEM_TYPE> instruction_mem; //Where instructions are loaded
+    REG_TYPE regHI;                        //HI special register
+    REG_TYPE regLO;                        //LO special register
+    MEM_TYPE PUTC;                         //variable for putchar
 
     CPU()
     {
@@ -97,33 +95,7 @@ public:
         PUTC = 0;
     }
 
-    void display()
-    {
-        std::cerr << "+--{DISPLAY}--+" << std::endl;
-        std::cerr << "| " << std::hex << "pc: " << pc << std::endl;
-        std::cerr << "| " << std::hex << "npc: " << npc << std::endl;
-        std::cerr << "| " << std::hex << "instr: " << instr << std::endl;
-        std::cerr << "+-------------+" << std::endl
-                  << "\n";
-    }
-    void view_regs()
-    {
-        std::cerr << "+--{REGISTERS}--+ " << std::endl;
-        for (int index = 0; index < REGISTER_SIZE; index++)
-        {
-            std::cerr << "| "
-                      << "$" << index << "\t" << reg[index] << std::endl;
-        }
-        std::cerr << "|\n| "
-                  << "$LO"
-                  << "\t" << regLO << std::endl;
-        std::cerr << "| "
-                  << "$HI"
-                  << "\t" << regHI << std::endl;
-        std::cerr << "+---------------+" << "\n";
-        std::cerr << "|\n| "<< "PUTC"<< "\t" << PUTC << std::endl;
-        std::cerr << "+---------------+" << std::endl<< "\n";
-    }
+    //Reads from memory and checks if location is within bounds
     MEM_TYPE read_from_memory(const ADDR_TYPE &loc)
     {
         if (loc >= ADDR_INSTR_OFFSET && loc <= (ADDR_INSTR_OFFSET + ADDR_INSTR_LENGTH))
@@ -149,7 +121,7 @@ public:
         if (loc >= ADDR_DATA_OFFSET && loc <= (ADDR_DATA_OFFSET + ADDR_DATA_LENGTH))
         {
             if (type == 'b')
-            {    
+            {
                 switch (offset)
                 { // Byte
                 case 3:
@@ -184,26 +156,17 @@ public:
             { // Word
                 mem[loc - ADDR_DATA_OFFSET] = val;
                 return;
-            } 
+            }
         }
         else if (loc == ADDR_PUTC)
         {
             if (type == 'b')
-            {    
+            {
                 switch (offset)
                 { // Byte
                 case 3:
                     PUTC = (PUTC & 0xFFFFFF00) | val;
                     break;
-                // case 2:
-                //     PUTC = (PUTC & 0xFFFF00FF) | (val << 8);
-                //     break;
-                // case 1:
-                //     PUTC = (PUTC & 0xFF00FFFF) | (val << 16);
-                //     break;
-                // case 0:
-                //     PUTC = (PUTC & 0xFFFFFF) | (val << 24);
-                //     break;
                 default:
                     return; // do nothing
                 }
@@ -215,9 +178,6 @@ public:
                 case 2:
                     PUTC = (PUTC & 0xFFFF0000) | val;
                     break;
-                // case 0:
-                //     PUTC = (PUTC & 0xFFFF) | (val << 16);
-                //     break;
                 default:
                     return; // do nothing
                 }
@@ -225,9 +185,12 @@ public:
             else if (type == 'w')
             { // Word
                 PUTC = val;
-            } 
-            putchar(PUTC&0xFF);
-            if (!std::cout.good()) {throw(IO_EXIT_CODE);}
+            }
+            putchar(PUTC & 0xFF);
+            if (!std::cout.good())
+            {
+                throw(IO_EXIT_CODE);
+            }
             return;
         }
         throw(MEMORY_EXIT_CODE);

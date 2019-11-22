@@ -11,27 +11,14 @@ public:
     uint32_t dest = 0;
     uint32_t idata = 0;
     int32_t sx_idata = 0;
-    bool DEBUG = 0;
     CPU *C;
 
-    i_type_instructions(CPU &cpu_state, const bool &debug)
+    i_type_instructions(CPU &cpu_state)
     {
         C = &cpu_state;
-        DEBUG = debug;
     }
 
-    void display()
-    {
-        std::cerr << "__i_type_instruction state__ " << std::endl;
-        std::cerr << std::hex << "pc: " << C->pc << std::endl;
-        std::cerr << std::hex << "npc: " << C->npc << std::endl;
-        std::cerr << std::hex << "instr: " << C->instr << std::endl;
-        std::cout << "code: " << std::bitset<CODE_SIZE>(code) << std::endl;
-        std::cout << "src1: " << std::bitset<SRC1_SIZE>(src1) << std::endl;
-        std::cout << "dest: " << std::bitset<DEST_SIZE>(dest) << std::endl;
-        std::cout << "idata: " << std::bitset<I_ADATA_SIZE>(idata) << std::endl;
-    }
-    int execute();
+    void execute();
     void ADDI(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_t &sx_idata);
     void ADDIU(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32_t &sx_idata);
     void ANDI(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, INSTR_TYPE &idata);

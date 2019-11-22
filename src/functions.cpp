@@ -52,23 +52,3 @@ bool within_memory_bounds(const ADDR_TYPE &mem_addr, const char &mode)
     }
     throw(INTERNAL_EXIT_CODE);
 }
-
-// Helper functions
-void __print_memory(const std::vector<MEM_TYPE> &v)
-{
-    cerr << "__MEMORY_BLOCK__" << v.size() << "\n";
-    for (int index = 0; index < MEM_SIZE; index++)
-    {
-        cerr << hex << "| " << index << "\t" << v[index] << "\n";
-    }
-    cerr << "] END" << endl;
-}
-void __print_memory_specific(const std::vector<MEM_TYPE> &v, const int &start_index, const int &end_index)
-{
-    cerr << "__MEMORY_BLOCK__" << v.size() << "\n";
-    for (int index = start_index; index < end_index; index++)
-    {
-        cerr << hex << "| " << index << "\t" << v[index] << "\n";
-    }
-    cerr << "----------------" << endl;
-}
