@@ -1,11 +1,11 @@
 #SW
 #-11
 #RaphaelBijaoui
-#
+#Below instr memory
 #
 #
 
-lui $24, 1
+ori $24, 1
 sll $24, $24, 12
 addi $16, $16, 50
 sw $16, 0($24)

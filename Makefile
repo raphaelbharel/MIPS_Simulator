@@ -48,58 +48,6 @@ bin/mips_simulator: $(SRC_FILES)
 # Dummy for build simulator to conform to spec
 simulator: bin/mips_simulator
 
-simulator_DT_jr: bin/mips_simulator Formative_Tests/JR-return-immediate-nodelay.mips.bin
-		./bin/mips_simulator Formative_Tests/JR-return-immediate-nodelay.mips.bin
-
-simulator_formative_test: bin/mips_simulator Formative_Tests/JR-return-immediate.mips.bin
-		./bin/mips_simulator Formative_Tests/JR-return-immediate.mips.bin $(DEBUG_SETTING)
-
-test_LW_getc: bin/mips_simulator Formative_Tests/LW-getc.mips.bin
-		./bin/mips_simulator Formative_Tests/LW-getc.mips.bin $(DEBUG_SETTING)
-
-test-LW-read-data-section: bin/mips_simulator Formative_Tests/LW-read-data-section.mips.bin
-		./bin/mips_simulator Formative_Tests/LW-read-data-section.mips.bin $(DEBUG_SETTING)
-
-test-SW-putc: bin/mips_simulator Formative_Tests/SW-putc.mips.bin
-		./bin/mips_simulator Formative_Tests/SW-putc.mips.bin $(DEBUG_SETTING)
-
-test-SW-read-write-data-section: bin/mips_simulator Formative_Tests/SW-read-write-data-section.mips.bin
-		./bin/mips_simulator Formative_Tests/SW-read-write-data-section.mips.bin $(DEBUG_SETTING)
-
-test-ADD: bin/mips_simulator test/input/add4.bin
-		./bin/mips_simulator test/input/add4.bin $(DEBUG_SETTING)
-
-test-lwr5: bin/mips_simulator test/input/lwr5.bin
-		./bin/mips_simulator test/input/lwr5.bin $(DEBUG_SETTING)
-test-AND: bin/mips_simulator test/input/and2.bin
-		./bin/mips_simulator test/input/and2.bin $(DEBUG_SETTING)
-
-test-lw2: bin/mips_simulator test/input/lw2.bin
-		./bin/mips_simulator test/input/lw2.bin $(DEBUG_SETTING)
-
-test-bgezal4: bin/mips_simulator test/input/bgezal4.bin
-		./bin/mips_simulator test/input/bgezal4.bin $(DEBUG_SETTING)
-test-bgezal3: bin/mips_simulator test/input/bgezal3.bin
-		./bin/mips_simulator test/input/bgezal3.bin $(DEBUG_SETTING)
-test-bgezal1: bin/mips_simulator test/input/bgezal1.bin
-		./bin/mips_simulator test/input/bgezal1.bin $(DEBUG_SETTING)
-
-test-sb2: bin/mips_simulator test/input/sb2.bin
-		./bin/mips_simulator test/input/sb2.bin $(DEBUG_SETTING)
-
-test-bltz4: bin/mips_simulator test/input/bltz4.bin
-		./bin/mips_simulator test/input/bltz4.bin $(DEBUG_SETTING)
-
-test-hello: bin/mips_simulator test/input/hello.bin
-		./bin/mips_simulator test/input/hello.bin $(DEBUG_SETTING)
-
-test-sb9: bin/mips_simulator test/input/sb9.bin
-		./bin/mips_simulator test/input/sb9.bin $(DEBUG_SETTING)
-
-test-sw1: bin/mips_simulator test/input/sw1.bin
-		./bin/mips_simulator test/input/sw1.bin $(DEBUG_SETTING)
-
-
 
 #----------------------------------------------------
 #TESTBENCH
@@ -110,6 +58,8 @@ test-sw1: bin/mips_simulator test/input/sw1.bin
 #u+x bin/mips_testbench (give user permissions, making it executable)
 #TODO: add functionality to make bin folder if not present.
 #MAKE: error: always saying "up to date"
+
+testbench: bin/mips_testbench
 
 bin/mips_testbench: 
 	mkdir -p bin 
