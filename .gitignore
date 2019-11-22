@@ -1,0 +1,12 @@
+bashNotes.txt
+test/latest
+test/new_tests
+test/old_inputs
+test/output/20_11_19_2101.csv
+test/output/testing3.xlsx
+test/pleasetest
+test/temp
+test/mips_testbench.1
+test/mips_testbench2
+.vscode
+a.out.dSYM

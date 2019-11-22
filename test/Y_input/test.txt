@@ -1,8 +1,0 @@
-lui	v0,0x7fff
-ori	v0,v0,0xffff
-lui	v1,0x7fff
-ori	v1,v1,0xffff
-add	v0,v1,v1
-jr	ra
-nop
-nop

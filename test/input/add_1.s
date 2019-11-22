@@ -1,11 +1,11 @@
 #add
-#4
-#RaphaelBijaoui
-#
+#25
+#daryllimyt
+#normal
 #
 #
 
-addi $6, $0, 3
-addi $7, $0, 1
-add $2, $6, $7
+addi $3, $0, 10
+addi $4, $0, 15
+add $2, $3, $4
 jr $0
