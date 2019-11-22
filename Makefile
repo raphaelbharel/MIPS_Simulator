@@ -96,7 +96,8 @@ test-hello: bin/mips_simulator test/input/hello.bin
 test-sb9: bin/mips_simulator test/input/sb9.bin
 		./bin/mips_simulator test/input/sb9.bin $(DEBUG_SETTING)
 
-
+test-sw1: bin/mips_simulator test/input/sw1.bin
+		./bin/mips_simulator test/input/sw1.bin $(DEBUG_SETTING)
 
 
 
