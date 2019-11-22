@@ -195,17 +195,17 @@ public:
                 case 3:
                     PUTC = (PUTC & 0xFFFFFF00) | val;
                     break;
-                case 2:
-                    PUTC = (PUTC & 0xFFFF00FF) | (val << 8);
-                    break;
-                case 1:
-                    PUTC = (PUTC & 0xFF00FFFF) | (val << 16);
-                    break;
-                case 0:
-                    PUTC = (PUTC & 0xFFFFFF) | (val << 24);
-                    break;
+                // case 2:
+                //     PUTC = (PUTC & 0xFFFF00FF) | (val << 8);
+                //     break;
+                // case 1:
+                //     PUTC = (PUTC & 0xFF00FFFF) | (val << 16);
+                //     break;
+                // case 0:
+                //     PUTC = (PUTC & 0xFFFFFF) | (val << 24);
+                //     break;
                 default:
-                    break;
+                    return; // do nothing
                 }
             }
             else if (type == 'h')
@@ -215,11 +215,11 @@ public:
                 case 2:
                     PUTC = (PUTC & 0xFFFF0000) | val;
                     break;
-                case 0:
-                    PUTC = (PUTC & 0xFFFF) | (val << 16);
-                    break;
+                // case 0:
+                //     PUTC = (PUTC & 0xFFFF) | (val << 16);
+                //     break;
                 default:
-                    break;
+                    return; // do nothing
                 }
             }
             else if (type == 'w')

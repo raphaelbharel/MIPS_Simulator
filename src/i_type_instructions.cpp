@@ -451,7 +451,6 @@ void i_type_instructions::LWR(CPU *&C, INSTR_TYPE &src1, INSTR_TYPE &dest, int32
     MEM_TYPE word_at_address = C->read_from_memory(mem_addr); // mem is a pointer to the memory block
     MEM_TYPE LSBytes;
     int byte_offset = raw_mem_addr % 4;
-    cerr << "OFFSET: " << byte_offset << endl;
     switch (byte_offset)
     // Extract bytes starting from byte_offset to end of aligned word then left shift
     {
