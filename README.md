@@ -188,7 +188,7 @@ So we did this... but virtually!
 The MIPS I ISA was the brains behind MIPS Technologies' R2000 and R3000 microprocessors, and an integral part of the field of computer architecture as the first commercial Reduced Instruction Set Computer (RISC) microprocessor.
 
 The MIPS I ISA has far-reaching applications, including but not limited to: the Sony Playstation I and II, NASA's Mongoose-V, and even Tesla's electric cars. 
-See <a href="https://www.electronicsweekly.com/news/playstation-to-tesla-mips-processor-still-going-strong-at-30-2016-01/>here</a> for more.
+See <a href="https://www.electronicsweekly.com/news/playstation-to-tesla-mips-processor-still-going-strong-at-30-2016-01/ >here</a> for more.
 
 We had a great time building it, and we hope you have fun with it too. All the best!
 
