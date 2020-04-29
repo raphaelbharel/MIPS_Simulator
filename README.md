@@ -1,6 +1,6 @@
 # MIPS_Simulator
 <p align="center">
-  <img src="https://github.com/RaphaelBijaoui/images/blob/master/MIPSlogo.png">
+  <img width=250px src="https://github.com/RaphaelBijaoui/images/blob/master/MIPSlogo.png">
 </p>
 
 Co-author: @daryllimyt 
