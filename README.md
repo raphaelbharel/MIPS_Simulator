@@ -8,16 +8,20 @@ Group name: WMIPS
 current build behaviour: if binary is not multiple of 32, remaining N bits will be considered as LSB
 
 **To compile simulator (simulator.cpp) into bin folder**
-
+```
 make simulator
+```
 
 **To compile testbench (tb.cpp) into bin folder**
-
+```
 make testbench
+```
 
 **To run simulator on testbench (skeleton)**
+```
 
 bin/mips_testbench bin/mips_simulator
+```
 
 **Exit codes**
 Arithmetic exception (-10) : Any kind of arithmetic problem, such as overflow, divide by zero, ...
