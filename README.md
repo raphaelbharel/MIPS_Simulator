@@ -124,18 +124,6 @@ XOR     |  Bitwise exclusive or
 XORI    |  Bitwise exclusive or immediate                  
 --------|---------------------------------------------
 
-
-**To compile testbench (tb.cpp) into bin folder**
-```
-make testbench
-```
-
-**To run simulator on testbench (skeleton)**
-```
-
-bin/mips_testbench bin/mips_simulator
-```
-
 ## Exceptions and Errors
 Exceptions are due to instructions which the Binary wants to execute which result in some kind of exceptional or abnormal situation. Exceptions occur due to bugs or errors within the Simulator. All exceptions are classified into three types, each of which has a numeric code:
 
@@ -151,3 +139,39 @@ Errors are due to problems occuring within the simulator, rather than something 
 **Error codes:**
 Internal error (-20) : the simulator has failed due to some unknown error
 IO error (-21) : the simulator encountered an error reading/writing input/output
+
+# Testbench
+Input: a single command-line parameter, which is the path of the Simulator to be tested.
+Output: prints a CSV file to stdout, where each row of the file corresponds to exactly one execution of the Simulator under test. Each row has the following fields:
+```
+TestId , Instruction , Status , Author [, Message]
+```
+## Build and Execution
+
+To compile testbench (tb.cpp) into bin folder, from root directory:
+```
+make testbench
+```
+Resulting in an executable called
+```
+bin/mips_testbench
+```
+
+To run simulator on testbench:
+```
+bin/mips_testbench bin/mips_simulator
+```
+Where bin/mips_simulator is our own simulator. You may also use a different simulator, as long as there is the correct filepath for it relative to the root directory. 
+
+Corresponding output should look something like
+```
+0, ADDU, Pass, dt10
+1, ADD, Pass, dt10
+2, ADDI, Pass, dt10
+```
+
+----------------------------------------------------------------------------------------------------------------------------
+
+If anything, the door is always open. Contact details in bio!
+
+Enjoy :)
