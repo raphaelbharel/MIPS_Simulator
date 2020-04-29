@@ -8,6 +8,8 @@ As part of ELEC95007 - Computer Architecture 2 2019-2020 at Imperial College Lon
 
 TL;DR - simulator receives sequence of 32 bits (MIPS-1 big endian instructions), outputs MIPS CPU operations by writing to a mapped 32-bit memory location. 
 
+The following is an adapted version of the original specification (see: original-spec.md) provided by @m8pple.
+
 ## Requirements
 - Simulator is a binary compiled from C++ sources
 - Can be compiled from target environment
