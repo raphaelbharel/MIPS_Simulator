@@ -1,2 +1,3 @@
 *.bin linguist-detectable=false
+*.assembly linguist-detectable=false
 *.cpp linguist-detectable=true
