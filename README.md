@@ -42,7 +42,7 @@ make simulator
 
 **Note:** On startup all MIPS registers will be zero, any uninitialised memory will be zero, and the program counter will point at the first instruction in memory.
 
-## Memory-Map
+### Memory-Map
 The memory map of the simulated process is as follows:
 
 ```
