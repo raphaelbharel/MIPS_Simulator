@@ -197,6 +197,6 @@ We had a great time building it, and we hope you have fun with it too. All the b
 
 ----------------------------------------------------------------------------------------------------------------------------
 
-If anything, the door is always open. Contact details in bio!
+... and as usual- if anything, the door is always open. Contact details in bio!
 
 Enjoy :)
