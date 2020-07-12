@@ -192,7 +192,7 @@ See <a href="https://www.electronicsweekly.com/news/playstation-to-tesla-mips-pr
 
 We had a great time building it, and we hope you have fun with it too. All the best!
 
-- @daryllimyt and @RaphaelBijaoui
+- @daryllimyt and @raphaelbharel
 
 
 ----------------------------------------------------------------------------------------------------------------------------
